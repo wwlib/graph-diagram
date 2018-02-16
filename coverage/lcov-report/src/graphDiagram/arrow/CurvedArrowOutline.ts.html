@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/graphDiagram/arrow/CurvedArrowOutline.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">src/graphDiagram/arrow</a> CurvedArrowOutline.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/46</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/45</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export defaul<span class="cstat-no" title="statement not covered" >t class CurvedArrowOutline<span class="cstat-no" title="statement not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >{</span>
+    public startAttach: any;
+<span class="fstat-no" title="function not covered" >    pu</span>blic endAttach: any;
+    publ<span class="cstat-no" title="statement not covered" >ic offsetAngle: number;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+    publ<span class="cstat-no" title="statement not covered" >ic startRadius: number;</span>
+    publ<span class="cstat-no" title="statement not covered" >ic endRadius: number;</span>
+    publ<span class="cstat-no" title="statement not covered" >ic endCentre: number;</span>
+    publ<span class="cstat-no" title="statement not covered" >ic minOffset: number;</span>
+    publ<span class="cstat-no" title="statement not covered" >ic arrowWidth: number;</span>
+    publ<span class="cstat-no" title="statement not covered" >ic headWidth: number;</span>
+    publ<span class="cstat-no" title="statement not covered" >ic headLength: number;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+    public r<span class="cstat-no" title="statement not covered" >adiusRatio: number;</span>
+    public h<span class="cstat-no" title="statement not covered" >omotheticCenter: number;</span>
+&nbsp;
+    public shaftRadius: number;
+    public headRadius: number;
+<span class="cstat-no" title="statement not covered" ></span>
+    public g1: number;
+    public c1: number;
+    public g<span class="cstat-no" title="statement not covered" >2: number;</span>
+    public c<span class="cstat-no" title="statement not covered" >2: number;</span>
+    public cx: number;
+    public cy: number;
+    public arcRadius: number;
+<span class="cstat-no" title="statement not covered" ></span>
+    public outline: any;
+    publ<span class="cstat-no" title="statement not covered" >ic apex: any;</span>
+&nbsp;
+    constructor(startRadius: number, endRadius: number, endCentre: number, minOffset: number, arrowWidth: number, headWidth: number, headLength: number) {
+        this.startRadius=startRadius;
+<span class="cstat-no" title="statement not covered" >        this.endRadius=endRadius;</span>
+<span class="cstat-no" title="statement not covered" >        this.endCentre=endCentre;</span>
+<span class="cstat-no" title="statement not covered" >        this.minOffset=minOffset;</span>
+<span class="cstat-no" title="statement not covered" >        this.arrowWidth=arrowWidth;</span>
+<span class="cstat-no" title="statement not covered" >        this.headWidth=headWidth;</span>
+<span class="cstat-no" title="statement not covered" >        this.headLength=headLength;</span>
+&nbsp;
+        this.radiusRatio = startRadius / (endRadius + headLength);
+        this.homotheticCenter = -endCentre * this.radiusRatio / (1 - this.radiusRatio);
+&nbsp;
+        if(endRadius + headLength &gt; startRadius)
+        {
+            this.offsetAngle = minOffset / startRadius;
+            this.startAttach = {
+                x: Math.cos( this.offsetAngle ) * (startRadius),
+<span class="cstat-no" title="statement not covered" >                y: Math.sin( this.offsetAngle ) * (startRadius)</span>
+            };
+            this.endAttach = this.intersectWithOtherCircle( this.startAttach, endRadius + headLength, endCentre, -1 );
+        }
+        else
+<span class="fstat-no" title="function not covered" ></span>        {
+<span class="cstat-no" title="statement not covered" >            this.offse</span>tAngle = minOffset / endRadius;
+            this.endAttach = {
+<span class="fstat-no" title="function not covered" ></span>                x: endCentre - Math.cos( this.offsetAngle ) * (endRadius + headLength),
+                y: Math<span class="cstat-no" title="statement not covered" >.sin( this.offsetAngle ) * (endRadius + headLength)</span>
+            };<span class="cstat-no" title="statement not covered" ></span>
+            this<span class="cstat-no" title="statement not covered" >.startAttach = this.inters</span>ectWithOtherCircle( this.endAttach, startRadius, 0, 1 );
+        }<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+        this.g1 = -this.sta<span class="cstat-no" title="statement not covered" >rtAttach.x / this.startAttach.y,</span>
+<span class="cstat-no" title="statement not covered" >        this.c1 = this.startAttach.y + (this.square( this.startAttach.x ) / th</span>is.startAttach.y),
+<span class="cstat-no" title="statement not covered" >        this.g2 = -(this.endA</span>ttach.x - this.endCentre) / this.endAttach.y,
+        this.c2 = this.endAttach.y + (this.endAttach.x - this.endCentre) * this.endAttach.x / this.endAttach.y;
+<span class="fstat-no" title="function not covered" ></span>
+        this.cx =<span class="cstat-no" title="statement not covered" > ( this.c1 - this.c2 ) / (this.g2 - this.g1);</span>
+        this.cy =<span class="cstat-no" title="statement not covered" > this.g1 * th</span>is.cx + this.c1;
+<span class="cstat-no" title="statement not covered" ></span>
+        this.arcRadius = Math.sqrt(this.square(this.cx - this.startAttach.x) + this.square(this.cy - this.startAttach.y));
+&nbsp;
+        this.shaftRadius = this.arrowWidth / 2;
+        this.headRadius = this.headWidth / 2;
+<span class="fstat-no" title="function not covered" ></span>
+        this.outl<span class="cstat-no" title="statement not covered" >ine = [</span>
+            "M", <span class="cstat-no" title="statement not covered" >this.startTan</span>gent(-this.shaftRadius),
+<span class="cstat-no" title="statement not covered" >            "L", this.startTangent(this.shaftRadius),</span>
+            "A", this.arcRadius - this.shaftRadius, this.arcRadius - this.shaftRadius, 0, 0, minOffset &gt; 0 ? 0 : 1, this.endTangent(-this.shaftRadius),
+            "L", this.endTangent(-this.headRadius),
+            "L", this.endNormal(headLength),
+            "L", this.endTangent(this.headRadius),
+<span class="fstat-no" title="function not covered" ></span>            "L", this.endTangent(this.shaftRadius),
+            "A", <span class="cstat-no" title="statement not covered" >this.arcRadius + this.shaftRadius, this.arcRadius + this.shaftRadius, 0, 0, minO</span>ffset &lt; 0 ? 0 : 1, this.startTangent(-this.shaftRadius)
+        ].join( "<span class="cstat-no" title="statement not covered" > " );</span>
+<span class="cstat-no" title="statement not covered" ></span>
+        this.apex = {
+            x: this.cx,
+            y: this.cy &gt; 0 ? this.cy - this.arcRadius : this.cy + this.arcRadius
+        }
+    }
+<span class="cstat-no" title="statement not covered" ></span>
+    square( l: number )
+    {
+        return l * l;
+    }
+&nbsp;
+&nbsp;
+    intersectWithOtherCircle(fixedPoint: any, radius: number, xCenter: number, polarity: number)
+    {
+        var gradient = fixedPoint.y / (fixedPoint.x - this.homotheticCenter);
+        var hc = fixedPoint.y - gradient * fixedPoint.x;
+&nbsp;
+        var A = 1 + this.square(gradient);
+        var B = 2 * (gradient * hc - xCenter);
+        var C = this.square(hc) + this.square(xCenter) - this.square(radius);
+&nbsp;
+        var intersection: any = { x: (-B + polarity * Math.sqrt( this.square( B ) - 4 * A * C )) / (2 * A) };
+        intersection.y = (intersection.x - this.homotheticCenter) * gradient;
+&nbsp;
+        return intersection;
+    }
+&nbsp;
+    startTangent(dr: number)
+    {
+        var dx = (dr &lt; 0 ? -1 : 1) * Math.sqrt(this.square(dr) / (1 + this.square(this.g1)));
+        var dy = this.g1 * dx;
+        return [
+            this.startAttach.x + dx,
+            this.startAttach.y + dy
+        ].join(",");
+    }
+&nbsp;
+    endTangent(dr: number)
+    {
+        var dx = (dr &lt; 0 ? -1 : 1) * Math.sqrt(this.square(dr) / (1 + this.square(this.g2)));
+        var dy = this.g2 * dx;
+        return [
+            this.endAttach.x + dx,
+            this.endAttach.y + dy
+        ].join(",");
+    }
+&nbsp;
+    endNormal(dc: number)
+    {
+        var dx = (dc &lt; 0 ? -1 : 1) * Math.sqrt(this.square(dc) / (1 + this.square(1 / this.g2)));
+        var dy = dx / this.g2;
+        return [
+            this.endAttach.x + dx,
+            this.endAttach.y - dy
+        ].join(",");
+    }
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Feb 16 2018 08:12:02 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

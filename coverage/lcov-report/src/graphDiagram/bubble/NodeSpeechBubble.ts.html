@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/graphDiagram/bubble/NodeSpeechBubble.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">src/graphDiagram/bubble</a> NodeSpeechBubble.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/56</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/55</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as d<span class="cstat-no" title="statement not covered" >3 from 'd3';<span class="cstat-no" title="statement not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >import GraphDiagram from '../GraphDiagram';</span>
+import Mode<span class="cstat-no" title="statement not covered" >l from '../mod</span>el/Model';
+import Properties from <span class="cstat-no" title="statement not covered" >'../model/Properties';</span>
+import Node from <span class="cstat-no" title="statement not covered" >'../model/Node';</span>
+import Relationship from '../model/Relationship';
+impo<span class="fstat-no" title="function not covered" >rt</span> Radius from './Radius';
+import B<span class="cstat-no" title="statement not covered" >ubble from '.</span>/Bubble';
+import {Point, BoundingBox}<span class="cstat-no" title="statement not covered" > fr</span>om '../scaling/Scaling';
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+export defau<span class="cstat-no" title="statement not covered" >lt class NodeSpeechBubble extends Bubble {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+    constructor( node: Node, radius: Radius )
+    {<span class="cstat-no" title="statement not covered" ></span>
+        super(no<span class="cstat-no" title="statement not covered" >de);</span>
+        var relatedNodes: Node[] = [];
+        node.model.relationshipList().forEach( function ( relationship: Relationship )
+        {<span class="cstat-no" title="statement not covered" ></span>
+            if ( relation<span class="cstat-no" title="statement not covered" >ship.start === n</span>ode )
+            {<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >                relatedNodes.push( relationship.end );</span>
+            }
+            if ( relationship.end <span class="cstat-no" title="statement not covered" >=== node )<span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >            {</span>
+                relatedNodes.push( relationship.start );
+            }<span class="cstat-no" title="statement not covered" ></span>
+        } );
+        var orientation: any = NodeSpeechBubble.chooseNodeSpeechBubbleOrientation( node, relatedNodes );
+&nbsp;
+        var propertie<span class="cstat-no" title="statement not covered" >s: Properties = node.properties;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+        var propertyKe<span class="cstat-no" title="statement not covered" >ysWidth: string = d3.max( properties.list(), function ( property</span>: any )
+            {<span class="cstat-no" title="statement not covered" ></span>
+                return GraphDiag<span class="cstat-no" title="statement not covered" >ram.measureTextDimensions( property.key + ": ", node.properties.style( "font-size" ), node.properties.style( "font-family" ) );</span>
+            });
+        var propertyValuesWidth: string = d3.max( properties.list(), function ( property: any )
+        {
+            return GraphDiagram.measureTextDimensions( property.value, node.properties.style( "font-size" ), node.properties.style( "font-family" ) );
+        } );
+        var textSize: any = {
+            width: parseFloat(propertyKeysWidth) + parseFloat(propertyValuesWidth),
+            height:properties.list().length * GraphDiagram.parsePixels( properties.style("font-size"))
+        };
+&nbsp;
+        var mirror: string = "scale(" + orientation.mirrorX + "," + orientation.mirrorY + ") ";
+&nbsp;
+        var margin: number = GraphDiagram.parsePixels( properties.style( "margin" ) );
+        var padding: number = GraphDiagram.parsePixels( properties.style( "padding" ) );
+&nbsp;
+        var diagonalRadius: number = radius.mid() * Math.sqrt( 2 ) / 2;
+        var nodeOffsetOptions: <span class="cstat-no" title="statement not covered" >any = {</span>
+            diagonal:{ at<span class="cstat-no" title="statement not covered" >tach:{ x:diagonalRadius, y:diagonalRadius },</span>
+                textCorn<span class="cstat-no" title="statement not covered" >er:{</span>
+                    x:margin + padding,
+                    y:mar<span class="cstat-no" title="statement not covered" >gin + padding</span>
+                } },
+            horizontal:{ attach:{ x:radius.mid(), y:0 },
+                textCorner:{
+                    x:margin + padding,
+                    y:-textSize.height / 2
+                } },<span class="cstat-no" title="statement not covered" ></span>
+            vertical:{ att<span class="cstat-no" title="statement not covered" >ach:{ x:0, y:radius.mid() },</span>
+                textCorner:{
+                    x:-textSize.width / 2,
+                    y:margin + padding
+                } }
+        };
+<span class="cstat-no" title="statement not covered" >        var nodeCenterOffset: any = nodeOffsetOp<span class="fstat-no" title="function not covered" >ti</span>ons[orientation.style].attach;</span>
+        var <span class="cstat-no" title="statement not covered" >textCorner: any = nodeOffsetOptions[orientation.style].textCorner;</span>
+&nbsp;
+        var translate: string = "translate(" + (node.ex() + nodeCenterOffset.x * orientation.mirrorX) + ","
+            + (node.ey() + nodeCenterOffset.y * orientation.mirrorY) + ") ";
+&nbsp;
+        var textOrigin: Point = {
+            x: parseFloat(propertyKeysWidth) + orientation.mirrorX * (textCorner.x)
+                - (orientation.mirrorX == -1 ? textSize.width : 0),
+<span class="cstat-no" title="statement not covered" >            y:orientation.mirrorY *</span> (textCorner.y)
+<span class="cstat-no" title="statement not covered" >                - (orientation.mirrorY ==</span> -1 ? textSize.height : 0)
+<span class="cstat-no" title="statement not covered" >        };</span>
+<span class="cstat-no" title="statement not covered" ></span>
+        var boundingPadding: number = padding + node.model.parameters.speechBubbleStrokeWidth / 2;
+&nbsp;
+        var boundingBox: BoundingBox = {
+<span class="cstat-no" title="statement not covered" >            x:node.ex() + (nodeCenterOffset.x + textC<span class="fstat-no" title="function not covered" >or</span>ner.x - boundingPadding) * orientation.mirrorX,</span>
+            y:node.ey()<span class="cstat-no" title="statement not covered" > + (nodeCenterOffset.y + textCorner.y - boundingPadding) * orientation.mirrorY,</span>
+            width:orientation.mirrorX * (textSize.width + (boundingPadding * 2)),
+            height:orientation.mirrorY * (textSize.height + (boundingPadding * 2))
+        };
+&nbsp;
+        this.properties = properties.list().map( function ( property: any ) {
+                return {
+                    keyText:property.key + ": ",
+                    valueText:property.value,
+                    textOrigin:textOrigin,
+<span class="cstat-no" title="statement not covered" >                    style<span class="fstat-no" title="function not covered" >:n</span>ode.style(),</span>
+<span class="cstat-no" title="statement not covered" >                    entity: node</span>
+                }
+<span class="cstat-no" title="statement not covered" >            });<span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >        this.style =node.styl<span class="fstat-no" title="function not covered" >e(</span>);</span>
+        this.groupTransf<span class="cstat-no" title="statement not covered" >orm = translate;</span>
+        this<span class="cstat-no" title="statement not covered" >.outlineTransform = mirror;</span>
+        this.out<span class="cstat-no" title="statement not covered" >linePath = Bubble.spe</span>echBubblePath( textSize, orientation.style, margin, padding ),
+        this.boundingBox = boundingBox;
+    }<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+    static chooseNodeSpeechBubbleOrientation = function(focusNode: Node, relatedNodes: Node[]) {
+        var orientations: any[] = [
+            { key: "WEST"       , style: "horizontal", mirrorX: -1, mirrorY:  1, angle:  180 },
+            { key: <span class="cstat-no" title="statement not covered" >"N</span>ORTH-WEST" , style: "diagonal",   mirrorX: -1, mirrorY: -1, angle: -135 },
+            { key: "NORTH"<span class="cstat-no" title="statement not covered" >      , style: "</span>vertical",   mirrorX:  1, mirrorY: -1, angle:  -90 },
+<span class="cstat-no" title="statement not covered" >            { key: "NORTH<span class="fstat-no" title="function not covered" >-E</span>AST" , style: "diagonal",   mirrorX:  1, mirrorY: -1, angle:  -45 },</span>
+<span class="cstat-no" title="statement not covered" >            { key: "EAST"       , style: "horizontal", mirrorX:  1, mirrorY:  1, angle:    0 },</span>
+<span class="cstat-no" title="statement not covered" >            { key: "SOUTH-EAST" , style: "di</span>agonal",   mirrorX:  1, mirrorY:  1, angle:   45 },
+<span class="cstat-no" title="statement not covered" >            { key: "SOUTH"      , style: "v</span>ertical",   mirrorX:  1, mirrorY:  1, angle:   90 },
+            { key: "SOUTH-WEST" , style: "diagonal",   mirrorX: -1, mirrorY:  1, angle:  135 }
+        ];
+<span class="cstat-no" title="statement not covered" ></span>
+        orientations.forEach(function(orientation: any) {
+<span class="cstat-no" title="statement not covered" >            orientation.closest = 18</span>0;
+        });
+&nbsp;
+        relatedNodes.forEach(function(relatedNode: Node) {
+            orientations.forEach(function(orientation: any) {
+                var angle: number = Math.abs(focusNode.angleTo( relatedNode ) - orientation.angle);
+                if ( angle &gt; 180 )
+                {
+                    angle = 360 - angle;
+                }
+                if (angle &lt; orientation.closest) {
+                    orientation.closest = angle;
+                }
+            });
+        });
+&nbsp;
+        var maxAngle: number = 0;
+        var bestOrientation: any = orientations[0];
+        orientations.forEach(function(orientation: any) {
+            if (orientation.closest &gt; maxAngle) {
+                maxAngle = orientation.closest;
+                bestOrientation = orientation;
+            }
+        });
+&nbsp;
+        return bestOrientation;
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Feb 16 2018 08:12:02 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

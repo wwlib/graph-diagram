@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/graphDiagram/bubble/RelationshipSpeechBubble.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">src/graphDiagram/bubble</a> RelationshipSpeechBubble.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/51</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as d<span class="cstat-no" title="statement not covered" >3 from 'd3';<span class="cstat-no" title="statement not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >import GraphDiagram from '../GraphDiagram';</span>
+import Mode<span class="cstat-no" title="statement not covered" >l from '../mod</span>el/Model';
+import Relationship fro<span class="cstat-no" title="statement not covered" >m '../model/Relationship';</span>
+import Bubble fro<span class="cstat-no" title="statement not covered" >m './Bubble';</span>
+import {Point, BoundingBox} from '../scaling/Scaling';
+<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+export default class Rela<span class="cstat-no" title="statement not covered" >tionshipSpeechBubble ext</span>ends Bubble {
+<span class="cstat-no" title="statement not covered" ></span>
+    constructor( relation<span class="cstat-no" title="statement not covered" >ship: Relationship, apex: any )</span>
+    {<span class="cstat-no" title="statement not covered" ></span>
+        super(relationship);<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+        var <span class="cstat-no" title="statement not covered" >properties = relationship.properties;</span>
+        var fontSize: string = relationship.properties.style( "font-size" );
+        var fontFamily: string = r<span class="cstat-no" title="statement not covered" >elationship.properties.sty<span class="fstat-no" title="function not covered" >le</span>( "font-family" );</span>
+<span class="cstat-no" title="statement not covered" ></span>
+        var orientation = RelationshipSpeechBubble.chooseRelationshipSpeechBubbleOrientation( relationship );
+<span class="cstat-no" title="statement not covered" ></span>
+        var propertyKeysWidth = d3.max( properties.list(), function ( property )
+        {
+            return GraphDiagram.measureTextDimensions( property.key + ": ", fontSize, fontFamily );
+        } );<span class="cstat-no" title="statement not covered" ></span>
+        var propertyVa<span class="cstat-no" title="statement not covered" >luesWidth = d3.max( properties.list(), function ( property )</span>
+        {<span class="cstat-no" title="statement not covered" ></span>
+            return GraphDiagram.<span class="cstat-no" title="statement not covered" >measureTextDimensions( property.value, fontSize, fontFamily );</span>
+        } );
+        var textSize = {
+            width:propertyKeysWidth + propertyValuesWidth,
+            height:properties.list().length * GraphDiagram.parsePixels( properties.style( "font-size" ) )
+        };
+&nbsp;
+        var margin = GraphDiagram.parsePixels( properties.style( "margin" ) );
+        var padding = GraphDiagram.parsePixels( properties.style( "padding" ) );
+&nbsp;
+        var mirror = "scale(" + orientation.mirrorX + "," + orientation.mirrorY + ") ";
+&nbsp;
+        var nodeOffsetOptions = {
+            diagonal:{
+                textCorner:{
+                    x:margin + padding,
+                    y:margin + padding
+                } },
+            horizontal:{
+                textCorner:{
+                    x:mar<span class="cstat-no" title="statement not covered" >gin + padding,</span>
+<span class="cstat-no" title="statement not covered" >                    y:-textSize.height / 2</span>
+                }<span class="cstat-no" title="statement not covered" > },</span>
+            vert<span class="cstat-no" title="statement not covered" >ical:{</span>
+                textCor<span class="cstat-no" title="statement not covered" >ner:{</span>
+                    x:-textSize.width / 2,
+                    y:margin + padding
+                } }
+        };<span class="cstat-no" title="statement not covered" ></span>
+        var textCorner = <span class="cstat-no" title="statement not covered" >nodeOffsetOptions[orientation.style].textCorner;</span>
+&nbsp;
+        var dx = relationship.end.ex() - relationship.start.ex();
+        var dy = relationship.end.ey() - relationship.start.ey();
+        var h = Math.sqrt(dx * dx + dy * dy);
+&nbsp;
+        var midPoint = {<span class="cstat-no" title="statement not covered" ></span>
+            x: relationshi<span class="cstat-no" title="statement not covered" >p.start.ex() + (apex.x * dx - apex.y * dy) / h,</span>
+            y: relationship.start.ey() +(apex.x * dy + apex.y * dx) / h
+        };
+&nbsp;
+        var translate = "translate(" + midPoint.x + "," + midPoint.y + ") ";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var textOrigin: Point = {<span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >            x:propertyKeysWidth + orientation.mirrorX * (textCorner.x)</span>
+                - (orientation.mirrorX == -1 ? textSize.width : 0),
+            y:orientation.mirrorY * (textCorner.y)
+                - (orientation.mirrorY == -1 ? textSize.height : 0)
+        };
+&nbsp;
+        var boundingPadding = padding + relationship.model.parameters.speechBubbleStrokeWidth / 2;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var boundingBox: BoundingBox = {</span>
+<span class="cstat-no" title="statement not covered" >            x:midPoint.x + (textCorn</span>er.x - boundingPadding) * orientation.mirrorX,
+<span class="cstat-no" title="statement not covered" >            y:midPoint.y + (textCorner.y </span>- boundingPadding) * orientation.mirrorY,
+<span class="cstat-no" title="statement not covered" >            width:orientation.mirrorX * </span>(textSize.width + (boundingPadding * 2)),
+<span class="cstat-no" title="statement not covered" >            height:orientation.mirrorY * (textSize.height + (boundingPadding * 2))</span>
+<span class="cstat-no" title="statement not covered" >        };</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" ></span>        this.properties = properties.list().map( function ( property: any ) {
+                return {<span class="cstat-no" title="statement not covered" ></span>
+                    keyText:property.key + ": ",
+                    valueText:property.value,
+                    textOrigin:textOrigin,
+                    style:relationship.style(),
+                    entity: relationship
+                }
+            });<span class="cstat-no" title="statement not covered" ></span>
+        this.style = relatio<span class="cstat-no" title="statement not covered" >nship.style();</span>
+<span class="cstat-no" title="statement not covered" >        this.entity = relationship;</span>
+        this<span class="cstat-no" title="statement not covered" >.groupTransform = translate</span>;
+        this.outlineTransform = mirror;
+<span class="cstat-no" title="statement not covered" >        this.outlinePath = Bubble.speechBubblePath( textSize, orientation.style, margin, padding );</span>
+        this<span class="cstat-no" title="statement not covered" >.boundingBox = boundingBox;</span>
+    }
+<span class="cstat-no" title="statement not covered" ></span>
+    static c<span class="cstat-no" title="statement not covered" >hooseRelationshipSpeechBub</span>bleOrientation(relationship: Relationship) {
+        var orientations: any = {
+<span class="cstat-no" title="statement not covered" >            EAST:       { style: "horizontal", mirrorX:  1, mirrorY:  1, angle:    0 },</span>
+<span class="cstat-no" title="statement not covered" >            SOUTH_EAST: { style: "diagonal",   mirrorX:  1, mirrorY:  1, angle:   </span>45 },
+            SOUTH     : { style: "vertical",   mirrorX:  1, mirrorY:  1, angle:   90 },
+<span class="cstat-no" title="statement not covered" >            SOUTH_WEST: { style: "diagonal",   mirrorX: -1, mirrorY:  1, angle:  135 },</span>
+<span class="cstat-no" title="statement not covered" >            WEST:       { style: "hori</span>zontal", mirrorX: -1, mirrorY:  1, angle:  180 }
+        };
+&nbsp;
+        var <span class="cstat-no" title="statement not covered" >relationshipAngle = relationship</span>.start.angleTo(relationship.end);
+&nbsp;
+        var positiveAngle = relationshipAngle &gt; 0 ? relationshipAngle : relationshipAngle + 180;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if ( positiveAngle &gt; 175 || positive</span>Angle &lt; 5 )
+        {
+            return orientations.SOUTH;
+        }
+        else if ( positiveAngle &lt; 85 )
+        {
+            return orientations.SOUTH_WEST
+        }
+        else if ( positiveAngle &lt; 90 )
+        {
+            return orientations.WEST;
+        }
+        else if ( positiveAngle === 90 )
+        {
+            return relationshipAngle &gt; 0 ? orientations.WEST : orientations.EAST;
+        }
+        else if ( positiveAngle &lt; 95 )
+        {
+            return orientations.EAST;
+        }
+        else
+        {
+            return orientations.SOUTH_EAST;
+        }
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Feb 16 2018 08:12:02 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

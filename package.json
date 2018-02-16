@@ -1,0 +1,57 @@
+{
+  "name": "graph-diagram",
+  "version": "0.0.1",
+  "description": "A TypeScript library version of apcjones Arrows project: github.com/apcj/arrows",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "webpack || echo not ok",
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "coverage": "npm test -- --coverage --no-cache",
+    "coverage:watch": "npm run coverage -- --watch",
+    "build:example-browser-tests": "webpack --config webpack.config.examples.tests.js",
+    "build:example-browser-editor": "webpack --config webpack.config.examples.editor.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wwlib/graph-diagram.git"
+  },
+  "keywords": [
+    "graph",
+    "visualization",
+    "library"
+  ],
+  "author": "Andrew Rapo <andrew@worthwhilegames.org> (http://worthwhilegames.org)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wwlib/graph-diagram/issues"
+  },
+  "homepage": "https://github.com/wwlib/graph-diagram#readme",
+  "devDependencies": {
+    "@types/d3": "^4.12.0",
+    "@types/jest": "^22.1.1",
+    "awesome-typescript-loader": "^3.4.1",
+    "d3": "^4.13.0",
+    "jest": "^22.2.1",
+    "source-map-loader": "^0.2.3",
+    "ts-jest": "^22.0.3",
+    "typescript": "^2.7.1",
+    "webpack": "^3.10.0"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "mapCoverage": true,
+    "collectCoverageFrom": ["src/**/*.ts"],
+    "coveragePathIgnorePatterns": ["\/__tests__\/", "\/node_modules\/"],
+    "testEnvironment": "node",
+    "testRegex": "__tests__/.*\\.spec\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ]
+  }
+}

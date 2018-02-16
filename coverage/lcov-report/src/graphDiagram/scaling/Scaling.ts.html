@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/graphDiagram/scaling/Scaling.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">src/graphDiagram/scaling</a> Scaling.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/45</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/44</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import GraphD<span class="cstat-no" title="statement not covered" >iagram from '../GraphDiagram';<span class="cstat-no" title="statement not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >import LayoutModel from '../layout/LayoutModel';</span>
+import LayoutNode from <span class="cstat-no" title="statement not covered" >'../layout/LayoutNode';</span>
+import LayoutRelationship from '../layout/LayoutNode';
+import Node from '../model/Node';
+&nbsp;
+export type Point = {
+    x: number;
+<span class="fstat-no" title="function not covered" >    y:</span> number;
+}<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+export t<span class="cstat-no" title="statement not covered" >ype BoundingBox = {</span>
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
+&nbsp;
+export type Bounds = {
+<span class="fstat-no" title="function not covered" >    x1</span>: number;
+    y1: <span class="cstat-no" title="statement not covered" >number;</span>
+    x2: number;
+    y2: number;
+}
+&nbsp;
+// export type ViewDimensions = {
+//     width: number;
+//     height: number;
+// }<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+export defau<span class="cstat-no" title="statement not covered" >lt class Scaling {</span>
+&nbsp;
+    stat<span class="cstat-no" title="statement not covered" >ic nodeBox( node: La<span class="fstat-no" title="function not covered" >yo</span>utNode )</span>
+    {<span class="cstat-no" title="statement not covered" ></span>
+        var margin = node.radius.outside();
+        let graphNode: Node = node.model as Node;
+        return {
+            x1: graphNode.ex() - margin,
+            y1: graphNode.ey() - margin,
+            x2: graphNode.ex() + margin,
+            y2: graphNode.ey() + margin
+        };
+<span class="fstat-no" title="function not covered" >    };</span>
+<span class="fstat-no" title="function not covered" ></span>
+    static b<span class="cstat-no" title="statement not covered" >oxNormalise( box: BoundingBox ): Bounds</span>
+    {
+        return {<span class="cstat-no" title="statement not covered" ></span>
+            x1: box.width &gt; 0 ? box.x : box.x + box.width,
+            y1: box.height &gt; 0 ? box.y : box.y +box. height,
+            x2: box.width &lt; 0 ? box.x : box.x + box.width,
+            y2: box.height &lt; 0 ? box.y : box.y + box.height
+<span class="cstat-no" title="statement not covered" >        };</span>
+    };
+&nbsp;
+<span class="fstat-no" title="function not covered" >    st</span>atic boxUnion( boxes: Bounds[] ): Bounds
+    {<span class="cstat-no" title="statement not covered" ></span>
+        if ( boxes.le<span class="cstat-no" title="statement not covered" >ngth &lt; 1 )</span>
+        {<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >            return { x1:0, y1:0, x2:0, y2:0 };</span>
+        }
+        return boxes.reduce( function ( previous: Bounds, current: Bounds)
+        {
+            return {
+                x1:Math.min( previous.x1, current.x1 ),
+                y1:Math.min( previous.y1, current.y1 ),
+                x2:Math.max( previous.x2, current.x2 ),
+<span class="fstat-no" title="function not covered" ></span>                y2:Math.max( previous.y2, current.y2 )
+<span class="cstat-no" title="statement not covered" >            };</span>
+        } );<span class="cstat-no" title="statement not covered" ></span>
+    };
+&nbsp;
+    static smallestContainingBox(layoutModel: LayoutModel): BoundingBox {
+        function boundingBox( entity: LayoutNode | LayoutRelationship )
+        {
+            return entity.propertiesBubble.boundingBox;
+        }
+<span class="cstat-no" title="statement not covered" ></span>
+        var bounds = Scaling.boxUnion( layoutModel.nodes.map( Scaling.nodeBox )
+            .concat( layoutModel.nodes.filter(GraphDiagram.hasProperties ).map( boundingBox )
+                .map( Scaling.boxNormalise ) )
+            .concat( layoutModel.relationships.filter(GraphDiagram.hasProperties ).map( boundingBox )
+                .map( Scaling.boxNormalise ) ) );
+&nbsp;
+        return { x: bounds.x1, y: bounds.y1,
+<span class="fstat-no" title="function not covered" ></span>            width: (bounds.x2 - bounds.x1), height: (bounds.y2 - bounds.y1) }
+    }<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+    static centeredOrScaledViewBox(viewDimensions: BoundingBox, diagramExtent: BoundingBox): BoundingBox {
+        var xScale = diagramExtent.width / viewDimensions.width;
+        var yScale = diagramExtent.height / viewDimensions.height;
+        var scaleFactor = xScale &lt; 1 &amp;&amp; yScale &lt; 1 ? 1 : (xScale &gt; yScale ? xScale : yScale);
+&nbsp;
+        return {
+<span class="fstat-no" title="function not covered" ></span>            x: ((diagramExtent.width - viewDimensions.width * scaleFactor) / 2) + diagramExtent.x,
+            y: ((d<span class="cstat-no" title="statement not covered" >iagramExtent.height - viewDimensions.height * scaleFactor) / 2) + diagramExtent.y,</span>
+<span class="cstat-no" title="statement not covered" >            width: viewDimensions.width * scaleFactor,</span>
+            height: viewDimensions.height * scaleFactor
+        };
+    };
+<span class="fstat-no" title="function not covered" ></span>
+    static effectiveBox( viewBo<span class="cstat-no" title="statement not covered" >x: BoundingBox, viewSize: BoundingBox )</span>
+    {
+        if ( viewBox.width / viewSize.width &gt; viewBox.height / viewSize.height )
+        {
+            return {
+                x: viewBox.x,
+                y:<span class="cstat-no" title="statement not covered" > viewBox.y - ((viewBox.width * viewSize.height / viewSize.width) - viewBox.height) / 2,</span>
+<span class="cstat-no" title="statement not covered" >                width: viewBox.width,</span>
+                height: viewBox.width * viewSize.height / viewSize.width
+            }
+        }
+        else
+        {
+<span class="fstat-no" title="function not covered" ></span>            return {
+                x:<span class="cstat-no" title="statement not covered" > viewBox.x - ((viewBox.height * viewSize.width / viewSize.height) - viewBox.width) / 2,</span>
+<span class="cstat-no" title="statement not covered" >                y: viewBox.y,</span>
+                width: viewBox.height * viewSize.width / viewSize.height,
+                height: viewBox.height
+            }
+        }
+<span class="fstat-no" title="function not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+    static viewDimensions(view: any): BoundingBox
+    {
+        var svgElement = view.node();
+        return {
+<span class="fstat-no" title="function not covered" ></span>            x: 0,
+            y: 0,<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >            width: svgElement.clientWidth,</span>
+            height: svgElement.clientHeight
+        };
+    }
+<span class="cstat-no" title="statement not covered" ></span>
+    static centerOrScaleDiagr<span class="cstat-no" title="statement not covered" >amToFitSvg(layoutModel: LayoutModel, view: any) {</span>
+        var box = Scaling.centeredOrScaledViewBox( Scaling.viewDimensions(view), Scaling.smallestContainingBox( layoutModel ) );
+&nbsp;
+        view
+            .attr("viewBox", [box.x, box.y, box.width, box.height].join( " " ));
+    };
+<span class="cstat-no" title="statement not covered" ></span>
+    static centerOrScaleDiagramToFitWindow(layoutModel: LayoutModel, view: any) {
+        var <span class="cstat-no" title="statement not covered" >windowDimensions = {</span>
+            x: 0<span class="cstat-no" title="statement not covered" >,</span>
+            y: 0,
+            width: window.innerWidth,
+            height: window.inne<span class="cstat-no" title="statement not covered" >rHeight</span>
+        };<span class="cstat-no" title="statement not covered" ></span>
+        var box = Scaling.centeredOrScaledViewBox( windowDimensions, Scaling.smallestContainingBox( layoutModel ) );
+&nbsp;
+        view
+            .attr("width", windowDimensions.width)
+            .attr("height", windowDimensions.height)
+            .attr("viewBox", [box.x, box.y, box.width, box.height].join( " " ));
+    };
+&nbsp;
+    static c<span class="cstat-no" title="statement not covered" >enterOrScaleDiagramToFitSvgSmooth(layoutModel: LayoutModel, view: any) {</span>
+        var box = Scaling.centeredOrScaledViewBox( Scaling.viewDimensions(view), Scaling.smallestContainingBox( layoutModel ) );
+&nbsp;
+        view
+            .transition()
+<span class="fstat-no" title="function not covered" ></span>            .attr("viewBox", [box.x, box.y, box.width, box.height].join( " " ));
+    };<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+    static fitsInside( extent: BoundingBox, box: BoundingBox )
+    {
+        return extent.x &gt;= box.x &amp;&amp;
+            extent.y &gt;= box.y &amp;&amp;
+            extent.x + extent.width &lt;= box.x + box.width &amp;&amp;
+            extent.y + extent.height &lt;= box.y + box.height;
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    static growButDoNotShrink(layoutModel: LayoutModel, view: any) {
+        var currentViewBoxAttr = view.attr("viewBox");
+        if ( currentViewBoxAttr === null )
+        {
+            // Scaling.centeredOrScaledViewBox(layoutModel, view); //FUNKY //TODO
+        } else {
+            var currentDimensions = currentViewBoxAttr.split(" " ).map(parseFloat);
+            var currentBox = {
+                x: currentDimensions[0],
+                y: currentDimensions[1],
+                width: currentDimensions[2],
+                height: currentDimensions[3]
+            };
+            var diagramExtent = Scaling.smallestContainingBox( layoutModel );
+&nbsp;
+            var box;
+            if ( Scaling.fitsInside(diagramExtent, Scaling.effectiveBox( currentBox, Scaling.viewDimensions( view ) ))) {
+                box = currentBox;
+            }
+            else
+            {
+                var idealBox = Scaling.centeredOrScaledViewBox( Scaling.viewDimensions(view), diagramExtent );
+                box = {
+                    x: Math.min(currentBox.x, idealBox.x),
+                    y: Math.min(currentBox.y, idealBox.y),
+                    width: Math.max(currentBox.x + currentBox.width, idealBox.x + idealBox.width) -
+                        Math.min(currentBox.x, idealBox.x),
+                    height: Math.max(currentBox.y + currentBox.height, idealBox.y + idealBox.height) -
+                        Math.min(currentBox.y, idealBox.y)
+                };
+            }
+&nbsp;
+            view
+                .attr("viewBox", [box.x, box.y, box.width, box.height].join( " " ));
+        }
+    };
+&nbsp;
+    static sizeSvgToFitDiagram(layoutModel: LayoutModel, view: any) {
+        var box = Scaling.smallestContainingBox( layoutModel );
+&nbsp;
+        view
+            .attr("viewBox", [box.x, box.y, box.width, box.height].join( " " ))
+            .attr("width", box.width * layoutModel.graphModel.externalScale)
+            .attr("height", box.height * layoutModel.graphModel.externalScale);
+    };
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Feb 16 2018 08:12:02 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
