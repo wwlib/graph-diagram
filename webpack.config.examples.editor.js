@@ -2,7 +2,7 @@ module.exports = {
     entry: "./examples-src/example-browser-editor.ts",
     output: {
         filename: "example-browser-editor.js",
-        path: __dirname + "/examples"
+        path: __dirname + "/docs/examples"
     },
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
