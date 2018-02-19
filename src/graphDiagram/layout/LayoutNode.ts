@@ -37,11 +37,11 @@ export default class LayoutNode extends LayoutEntity {
         var insideRadius: number = 0;
         var captionLines: string[] = [];
 
-        if ( node.caption ) {
+        if ( node.displayCaption ) {
             var padding: number = GraphDiagram.parsePixels( node.style( "padding" ) );
             var fontSize: string = node.properties.style( "font-size" );
             var fontFamily: string = node.properties.style( "font-family" );
-            var totalWidth: number = GraphDiagram.measureTextDimensions( node.caption, fontSize, fontFamily );
+            var totalWidth: number = GraphDiagram.measureTextDimensions( node.displayCaption, fontSize, fontFamily );
             var idealRadius: number = Math.sqrt( totalWidth * lineHeight / Math.PI );
             var idealRows: number = idealRadius * 2 / lineHeight;
             function idealLength( row: number )
@@ -49,7 +49,7 @@ export default class LayoutNode extends LayoutEntity {
                 var rowOffset: number = lineHeight * (row - idealRows) / 2;
                 return Math.sqrt( idealRadius * idealRadius - rowOffset * rowOffset) * 2;
             }
-            var words: string[] = node.caption.split(" ");
+            var words: string[] = node.displayCaption.split(" ");
             var currentLine: string = words.shift();
             while (words.length > 0)
             {

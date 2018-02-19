@@ -322,18 +322,18 @@ class LayoutNode extends LayoutEntity_1.default {
         // console.log(lineHeight);
         var insideRadius = 0;
         var captionLines = [];
-        if (node.caption) {
+        if (node.displayCaption) {
             var padding = GraphDiagram_1.default.parsePixels(node.style("padding"));
             var fontSize = node.properties.style("font-size");
             var fontFamily = node.properties.style("font-family");
-            var totalWidth = GraphDiagram_1.default.measureTextDimensions(node.caption, fontSize, fontFamily);
+            var totalWidth = GraphDiagram_1.default.measureTextDimensions(node.displayCaption, fontSize, fontFamily);
             var idealRadius = Math.sqrt(totalWidth * lineHeight / Math.PI);
             var idealRows = idealRadius * 2 / lineHeight;
             function idealLength(row) {
                 var rowOffset = lineHeight * (row - idealRows) / 2;
                 return Math.sqrt(idealRadius * idealRadius - rowOffset * rowOffset) * 2;
             }
-            var words = node.caption.split(" ");
+            var words = node.displayCaption.split(" ");
             var currentLine = words.shift();
             while (words.length > 0) {
                 if (GraphDiagram_1.default.measureTextDimensions(currentLine, fontSize, fontFamily) > idealLength(captionLines.length)) {
@@ -911,6 +911,15 @@ class Entity {
     get caption() {
         return this._caption;
     }
+    get displayCaption() {
+        let name = this.properties.has('name');
+        if (name) {
+            return `${this._caption}: ${name}`;
+        }
+        else {
+            return this._caption;
+        }
+    }
     get properties() {
         return this._properties;
     }
@@ -957,6 +966,9 @@ class Properties {
         return this;
     }
     ;
+    has(property) {
+        return this._propertiesMap.get(property);
+    }
     clearAll() {
         // this.keys = [];
         // this.values = {};
@@ -1009,15 +1021,8 @@ exports.default = Relationship;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-console.log(`Arrows: Typescript Browser Tests:`);
+console.log(`graph-diagram: Typescript Browser Tests:`);
 const d3 = __webpack_require__(0);
-// import GraphDiagram from './graphDiagram/GraphDiagram';
-// import Diagram from './graphDiagram/diagram/Diagram';
-// import Markup from './graphDiagram/markup/Markup';
-//
-// import Model from './graphDiagram/model/Model';
-// import Node from './graphDiagram/model/Node';
-// import SimpleStyle from './graphDiagram/model/SimpleStyle';
 const index_1 = __webpack_require__(13);
 function compareSvg(expected, actual, report) {
     if (expected.tagName != actual.tagName) {
@@ -1132,17 +1137,19 @@ const Markup_1 = __webpack_require__(21);
 exports.Markup = Markup_1.default;
 const Model_1 = __webpack_require__(7);
 exports.Model = Model_1.default;
+const ModelToCypher_1 = __webpack_require__(22);
+exports.ModelToCypher = ModelToCypher_1.default;
 const Node_1 = __webpack_require__(8);
 exports.Node = Node_1.default;
 const SimpleStyle_1 = __webpack_require__(2);
 exports.SimpleStyle = SimpleStyle_1.default;
-const CurvedArrowOutline_1 = __webpack_require__(22);
+const CurvedArrowOutline_1 = __webpack_require__(23);
 exports.CurvedArrowOutline = CurvedArrowOutline_1.default;
 const Relationship_1 = __webpack_require__(11);
 exports.Relationship = Relationship_1.default;
 const Scaling_1 = __webpack_require__(6);
 exports.Scaling = Scaling_1.default;
-const LayoutModel_1 = __webpack_require__(23);
+const LayoutModel_1 = __webpack_require__(24);
 exports.LayoutModel = LayoutModel_1.default;
 const LayoutNode_1 = __webpack_require__(5);
 exports.LayoutNode = LayoutNode_1.default;
@@ -1162,6 +1169,7 @@ const Scaling_1 = __webpack_require__(6);
 var thiz;
 class Diagram {
     constructor() {
+        this._renderPropertyBubblesFlag = true;
         this._overlay = function (layoutModel, view) { };
         this._scaling = Scaling_1.default.sizeSvgToFitDiagram;
         thiz = this;
@@ -1176,9 +1184,12 @@ class Diagram {
         return this;
     }
     ;
+    toggleRenderPropertyBubblesFlag() {
+        this._renderPropertyBubblesFlag = !this._renderPropertyBubblesFlag;
+    }
     renderNodes(nodes, view) {
         function nodeClasses(d) {
-            let result = d.model.class().join(" ") + " " + "node-id-" + d.model.id;
+            let result = d.model.class().join(" ") + " " + "node-id-" + d.model.id + ` node-base node-type-${d.model.caption}`;
             return result;
         }
         var circles = view.selectAll("circle.node").data(nodes);
@@ -1187,7 +1198,6 @@ class Diagram {
             .attr("class", nodeClasses)
             .merge(circles)
             .attr("r", function (node) {
-            // console.log(`r: `, node);
             return node.radius.mid();
         })
             .attr("fill", function (node) {
@@ -1207,9 +1217,9 @@ class Diagram {
             return node.model.ey();
         });
         function captionClasses(line) {
-            return "caption " + line.node.model.class();
+            return "caption " + line.node.model.class().join(" ") + " " + "node-id-" + line.node.model.id + ` node-type-${line.node.model.caption}`;
         }
-        var nodesWithCaptions = nodes.filter(function (node) { return node.model.caption; });
+        var nodesWithCaptions = nodes.filter(function (node) { return node.model.displayCaption; });
         var captionGroups = view.selectAll("g.caption")
             .data(nodesWithCaptions);
         captionGroups.exit().remove();
@@ -1317,6 +1327,13 @@ class Diagram {
             .attr("transform", function (speechBubble) {
             return speechBubble.groupTransform;
         });
+        // toggle visibility of property bubbles
+        if (thiz._renderPropertyBubblesFlag) {
+            speechBubbleGroupMerge.attr("display", "block");
+        }
+        else {
+            speechBubbleGroupMerge.attr("display", "none");
+        }
         var speechBubbleOutline = speechBubbleGroupMerge.selectAll("path.speech-bubble-outline")
             .data(function (d) { return [d]; });
         speechBubbleOutline.exit().remove();
@@ -1364,7 +1381,6 @@ class Diagram {
         });
         var propertyValues = speechBubbleGroupMerge.selectAll("text.speech-bubble-content.property-value")
             .data(function (speechBubble) {
-            // console.log(`propertyValues: data: `, speechBubble);
             return speechBubble.properties;
         });
         propertyValues.exit().remove();
@@ -1390,8 +1406,6 @@ class Diagram {
             var view = d3.select(this);
             let layout = new Layout_1.default(model);
             var layoutModel = layout.layoutModel;
-            // console.log(`Diagram.render: model:`, model);
-            // console.log(`Diagram.render: layoutModel:`, layoutModel);
             function layer(name) {
                 var layer = view.selectAll("g.layer." + name).data([name]);
                 var layerEnter = layer.enter().append("g")
@@ -1403,8 +1417,12 @@ class Diagram {
             thiz.renderNodes(layoutModel.nodes, layer("nodes"));
             thiz.renderPropertyBubbles(layoutModel.nodes, "node", layer("node_properties"));
             thiz.renderPropertyBubbles(layoutModel.relationships, "relationship", layer("relationship_properties"));
-            thiz._overlay(layoutModel, layer("overlay"));
-            thiz._scaling(layoutModel, view);
+            if (thiz._overlay) {
+                thiz._overlay(layoutModel, layer("overlay"));
+            }
+            if (thiz._scaling) {
+                thiz._scaling(layoutModel, view);
+            }
         });
     }
 }
@@ -1980,6 +1998,59 @@ exports.default = Markup;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+class ModelToCypher {
+    static convert(model) {
+        var statements = [];
+        model.nodeList().forEach((node) => {
+            statements.push("(" + ModelToCypher.quote(node.id) + " :" + ModelToCypher.quote(node.caption || "Node") + " " + ModelToCypher.render(ModelToCypher.props(node)) + ") ");
+        });
+        model.relationshipList().forEach((rel) => {
+            statements.push("(" + ModelToCypher.quote(rel.start.id) +
+                ")-[:`" + ModelToCypher.quote(rel.relationshipType || "RELATED_TO") +
+                "` " + ModelToCypher.render(ModelToCypher.props(rel)) +
+                "]->(" + ModelToCypher.quote(rel.end.id) + ")");
+        });
+        if (statements.length == 0)
+            return "";
+        return "CREATE \n  " + statements.join(",\n  ");
+    }
+    static props(element) {
+        var props = {};
+        element.properties.list().forEach((property) => {
+            props[property.key] = property.value;
+        });
+        return props;
+    }
+    static isIdentifier(name) {
+        return /^[_a-zA-Z]\w*$/.test(name);
+    }
+    static quote(name) {
+        return ModelToCypher.isIdentifier(name) ? name : "`" + name + "`";
+    }
+    static render(props) {
+        var res = "";
+        for (var key in props) {
+            if (res.length > 0)
+                res += ",";
+            if (props.hasOwnProperty(key)) {
+                res += ModelToCypher.quote(key) + ":";
+                var value = props[key];
+                res += typeof value == "string" && value[0] != "'" && value[0] != '"' ? "'" + value + "'" : value;
+            }
+        }
+        return res.length == 0 ? "" : "{" + res + "}";
+    }
+}
+exports.default = ModelToCypher;
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 class CurvedArrowOutline {
     constructor(startRadius, endRadius, endCentre, minOffset, arrowWidth, headWidth, headLength) {
         this.startRadius = startRadius;
@@ -2073,7 +2144,7 @@ exports.default = CurvedArrowOutline;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

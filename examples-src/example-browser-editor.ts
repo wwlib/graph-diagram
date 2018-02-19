@@ -11,6 +11,7 @@ import {
 import { drag } from 'd3-drag';
 import * as d3Array from 'd3-array';
 import * as d3Scale from 'd3-scale';
+import * as d3Zoom from 'd3-zoom';
 
 import {
   Diagram,
@@ -31,29 +32,11 @@ import {
 
     loadGraph();
 
-    // if ( !localStorage.getItem( getGraphName() ) )
-    // {
-    //     graphModel = new Model();
-    //     newNode = graphModel.createNode();
-    //     newNode.x = 0;
-    //     newNode.y = 0;
-    //     save( formatMarkup() );
-    // }
-    // if ( localStorage.getItem( "graph-diagram-style" ) )
-    // {
-    //     select( "link.graph-style" )
-    //         .attr( "href", localStorage.getItem( "graph-diagram-style" ) );
-    // }
-    // graphModel = parseMarkup( localStorage.getItem( getGraphName() ) );
-
-    var svg = select("#canvas")
-        .append("svg:svg")
-        .attr("class", "graphdiagram");
-
-    console.log(`svg:`,svg);
+    var svg: any;
 
     var diagram = new Diagram()
-        .scaling(Scaling.centerOrScaleDiagramToFitSvg)
+        // .scaling(Scaling.centerOrScaleDiagramToFitSvg)
+        .scaling(null)
         .overlay(function(layoutModel: LayoutModel, view: any) {
             var nodeOverlays = view.selectAll("circle.node.overlay")
                 .data(layoutModel.nodes);
@@ -135,9 +118,22 @@ import {
       return `graph-diagram-markup-${graphName}`;
     }
 
+    var localStorageItemName: string;
+    var graphList: string[] = [];
+    function getGraphList(): string[] {
+        for(localStorageItemName in localStorage)
+        {
+            if (localStorageItemName.indexOf("graph-diagram-markup-") >= 0) {
+                var parts: string[] = localStorageItemName.split("graph-diagram-markup-");
+                var graphName: string = parts[1];
+                graphList.push(graphName);
+            }
+        }
+        return graphList;
+    }
+
     function draw()
     {
-        // console.log(`draw: `, svg);
         if (graphModel && diagram && diagram.render) {
           svg
               .data([graphModel])
@@ -145,13 +141,6 @@ import {
 
           updateSvgDownloadLink();
         }
-    }
-
-    function testRender(selection: any) {
-        console.log(`testRender:`,this, selection);
-        selection.each( function ( model: Model ) {
-            console.log(this, model);
-        });
     }
 
     function save( markup: any )
@@ -193,7 +182,7 @@ import {
         var layoutNode: LayoutNode = this.__data__ as LayoutNode;
         var graphNode: Node = layoutNode.model as Node;
         graphNode.drag(event.dx, event.dy);
-        diagram.scaling(Scaling.growButDoNotShrink);
+        //diagram.scaling(Scaling.growButDoNotShrink);
         draw();
     }
 
@@ -219,7 +208,7 @@ import {
         }
         // node = newNode;
         newNode.drag(event.dx, event.dy);
-        diagram.scaling(Scaling.growButDoNotShrink);
+        //diagram.scaling(Scaling.growButDoNotShrink);
         draw();
     }
 
@@ -236,7 +225,7 @@ import {
         }
         newNode = null;
         save( formatMarkup() );
-        diagram.scaling(Scaling.centerOrScaleDiagramToFitSvgSmooth);
+        //diagram.scaling(Scaling.centerOrScaleDiagramToFitSvgSmooth);
         draw();
     }
 
@@ -416,8 +405,24 @@ import {
 
     function loadGraph()
     {
+      if (svg) {
+        select("svg").remove();
+        svg = null;
+      }
+
+      svg = select("#svgContainer")
+         .append("svg:svg")
+         .attr("class", "graphdiagram")
+         .attr("id", "svgElement")
+         .attr("width", "100%")
+         .attr("height", "100%")
+         .call(d3Zoom.zoom().on("zoom", function () {
+            svg.attr("transform", event.transform)
+         }))
+         .on("dblclick.zoom", null)
+         .append("g")
+
       var graphNameElementValue: any = select("#graphName").property("value");
-      console.log(`graphNameElement:`, graphNameElementValue);
       if (graphNameElementValue) {
         graphName = graphNameElementValue;
       } else {
@@ -431,6 +436,7 @@ import {
           newNode.y = 0;
           save( formatMarkup() );
       }
+
       graphModel = parseMarkup( localStorage.getItem( getGraphName() ) );
       draw();
     }
@@ -442,6 +448,12 @@ import {
       newNode.x = 0;
       newNode.y = 0;
       save( formatMarkup() );
+      draw();
+    }
+
+    var toggleBubbles = function()
+    {
+      diagram.toggleRenderPropertyBubblesFlag();
       draw();
     }
 
@@ -467,7 +479,7 @@ import {
     select( "#save_markup" ).on( "click", useMarkupFromMarkupEditor );
 
     function updateSvgDownloadLink() {
-        var temp: any = select("#canvas svg" ).node();
+        var temp: any = select("#svgContainer svg").node();
       var rawSvg: any = new XMLSerializer().serializeToString(temp);
       select("#downloadSvgButton").attr('href', "data:image/svg+xml;base64," + btoa( rawSvg ));
     }
@@ -499,26 +511,64 @@ import {
         selection.node().value = statement;
     };
 
-
-    var chooseStyle = function()
+    var editStyle = function()
     {
         appendModalBackdrop();
-        select( ".modal.choose-style" ).classed( "hide", false );
+        var graphEditorStyleSheet = document.getElementById('graph-editor-style');
+        var styleData = graphEditorStyleSheet.innerHTML;
+        var temp: any = select( "textarea.code-edit-style" ).node();
+        temp.value = styleData
+        select( ".modal.edit-style" ).classed( "hide", false );
     };
 
     select("#saveStyle" ).on("click", function() {
-        var selectedStyle = selectAll("input[name=styleChoice]" );
-        console.log(selectedStyle);
-        //TODO use new 4v Selection structure. Cannot index into the array directly
-        // selectedStyle[0]
-        //     .filter(function(input: any) { return input.checked; })[0].value;
-        // select("link.graph-style")
-        //     .attr("href", "css/" + selectedStyle);
-        //
-        // graphModel = parseMarkup( localStorage.getItem( getGraphName() ) );
-        // save(formatMarkup());
-        // draw();
-        // cancelModal();
+        var temp: any = select( "textarea.code-edit-style" ).node();
+        var graphEditorStyleSheet = document.getElementById('graph-editor-style');
+        graphEditorStyleSheet.innerHTML = temp.value;
+        cancelModal();
+    });
+
+    select("#resetStyle" ).on("click", function() {
+        var temp: any = select( "textarea.code-edit-style" ).node();
+        temp.value = `
+body {
+    background-color: lightgrey;
+}
+
+circle.node-base {
+  fill
+}
+
+text.caption {
+  fill: #FFFFFF;
+}
+
+circle.node.overlay:hover {
+    fill: rgba(150, 150, 255, 0.5);
+}
+
+circle.node.ring:hover {
+    stroke: rgba(150, 150, 255, 0.5);
+}
+
+path.relationship.overlay:hover {
+    fill: rgba(150, 150, 255, 0.5);
+    stroke: rgba(150, 150, 255, 0.5);
+}
+        `;
+        var graphEditorStyleSheet = document.getElementById('graph-editor-style');
+        graphEditorStyleSheet.innerHTML = temp.value;
+        cancelModal();
+    });
+
+    function confirmResetGraph() {
+        appendModalBackdrop();
+        select( ".modal.confirm-reset-graph" ).classed( "hide", false );
+    }
+
+    select("#confirmResetGraph").on("click", function() {
+        resetGraph();
+        cancelModal();
     });
 
     function changeInternalScale() {
@@ -533,13 +583,21 @@ import {
     select("#internalScale" ).on("change", changeInternalScale);
     select( "#exportMarkupButton" ).on( "click", exportMarkup );
 	  select( "#exportCypherButton" ).on( "click", exportCypher );
-    select( "#chooseStyleButton" ).on( "click", chooseStyle );
+    select( "#editStyleButton" ).on( "click", editStyle );
     select( "#load" ).on( "click", loadGraph );
-    select( "#reset" ).on( "click", resetGraph );
+    select( "#resetGraph").on("click", confirmResetGraph);
+    select( "#toggleBubbles" ).on( "click", toggleBubbles );
 
     selectAll( ".modal-dialog" ).on( "click", function ()
     {
         event.stopPropagation();
     } );
+
+    var graphDatalist = select("#graphlist");
+    graphDatalist.selectAll("option")
+        .data(getGraphList)
+        .enter()
+        .append("option")
+        .attr("value", function(d) { return d; })
 
     draw();

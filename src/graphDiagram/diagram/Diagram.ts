@@ -22,6 +22,7 @@ export default class Diagram {
 
     private _overlay: any;
     private _scaling: any;
+    private _renderPropertyBubblesFlag: boolean = true;
 
     constructor() {
         this._overlay = function(layoutModel: LayoutModel, view: any) {};
@@ -39,10 +40,14 @@ export default class Diagram {
         return this;
     };
 
+    toggleRenderPropertyBubblesFlag(): void {
+        this._renderPropertyBubblesFlag = !this._renderPropertyBubblesFlag;
+    }
+
     renderNodes( nodes: LayoutNode[], view: any )
     {
         function nodeClasses(d: LayoutNode) {
-            let result = d.model.class().join(" ") + " " + "node-id-" + d.model.id;
+            let result = d.model.class().join(" ") + " " + "node-id-" + d.model.id + ` node-base node-type-${d.model.caption}`
             return result;
         }
 
@@ -53,7 +58,6 @@ export default class Diagram {
             .attr("class", nodeClasses)
             .merge(circles)
             .attr("r", function(node: any) {
-                // console.log(`r: `, node);
                 return node.radius.mid();
             })
             .attr("fill", function(node: any) {
@@ -74,10 +78,10 @@ export default class Diagram {
             });
 
         function captionClasses(line: CaptionLine) {
-            return "caption " + line.node.model.class();
+            return "caption " + line.node.model.class().join(" ") + " " + "node-id-" + line.node.model.id + ` node-type-${line.node.model.caption}`;
         }
 
-        var nodesWithCaptions = nodes.filter(function(node) { return node.model.caption; });
+        var nodesWithCaptions = nodes.filter(function(node) { return node.model.displayCaption; });
         var captionGroups = view.selectAll("g.caption")
             .data(nodesWithCaptions);
 
@@ -221,6 +225,13 @@ export default class Diagram {
                 return speechBubble.groupTransform;
             } );
 
+        // toggle visibility of property bubbles
+        if (thiz._renderPropertyBubblesFlag) {
+          speechBubbleGroupMerge.attr( "display", "block");
+        } else {
+          speechBubbleGroupMerge.attr( "display", "none");
+        }
+
         var speechBubbleOutline = speechBubbleGroupMerge.selectAll( "path.speech-bubble-outline" )
             .data( function(d: any) {return [d] } );
 
@@ -286,7 +297,6 @@ export default class Diagram {
         var propertyValues = speechBubbleGroupMerge.selectAll( "text.speech-bubble-content.property-value" )
             .data( function ( speechBubble: SpeechBubble )
             {
-                // console.log(`propertyValues: data: `, speechBubble);
                 return speechBubble.properties;
             } );
 
@@ -322,8 +332,6 @@ export default class Diagram {
             var view = d3.select( this );
             let layout: Layout = new Layout(model);
             var layoutModel = layout.layoutModel;
-            // console.log(`Diagram.render: model:`, model);
-            // console.log(`Diagram.render: layoutModel:`, layoutModel);
 
             function layer(name: string)
             {
@@ -341,8 +349,12 @@ export default class Diagram {
             thiz.renderPropertyBubbles( layoutModel.nodes, "node", layer("node_properties") );
             thiz.renderPropertyBubbles( layoutModel.relationships, "relationship", layer("relationship_properties") );
 
-            thiz._overlay( layoutModel, layer("overlay") );
-            thiz._scaling( layoutModel, view );
+            if (thiz._overlay) {
+                thiz._overlay( layoutModel, layer("overlay") );
+            }
+            if (thiz._scaling) {
+                thiz._scaling( layoutModel, view );
+            }
         });
     }
 }

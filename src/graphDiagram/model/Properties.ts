@@ -41,6 +41,10 @@ export default class Properties {
         return this;
     };
 
+    has(property: string): string {
+      return this._propertiesMap.get(property);
+    }
+    
     clearAll() {
         // this.keys = [];
         // this.values = {};

@@ -1,7 +1,7 @@
 # graph-diagram
 
 ### About
-graph-diagram is a TypeScript library version of apcjones Arrows project: github.com/apcj/arrows
+graph-diagram is a TypeScript library version of apcjones Arrows project: [https://github.com/apcj/arrows](https://github.com/apcj/arrows)
 
 Note: This is a first-pass, straight port. Refactoring and optimization is next.
 
@@ -24,7 +24,7 @@ npm run build:example-browser-editor
 cd examples
 http-server
 ```
-[http://localhost:8080/example-browser-editor.html](http://localhost:8080/example-browser-editor.html)
+[http://localhost:8080/example-browser-editor.html?#](http://localhost:8080/example-browser-editor.html?#)
 
 ### tests, coverage
 Note: Tests are incomplete

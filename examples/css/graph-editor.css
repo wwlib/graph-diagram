@@ -1,9 +1,18 @@
-svg.graphdiagram {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%
+#svgContainer {
+  position: absolute;
+  top: 100px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#graphNameForm {
+  height: 9px;
+  padding: 3px;
+}
+
+body {
+    background-color: lightgrey;
 }
 
 .tools {
@@ -11,7 +20,7 @@ svg.graphdiagram {
     position: absolute;
     right: 10px;
     top: 10px;
-    padding: 10px;
+    padding: 6px;
     background-color: #f7f7f7;
 }
 
@@ -36,8 +45,19 @@ p.button-row {
 
 textarea.code {
     padding: 0;
-    resize: none;
-    width: 760px;
+    resize: auto;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    font-family: Menlo, monospace;
+    font-size: 10pt;
+}
+
+textarea.code-edit-style {
+    padding: 0;
+    resize: auto;
+    width: 100%;
+    height: 500px;
     border: none;
     box-shadow: none;
     font-family: Menlo, monospace;
@@ -53,6 +73,16 @@ textarea.code {
 .top-right-btn-bar .btn + .btn {
     margin-bottom: 0;
     margin-left: 5px;
+}
+
+circle.node-base {
+  fill: #FF756E;
+  stroke: #E06760;
+  stroke-width: 3px;
+}
+
+text.caption {
+  fill: #FFFFFF;
 }
 
 circle.node.overlay:hover {

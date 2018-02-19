@@ -21,7 +21,7 @@ export default class Entity {
         return this._style.style(cssPropertyKey, cssPropertyValue);
     }
 
-    class(classesString?: string): any { // returns a string array or a reference to the instance - ugh, JS
+    class(classesString?: string): any {
         if (arguments.length == 1) {
             this.classes = classesString.split(" ").filter((className: string) => {
                 return className.length > 0 && className != this._type;
@@ -37,6 +37,15 @@ export default class Entity {
 
     get caption(): string {
         return this._caption;
+    }
+
+    get displayCaption(): string {
+        let name = this.properties.has('name');
+        if (name) {
+            return `${this._caption}: ${name}`;
+        } else {
+            return this._caption;
+        }
     }
 
     get properties(): Properties {
