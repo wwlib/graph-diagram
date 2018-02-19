@@ -11056,8 +11056,9 @@ function dragEnd() {
 }
 d3_selection_1.select("#add_node_button").on("click", function () {
     newNode = graphModel.createNode();
-    newNode.x = 0;
-    newNode.y = 0;
+    var svgElement = document.getElementById('svgElement');
+    newNode.x = svgElement.clientWidth / 2;
+    newNode.y = svgElement.clientHeight / 2;
     save(formatMarkup());
     draw();
 });
@@ -11205,6 +11206,26 @@ function loadGraph() {
     }))
         .on("dblclick.zoom", null)
         .append("g");
+    var svgElement = document.getElementById('svgElement');
+    var x = svgElement.clientWidth / 2;
+    var y = svgElement.clientHeight / 2;
+    var w = 50, h = 50, s = '#666666', so = 0.5, sw = '1px';
+    svg.append('line')
+        .attr('x1', x - w / 2)
+        .attr('y1', y)
+        .attr('x2', x + w / 2)
+        .attr('y2', y)
+        .style('stroke', s)
+        .style('stroke-opacity', so)
+        .style('stroke-width', sw);
+    svg.append('line')
+        .attr('x1', x)
+        .attr('y1', y - h / 2)
+        .attr('x2', x)
+        .attr('y2', y + h / 2)
+        .style('stroke', s)
+        .style('stroke-opacity', so)
+        .style('stroke-width', sw);
     var graphNameElementValue = d3_selection_1.select("#graphName").property("value");
     if (graphNameElementValue) {
         graphName = graphNameElementValue;
@@ -11215,8 +11236,8 @@ function loadGraph() {
     if (!localStorage.getItem(getGraphName())) {
         graphModel = new index_1.Model();
         newNode = graphModel.createNode();
-        newNode.x = 0;
-        newNode.y = 0;
+        newNode.x = svgElement.clientWidth / 2;
+        newNode.y = svgElement.clientWidth / 2;
         save(formatMarkup());
     }
     graphModel = parseMarkup(localStorage.getItem(getGraphName()));
@@ -11225,8 +11246,9 @@ function loadGraph() {
 var resetGraph = function () {
     graphModel = new index_1.Model();
     newNode = graphModel.createNode();
-    newNode.x = 0;
-    newNode.y = 0;
+    var svgElement = document.getElementById('svgElement');
+    newNode.x = svgElement.clientWidth / 2;
+    newNode.y = svgElement.clientHeight / 2;
     save(formatMarkup());
     draw();
 };
