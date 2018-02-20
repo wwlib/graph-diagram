@@ -7,15 +7,22 @@ In-browser examples of graph-diagram are at: [https://wwlib.github.io/graph-diag
 
 Note: This is a first-pass, straight port. Refactoring and optimization is next.
 
-### install, build
-`npm install`
+### npm
 
-`npm run build`
+npm install graph-diagram
+
+### contributing: install, build
+```
+git clone git@github.com:wwlib/graph-diagram.git
+cd graph-diagram
+npm install
+npm run build
+```
 
 ### in-browser examples
 ```
 npm run build:example-browser-tests`
-cd examples
+cd docs/examples
 http-server
 ```
 [http://localhost:8080/example-browser-tests.html](http://localhost:8080/example-browser-tests.html)
@@ -23,7 +30,7 @@ http-server
 
 ```
 npm run build:example-browser-editor
-cd examples
+cd docs/examples
 http-server
 ```
 [http://localhost:8080/example-browser-editor.html?#](http://localhost:8080/example-browser-editor.html?#)
