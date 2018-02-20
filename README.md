@@ -1,7 +1,9 @@
 # graph-diagram
 
 ### About
-graph-diagram is a TypeScript library version of apcjones Arrows project: [https://github.com/apcj/arrows](https://github.com/apcj/arrows)
+graph-diagram is a TypeScript library version of apcjones Arrows project: github.com/apcj/arrows
+
+In-browser examples of graph-diagram are at: [https://wwlib.github.io/graph-diagram/](https://wwlib.github.io/graph-diagram/)
 
 Note: This is a first-pass, straight port. Refactoring and optimization is next.
 
