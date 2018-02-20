@@ -1,3 +1,4 @@
+import GraphDiagram from '../GraphDiagram';
 import SimpleStyle from './SimpleStyle';
 
 export default class Properties {
@@ -17,16 +18,23 @@ export default class Properties {
         return this._style.style(cssPropertyKey, cssPropertyValue);
     }
 
-    list(): any[] {
-        // return this.keys.map((key: string) => {
-        //     return { key: key, value: this.values[key] };
-        // });
+    list(options?: any): any[] {
+        let exclude: string[];
+        if (options) {
+            exclude = options.exclude;
+        }
         let result: any[] = [];
         this._propertiesMap.forEach((value: any, key: string) => {
-            result.push( { key: key, value: value } );
+            if (!exclude || exclude.indexOf(key) == -1) {
+                result.push( { key: key, value: value } );
+            }
         });
         return result;
     };
+
+    listEditable(): any[] {
+      return this.list({exclude: [GraphDiagram.MODEL_ID_KEY]});
+    }
 
     toString() {
         return JSON.stringify(this.list());
@@ -44,7 +52,7 @@ export default class Properties {
     has(property: string): string {
       return this._propertiesMap.get(property);
     }
-    
+
     clearAll() {
         // this.keys = [];
         // this.values = {};

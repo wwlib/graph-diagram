@@ -17,17 +17,17 @@ export default class RelationshipSpeechBubble extends Bubble {
 
         var orientation = RelationshipSpeechBubble.chooseRelationshipSpeechBubbleOrientation( relationship );
 
-        var propertyKeysWidth = d3.max( properties.list(), function ( property )
+        var propertyKeysWidth = d3.max( properties.listEditable(), function ( property )
         {
             return GraphDiagram.measureTextDimensions( property.key + ": ", fontSize, fontFamily );
         } );
-        var propertyValuesWidth = d3.max( properties.list(), function ( property )
+        var propertyValuesWidth = d3.max( properties.listEditable(), function ( property )
         {
             return GraphDiagram.measureTextDimensions( property.value, fontSize, fontFamily );
         } );
         var textSize = {
             width:propertyKeysWidth + propertyValuesWidth,
-            height:properties.list().length * GraphDiagram.parsePixels( properties.style( "font-size" ) )
+            height:properties.listEditable().length * GraphDiagram.parsePixels( properties.style( "font-size" ) )
         };
 
         var margin = GraphDiagram.parsePixels( properties.style( "margin" ) );
@@ -81,7 +81,7 @@ export default class RelationshipSpeechBubble extends Bubble {
             height:orientation.mirrorY * (textSize.height + (boundingPadding * 2))
         };
 
-        this.properties = properties.list().map( function ( property: any ) {
+        this.properties = properties.listEditable().map( function ( property: any ) {
                 return {
                     keyText:property.key + ": ",
                     valueText:property.value,

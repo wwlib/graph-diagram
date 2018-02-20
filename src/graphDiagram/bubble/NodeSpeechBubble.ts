@@ -29,17 +29,17 @@ export default class NodeSpeechBubble extends Bubble {
 
         var properties: Properties = node.properties;
 
-        var propertyKeysWidth: string = d3.max( properties.list(), function ( property: any )
+        var propertyKeysWidth: string = d3.max( properties.listEditable(), function ( property: any )
             {
                 return GraphDiagram.measureTextDimensions( property.key + ": ", node.properties.style( "font-size" ), node.properties.style( "font-family" ) );
             });
-        var propertyValuesWidth: string = d3.max( properties.list(), function ( property: any )
+        var propertyValuesWidth: string = d3.max( properties.listEditable(), function ( property: any )
         {
             return GraphDiagram.measureTextDimensions( property.value, node.properties.style( "font-size" ), node.properties.style( "font-family" ) );
         } );
         var textSize: any = {
             width: parseFloat(propertyKeysWidth) + parseFloat(propertyValuesWidth),
-            height:properties.list().length * GraphDiagram.parsePixels( properties.style("font-size"))
+            height:properties.listEditable().length * GraphDiagram.parsePixels( properties.style("font-size"))
         };
 
         var mirror: string = "scale(" + orientation.mirrorX + "," + orientation.mirrorY + ") ";
@@ -87,7 +87,7 @@ export default class NodeSpeechBubble extends Bubble {
             height:orientation.mirrorY * (textSize.height + (boundingPadding * 2))
         };
 
-        this.properties = properties.list().map( function ( property: any ) {
+        this.properties = properties.listEditable().map( function ( property: any ) {
                 return {
                     keyText:property.key + ": ",
                     valueText:property.value,

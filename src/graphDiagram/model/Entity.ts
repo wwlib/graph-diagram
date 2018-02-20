@@ -1,3 +1,4 @@
+import GraphDiagram from '../GraphDiagram';
 import Model from './Model';
 import Properties from './Properties';
 import SimpleStyle from './SimpleStyle';
@@ -49,6 +50,9 @@ export default class Entity {
     }
 
     get properties(): Properties {
+        if (this.model.id) {
+            this._properties.set(GraphDiagram.MODEL_ID_KEY, this.model.id);
+        }
         return this._properties;
     }
 }

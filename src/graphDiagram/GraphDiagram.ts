@@ -7,6 +7,8 @@ import LayoutRelationship from './layout/LayoutRelationship';
 
 export default class GraphDiagram {
 
+    public static  MODEL_ID_KEY: string = 'GRAPH-ID';
+
     static parsePixels(fontSize: string): number
     {
         let result: number = 0;
@@ -34,6 +36,6 @@ export default class GraphDiagram {
     }
 
     static hasProperties( entity: LayoutNode | LayoutRelationship ) {
-        return entity.model.properties.list().length > 0;
+        return entity.model.properties.list({exclude: [GraphDiagram.MODEL_ID_KEY]}).length > 0;
     }
 }

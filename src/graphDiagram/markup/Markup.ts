@@ -42,8 +42,8 @@ export default class Markup {
         }
     }
 
-    static parse(selection: any) {
-        var model: Model = new Model();
+    static parse(selection: any, modelId?: string) {
+        var model: Model = new Model(modelId);
 
         if (selection.attr("data-internal-scale")) {
             model.internalScale =selection.attr("data-internal-scale");

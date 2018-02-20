@@ -11,7 +11,9 @@
     "coverage": "npm test -- --coverage --no-cache",
     "coverage:watch": "npm run coverage -- --watch",
     "build:example-browser-tests": "webpack --config webpack.config.examples.tests.js",
-    "build:example-browser-editor": "webpack --config webpack.config.examples.editor.js"
+    "build:example-browser-tests:watch": "webpack --config webpack.config.examples.tests.js --watch",
+    "build:example-browser-editor": "webpack --config webpack.config.examples.editor.js",
+    "build:example-browser-editor:watch": "webpack --config webpack.config.examples.editor.js --watch"
   },
   "repository": {
     "type": "git",

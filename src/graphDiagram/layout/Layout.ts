@@ -59,7 +59,7 @@ export default class Layout {
     horizontalArrow(relationship: Relationship, start: LayoutNode, end: LayoutNode, offset: number) {
         var length: number = (start.model as Node).distanceTo(end.model as Node);
         var arrowWidth: number = GraphDiagram.parsePixels( relationship.style( "width" ) );
-        if (true) //(offset === 0)
+        if (offset === 0)
         {
             return new HorizontalArrowOutline(
                 start.radius.startRelationship(),
@@ -67,14 +67,14 @@ export default class Layout {
                 arrowWidth
             );
         }
-        // return new CurvedArrowOutline(
-        //     start.radius.startRelationship(),
-        //     end.radius.endRelationship(),
-        //     length,
-        //     offset,
-        //     arrowWidth,
-        //     arrowWidth * 4,
-        //     arrowWidth * 4
-        // );
+        return new CurvedArrowOutline(
+            start.radius.startRelationship(),
+            end.radius.endRelationship(),
+            length,
+            offset,
+            arrowWidth,
+            arrowWidth * 4,
+            arrowWidth * 4
+        );
     }
 }

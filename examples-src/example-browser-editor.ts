@@ -114,7 +114,7 @@ import {
                 .attr("d", function(d: any) { return d.arrow.outline; } );
         });
 
-    function getGraphName(): string {
+    function getLocalStorageGraphName(): string {
       return `graph-diagram-markup-${graphName}`;
     }
 
@@ -138,14 +138,12 @@ import {
           svg
               .data([graphModel])
               .call(diagram.render);
-
-          updateSvgDownloadLink();
         }
     }
 
     function save( markup: any )
     {
-        localStorage.setItem( getGraphName(), markup );
+        localStorage.setItem( getLocalStorageGraphName(), markup );
         //localStorage.setItem( "graph-diagram-style", select( "link.graph-style" ).attr( "href" ) );
     }
 
@@ -263,7 +261,7 @@ import {
         captionField.node().select();
 
         var propertiesField: any = editor.select("#node_properties");
-        propertiesField.node().value = node.properties.list().reduce(function(previous: string, property: any) {
+        propertiesField.node().value = node.properties.listEditable().reduce(function(previous: string, property: any) {
             return previous + property.key + ": " + property.value + "\n";
         }, "");
 
@@ -314,7 +312,7 @@ import {
         relationshipTypeField.node().select();
 
         var propertiesField: any = editor.select("#relationship_properties");
-        propertiesField.node().value = relationship.properties.list().reduce(function(previous: string, property: any) {
+        propertiesField.node().value = relationship.properties.listEditable().reduce(function(previous: string, property: any) {
             return previous + property.key + ": " + property.value + "\n";
         }, "");
 
@@ -427,9 +425,9 @@ import {
       var x = svgElement.clientWidth / 2;
       var y = svgElement.clientHeight / 2;
 
-      var w = 50,
-      h = 50,
-      s = '#666666',
+      var w = 10,
+      h = 10,
+      s = '#999999',
       so = 0.5,
       sw = '1px';
 
@@ -457,22 +455,23 @@ import {
       } else {
         graphName = "default";
       }
-      if ( !localStorage.getItem( getGraphName() ) )
+      if ( !localStorage.getItem( getLocalStorageGraphName() ) )
       {
-          graphModel = new Model();
+          graphModel = new Model(graphName);
           newNode = graphModel.createNode();
           newNode.x = svgElement.clientWidth / 2;
-          newNode.y = svgElement.clientWidth / 2;
+          newNode.y = svgElement.clientHeight / 2;
           save( formatMarkup() );
+      } else {
+          graphModel = parseMarkup( localStorage.getItem( getLocalStorageGraphName() ) );
       }
 
-      graphModel = parseMarkup( localStorage.getItem( getGraphName() ) );
       draw();
     }
 
     var resetGraph = function()
     {
-      graphModel = new Model();
+      graphModel = new Model(graphName);
       newNode = graphModel.createNode();
       var svgElement = document.getElementById('svgElement')
       newNode.x = svgElement.clientWidth / 2;
@@ -491,7 +490,7 @@ import {
     {
         var container: any = select( "body" ).append( "div" );
         container.node().innerHTML = markup;
-        var model = Markup.parse( container.select("ul.graph-diagram-markup") );
+        var model = Markup.parse( container.select("ul.graph-diagram-markup"), graphName );
         container.remove();
         return model;
     }
@@ -508,11 +507,12 @@ import {
 
     select( "#save_markup" ).on( "click", useMarkupFromMarkupEditor );
 
-    function updateSvgDownloadLink() {
+    select("#downloadSvgButton").on( "click", (() => {
         var temp: any = select("#svgContainer svg").node();
-      var rawSvg: any = new XMLSerializer().serializeToString(temp);
-      select("#downloadSvgButton").attr('href', "data:image/svg+xml;base64," + btoa( rawSvg ));
-    }
+        var rawSvg: any = new XMLSerializer().serializeToString(temp);
+        select("#downloadSvgButton").attr('href', "data:image/svg+xml;base64," + btoa( rawSvg ));
+    }));
+
 
     var openConsoleWithCypher = function (evt: any)
     {

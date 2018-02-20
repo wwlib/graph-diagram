@@ -22,6 +22,7 @@ export default class Model {
         snapTolerance: 20
     };
 
+    private _id: string;
     private _internalScale: number = 1;
     private _externalScale: number = 1;
 /*
@@ -54,7 +55,10 @@ export default class Model {
         border: 1px solid rgba(0, 0, 0, 0.5);
     }
 */
-    constructor() {
+    constructor(id?: string) {
+        if (id) {
+          this._id = id;
+        }
         this.stylePrototype = {
             node: new SimpleStyle({
                 'min-width': '30px',
@@ -194,6 +198,14 @@ export default class Model {
         }
         return d3.values(groups);
     };
+
+    set id(id: string) {
+      this._id = id;
+    }
+
+    get id(): string {
+      return this._id;
+    }
 
     set internalScale(newScale: number) {
         this._internalScale = newScale; //NOTE parseFloat(newScale);
