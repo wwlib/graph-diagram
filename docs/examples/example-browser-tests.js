@@ -60,23 +60,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-module.exports = d3;
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const d3 = __webpack_require__(0);
+const d3 = __webpack_require__(1);
 class GraphDiagram {
     static parsePixels(fontSize) {
         let result = 0;
@@ -100,11 +94,18 @@ class GraphDiagram {
         return context.measureText(text).width;
     }
     static hasProperties(entity) {
-        return entity.model.properties.list().length > 0;
+        return entity.model.properties.list({ exclude: [GraphDiagram.MODEL_ID_KEY] }).length > 0;
     }
 }
+GraphDiagram.MODEL_ID_KEY = 'GRAPH-ID';
 exports.default = GraphDiagram;
 
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = d3;
 
 /***/ }),
 /* 2 */
@@ -296,10 +297,10 @@ exports.default = Bubble;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const GraphDiagram_1 = __webpack_require__(1);
+const GraphDiagram_1 = __webpack_require__(0);
 const LayoutEntity_1 = __webpack_require__(3);
-const NodeSpeechBubble_1 = __webpack_require__(18);
-const Radius_1 = __webpack_require__(19);
+const NodeSpeechBubble_1 = __webpack_require__(19);
+const Radius_1 = __webpack_require__(20);
 class LayoutNode extends LayoutEntity_1.default {
     constructor(graphNode) {
         super(graphNode);
@@ -377,7 +378,106 @@ exports.default = LayoutNode;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const GraphDiagram_1 = __webpack_require__(1);
+class CurvedArrowOutline {
+    constructor(startRadius, endRadius, endCentre, minOffset, arrowWidth, headWidth, headLength) {
+        this.startRadius = startRadius;
+        this.endRadius = endRadius;
+        this.endCentre = endCentre;
+        this.minOffset = minOffset;
+        this.arrowWidth = arrowWidth;
+        this.headWidth = headWidth;
+        this.headLength = headLength;
+        this.radiusRatio = startRadius / (endRadius + headLength);
+        this.homotheticCenter = -endCentre * this.radiusRatio / (1 - this.radiusRatio);
+        if (endRadius + headLength > startRadius) {
+            this.offsetAngle = minOffset / startRadius;
+            this.startAttach = {
+                x: Math.cos(this.offsetAngle) * (startRadius),
+                y: Math.sin(this.offsetAngle) * (startRadius)
+            };
+            this.endAttach = this.intersectWithOtherCircle(this.startAttach, endRadius + headLength, endCentre, -1);
+        }
+        else {
+            this.offsetAngle = minOffset / endRadius;
+            this.endAttach = {
+                x: endCentre - Math.cos(this.offsetAngle) * (endRadius + headLength),
+                y: Math.sin(this.offsetAngle) * (endRadius + headLength)
+            };
+            this.startAttach = this.intersectWithOtherCircle(this.endAttach, startRadius, 0, 1);
+        }
+        this.g1 = -this.startAttach.x / this.startAttach.y,
+            this.c1 = this.startAttach.y + (this.square(this.startAttach.x) / this.startAttach.y),
+            this.g2 = -(this.endAttach.x - this.endCentre) / this.endAttach.y,
+            this.c2 = this.endAttach.y + (this.endAttach.x - this.endCentre) * this.endAttach.x / this.endAttach.y;
+        this.cx = (this.c1 - this.c2) / (this.g2 - this.g1);
+        this.cy = this.g1 * this.cx + this.c1;
+        this.arcRadius = Math.sqrt(this.square(this.cx - this.startAttach.x) + this.square(this.cy - this.startAttach.y));
+        this.shaftRadius = this.arrowWidth / 2;
+        this.headRadius = this.headWidth / 2;
+        this.outline = [
+            "M", this.startTangent(-this.shaftRadius),
+            "L", this.startTangent(this.shaftRadius),
+            "A", this.arcRadius - this.shaftRadius, this.arcRadius - this.shaftRadius, 0, 0, minOffset > 0 ? 0 : 1, this.endTangent(-this.shaftRadius),
+            "L", this.endTangent(-this.headRadius),
+            "L", this.endNormal(headLength),
+            "L", this.endTangent(this.headRadius),
+            "L", this.endTangent(this.shaftRadius),
+            "A", this.arcRadius + this.shaftRadius, this.arcRadius + this.shaftRadius, 0, 0, minOffset < 0 ? 0 : 1, this.startTangent(-this.shaftRadius)
+        ].join(" ");
+        this.apex = {
+            x: this.cx,
+            y: this.cy > 0 ? this.cy - this.arcRadius : this.cy + this.arcRadius
+        };
+    }
+    square(l) {
+        return l * l;
+    }
+    intersectWithOtherCircle(fixedPoint, radius, xCenter, polarity) {
+        var gradient = fixedPoint.y / (fixedPoint.x - this.homotheticCenter);
+        var hc = fixedPoint.y - gradient * fixedPoint.x;
+        var A = 1 + this.square(gradient);
+        var B = 2 * (gradient * hc - xCenter);
+        var C = this.square(hc) + this.square(xCenter) - this.square(radius);
+        var intersection = { x: (-B + polarity * Math.sqrt(this.square(B) - 4 * A * C)) / (2 * A) };
+        intersection.y = (intersection.x - this.homotheticCenter) * gradient;
+        return intersection;
+    }
+    startTangent(dr) {
+        var dx = (dr < 0 ? -1 : 1) * Math.sqrt(this.square(dr) / (1 + this.square(this.g1)));
+        var dy = this.g1 * dx;
+        return [
+            this.startAttach.x + dx,
+            this.startAttach.y + dy
+        ].join(",");
+    }
+    endTangent(dr) {
+        var dx = (dr < 0 ? -1 : 1) * Math.sqrt(this.square(dr) / (1 + this.square(this.g2)));
+        var dy = this.g2 * dx;
+        return [
+            this.endAttach.x + dx,
+            this.endAttach.y + dy
+        ].join(",");
+    }
+    endNormal(dc) {
+        var dx = (dc < 0 ? -1 : 1) * Math.sqrt(this.square(dc) / (1 + this.square(1 / this.g2)));
+        var dy = dx / this.g2;
+        return [
+            this.endAttach.x + dx,
+            this.endAttach.y - dy
+        ].join(",");
+    }
+}
+exports.default = CurvedArrowOutline;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const GraphDiagram_1 = __webpack_require__(0);
 // export type ViewDimensions = {
 //     width: number;
 //     height: number;
@@ -548,16 +648,16 @@ exports.default = Scaling;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const SimpleStyle_1 = __webpack_require__(2);
-const d3 = __webpack_require__(0);
-const Node_1 = __webpack_require__(8);
-const Relationship_1 = __webpack_require__(11);
+const d3 = __webpack_require__(1);
+const Node_1 = __webpack_require__(9);
+const Relationship_1 = __webpack_require__(12);
 class Model {
     /*
         .graph-diagram-markup {
@@ -589,7 +689,7 @@ class Model {
             border: 1px solid rgba(0, 0, 0, 0.5);
         }
     */
-    constructor() {
+    constructor(id) {
         this.nodes = []; //Map
         this.relationships = [];
         this.highestId = 0;
@@ -605,6 +705,9 @@ class Model {
         };
         this._internalScale = 1;
         this._externalScale = 1;
+        if (id) {
+            this._id = id;
+        }
         this.stylePrototype = {
             node: new SimpleStyle_1.default({
                 'min-width': '30px',
@@ -737,6 +840,12 @@ class Model {
         return d3.values(groups);
     }
     ;
+    set id(id) {
+        this._id = id;
+    }
+    get id() {
+        return this._id;
+    }
     set internalScale(newScale) {
         this._internalScale = newScale; //NOTE parseFloat(newScale);
     }
@@ -757,14 +866,14 @@ exports.default = Model;
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const Entity_1 = __webpack_require__(9);
-const Properties_1 = __webpack_require__(10);
+const Entity_1 = __webpack_require__(10);
+const Properties_1 = __webpack_require__(11);
 const SimpleStyle_1 = __webpack_require__(2);
 class Node extends Entity_1.default {
     constructor(model) {
@@ -879,12 +988,13 @@ exports.default = Node;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+const GraphDiagram_1 = __webpack_require__(0);
 class Entity {
     constructor(model) {
         this.classes = [];
@@ -921,6 +1031,9 @@ class Entity {
         }
     }
     get properties() {
+        if (this.model.id) {
+            this._properties.set(GraphDiagram_1.default.MODEL_ID_KEY, this.model.id);
+        }
         return this._properties;
     }
 }
@@ -928,12 +1041,13 @@ exports.default = Entity;
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+const GraphDiagram_1 = __webpack_require__(0);
 const SimpleStyle_1 = __webpack_require__(2);
 class Properties {
     constructor(stylePrototype) {
@@ -943,17 +1057,23 @@ class Properties {
     style(cssPropertyKey, cssPropertyValue) {
         return this._style.style(cssPropertyKey, cssPropertyValue);
     }
-    list() {
-        // return this.keys.map((key: string) => {
-        //     return { key: key, value: this.values[key] };
-        // });
+    list(options) {
+        let exclude;
+        if (options) {
+            exclude = options.exclude;
+        }
         let result = [];
         this._propertiesMap.forEach((value, key) => {
-            result.push({ key: key, value: value });
+            if (!exclude || exclude.indexOf(key) == -1) {
+                result.push({ key: key, value: value });
+            }
         });
         return result;
     }
     ;
+    listEditable() {
+        return this.list({ exclude: [GraphDiagram_1.default.MODEL_ID_KEY] });
+    }
     toString() {
         return JSON.stringify(this.list());
     }
@@ -981,14 +1101,14 @@ exports.default = Properties;
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const Entity_1 = __webpack_require__(9);
-const Properties_1 = __webpack_require__(10);
+const Entity_1 = __webpack_require__(10);
+const Properties_1 = __webpack_require__(11);
 const SimpleStyle_1 = __webpack_require__(2);
 class Relationship extends Entity_1.default {
     constructor(model, start, end) {
@@ -1015,15 +1135,15 @@ exports.default = Relationship;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 console.log(`graph-diagram: Typescript Browser Tests:`);
-const d3 = __webpack_require__(0);
-const index_1 = __webpack_require__(13);
+const d3 = __webpack_require__(1);
+const index_1 = __webpack_require__(14);
 function compareSvg(expected, actual, report) {
     if (expected.tagName != actual.tagName) {
         report(expected, actual, "Expected <" + expected.tagName + "> got <" + actual.tagName + ">");
@@ -1123,31 +1243,31 @@ d3.selectAll(".example").each(function () {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const GraphDiagram_1 = __webpack_require__(1);
+const GraphDiagram_1 = __webpack_require__(0);
 exports.GraphDiagram = GraphDiagram_1.default;
-const Diagram_1 = __webpack_require__(14);
+const Diagram_1 = __webpack_require__(15);
 exports.Diagram = Diagram_1.default;
-const Markup_1 = __webpack_require__(21);
+const Markup_1 = __webpack_require__(22);
 exports.Markup = Markup_1.default;
-const Model_1 = __webpack_require__(7);
+const Model_1 = __webpack_require__(8);
 exports.Model = Model_1.default;
-const ModelToCypher_1 = __webpack_require__(22);
+const ModelToCypher_1 = __webpack_require__(23);
 exports.ModelToCypher = ModelToCypher_1.default;
-const Node_1 = __webpack_require__(8);
+const Node_1 = __webpack_require__(9);
 exports.Node = Node_1.default;
 const SimpleStyle_1 = __webpack_require__(2);
 exports.SimpleStyle = SimpleStyle_1.default;
-const CurvedArrowOutline_1 = __webpack_require__(23);
+const CurvedArrowOutline_1 = __webpack_require__(6);
 exports.CurvedArrowOutline = CurvedArrowOutline_1.default;
-const Relationship_1 = __webpack_require__(11);
+const Relationship_1 = __webpack_require__(12);
 exports.Relationship = Relationship_1.default;
-const Scaling_1 = __webpack_require__(6);
+const Scaling_1 = __webpack_require__(7);
 exports.Scaling = Scaling_1.default;
 const LayoutModel_1 = __webpack_require__(24);
 exports.LayoutModel = LayoutModel_1.default;
@@ -1156,16 +1276,16 @@ exports.LayoutNode = LayoutNode_1.default;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const d3 = __webpack_require__(0);
-const GraphDiagram_1 = __webpack_require__(1);
-const Layout_1 = __webpack_require__(15);
-const Scaling_1 = __webpack_require__(6);
+const d3 = __webpack_require__(1);
+const GraphDiagram_1 = __webpack_require__(0);
+const Layout_1 = __webpack_require__(16);
+const Scaling_1 = __webpack_require__(7);
 var thiz;
 class Diagram {
     constructor() {
@@ -1430,18 +1550,19 @@ exports.default = Diagram;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const GraphDiagram_1 = __webpack_require__(1);
+const GraphDiagram_1 = __webpack_require__(0);
 //import NodeSpeechBubble from '../bubble/NodeSpeechBubble';
 //import RelationshipSpeechBubble from '../bubble/RelationshipSpeechBubble';
-const LayoutRelationship_1 = __webpack_require__(16);
+const LayoutRelationship_1 = __webpack_require__(17);
 const LayoutNode_1 = __webpack_require__(5);
-const HorizontalArrowOutline_1 = __webpack_require__(20);
+const HorizontalArrowOutline_1 = __webpack_require__(21);
+const CurvedArrowOutline_1 = __webpack_require__(6);
 class Layout {
     constructor(graphModel) {
         this.nodesById = new Map();
@@ -1479,32 +1600,24 @@ class Layout {
     horizontalArrow(relationship, start, end, offset) {
         var length = start.model.distanceTo(end.model);
         var arrowWidth = GraphDiagram_1.default.parsePixels(relationship.style("width"));
-        if (true) {
+        if (offset === 0) {
             return new HorizontalArrowOutline_1.default(start.radius.startRelationship(), (length - end.radius.endRelationship()), arrowWidth);
         }
-        // return new CurvedArrowOutline(
-        //     start.radius.startRelationship(),
-        //     end.radius.endRelationship(),
-        //     length,
-        //     offset,
-        //     arrowWidth,
-        //     arrowWidth * 4,
-        //     arrowWidth * 4
-        // );
+        return new CurvedArrowOutline_1.default(start.radius.startRelationship(), end.radius.endRelationship(), length, offset, arrowWidth, arrowWidth * 4, arrowWidth * 4);
     }
 }
 exports.default = Layout;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const LayoutEntity_1 = __webpack_require__(3);
-const RelationshipSpeechBubble_1 = __webpack_require__(17);
+const RelationshipSpeechBubble_1 = __webpack_require__(18);
 class LayoutRelationship extends LayoutEntity_1.default {
     constructor(graphRelationship, start, end, arrow) {
         super(graphRelationship);
@@ -1519,14 +1632,14 @@ exports.default = LayoutRelationship;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const d3 = __webpack_require__(0);
-const GraphDiagram_1 = __webpack_require__(1);
+const d3 = __webpack_require__(1);
+const GraphDiagram_1 = __webpack_require__(0);
 const Bubble_1 = __webpack_require__(4);
 class RelationshipSpeechBubble extends Bubble_1.default {
     constructor(relationship, apex) {
@@ -1535,15 +1648,15 @@ class RelationshipSpeechBubble extends Bubble_1.default {
         var fontSize = relationship.properties.style("font-size");
         var fontFamily = relationship.properties.style("font-family");
         var orientation = RelationshipSpeechBubble.chooseRelationshipSpeechBubbleOrientation(relationship);
-        var propertyKeysWidth = d3.max(properties.list(), function (property) {
+        var propertyKeysWidth = d3.max(properties.listEditable(), function (property) {
             return GraphDiagram_1.default.measureTextDimensions(property.key + ": ", fontSize, fontFamily);
         });
-        var propertyValuesWidth = d3.max(properties.list(), function (property) {
+        var propertyValuesWidth = d3.max(properties.listEditable(), function (property) {
             return GraphDiagram_1.default.measureTextDimensions(property.value, fontSize, fontFamily);
         });
         var textSize = {
             width: propertyKeysWidth + propertyValuesWidth,
-            height: properties.list().length * GraphDiagram_1.default.parsePixels(properties.style("font-size"))
+            height: properties.listEditable().length * GraphDiagram_1.default.parsePixels(properties.style("font-size"))
         };
         var margin = GraphDiagram_1.default.parsePixels(properties.style("margin"));
         var padding = GraphDiagram_1.default.parsePixels(properties.style("padding"));
@@ -1590,7 +1703,7 @@ class RelationshipSpeechBubble extends Bubble_1.default {
             width: orientation.mirrorX * (textSize.width + (boundingPadding * 2)),
             height: orientation.mirrorY * (textSize.height + (boundingPadding * 2))
         };
-        this.properties = properties.list().map(function (property) {
+        this.properties = properties.listEditable().map(function (property) {
             return {
                 keyText: property.key + ": ",
                 valueText: property.value,
@@ -1640,14 +1753,14 @@ exports.default = RelationshipSpeechBubble;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const d3 = __webpack_require__(0);
-const GraphDiagram_1 = __webpack_require__(1);
+const d3 = __webpack_require__(1);
+const GraphDiagram_1 = __webpack_require__(0);
 const Bubble_1 = __webpack_require__(4);
 class NodeSpeechBubble extends Bubble_1.default {
     constructor(node, radius) {
@@ -1663,15 +1776,15 @@ class NodeSpeechBubble extends Bubble_1.default {
         });
         var orientation = NodeSpeechBubble.chooseNodeSpeechBubbleOrientation(node, relatedNodes);
         var properties = node.properties;
-        var propertyKeysWidth = d3.max(properties.list(), function (property) {
+        var propertyKeysWidth = d3.max(properties.listEditable(), function (property) {
             return GraphDiagram_1.default.measureTextDimensions(property.key + ": ", node.properties.style("font-size"), node.properties.style("font-family"));
         });
-        var propertyValuesWidth = d3.max(properties.list(), function (property) {
+        var propertyValuesWidth = d3.max(properties.listEditable(), function (property) {
             return GraphDiagram_1.default.measureTextDimensions(property.value, node.properties.style("font-size"), node.properties.style("font-family"));
         });
         var textSize = {
             width: parseFloat(propertyKeysWidth) + parseFloat(propertyValuesWidth),
-            height: properties.list().length * GraphDiagram_1.default.parsePixels(properties.style("font-size"))
+            height: properties.listEditable().length * GraphDiagram_1.default.parsePixels(properties.style("font-size"))
         };
         var mirror = "scale(" + orientation.mirrorX + "," + orientation.mirrorY + ") ";
         var margin = GraphDiagram_1.default.parsePixels(properties.style("margin"));
@@ -1711,7 +1824,7 @@ class NodeSpeechBubble extends Bubble_1.default {
             width: orientation.mirrorX * (textSize.width + (boundingPadding * 2)),
             height: orientation.mirrorY * (textSize.height + (boundingPadding * 2))
         };
-        this.properties = properties.list().map(function (property) {
+        this.properties = properties.listEditable().map(function (property) {
             return {
                 keyText: property.key + ": ",
                 valueText: property.value,
@@ -1766,7 +1879,7 @@ exports.default = NodeSpeechBubble;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1822,7 +1935,7 @@ exports.default = Radius;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1854,14 +1967,14 @@ exports.default = HorizontalArrowOutline;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const d3 = __webpack_require__(0);
-const Model_1 = __webpack_require__(7);
+const d3 = __webpack_require__(1);
+const Model_1 = __webpack_require__(8);
 const SimpleStyle_1 = __webpack_require__(2);
 class Markup {
     static parseAll(selection) {
@@ -1894,8 +2007,8 @@ class Markup {
             SimpleStyle_1.default.copyStyles(entity.properties, propertiesMarkup, debug);
         };
     }
-    static parse(selection) {
-        var model = new Model_1.default();
+    static parse(selection, modelId) {
+        var model = new Model_1.default(modelId);
         if (selection.attr("data-internal-scale")) {
             model.internalScale = selection.attr("data-internal-scale");
         }
@@ -1992,7 +2105,7 @@ exports.default = Markup;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2042,105 +2155,6 @@ class ModelToCypher {
     }
 }
 exports.default = ModelToCypher;
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-class CurvedArrowOutline {
-    constructor(startRadius, endRadius, endCentre, minOffset, arrowWidth, headWidth, headLength) {
-        this.startRadius = startRadius;
-        this.endRadius = endRadius;
-        this.endCentre = endCentre;
-        this.minOffset = minOffset;
-        this.arrowWidth = arrowWidth;
-        this.headWidth = headWidth;
-        this.headLength = headLength;
-        this.radiusRatio = startRadius / (endRadius + headLength);
-        this.homotheticCenter = -endCentre * this.radiusRatio / (1 - this.radiusRatio);
-        if (endRadius + headLength > startRadius) {
-            this.offsetAngle = minOffset / startRadius;
-            this.startAttach = {
-                x: Math.cos(this.offsetAngle) * (startRadius),
-                y: Math.sin(this.offsetAngle) * (startRadius)
-            };
-            this.endAttach = this.intersectWithOtherCircle(this.startAttach, endRadius + headLength, endCentre, -1);
-        }
-        else {
-            this.offsetAngle = minOffset / endRadius;
-            this.endAttach = {
-                x: endCentre - Math.cos(this.offsetAngle) * (endRadius + headLength),
-                y: Math.sin(this.offsetAngle) * (endRadius + headLength)
-            };
-            this.startAttach = this.intersectWithOtherCircle(this.endAttach, startRadius, 0, 1);
-        }
-        this.g1 = -this.startAttach.x / this.startAttach.y,
-            this.c1 = this.startAttach.y + (this.square(this.startAttach.x) / this.startAttach.y),
-            this.g2 = -(this.endAttach.x - this.endCentre) / this.endAttach.y,
-            this.c2 = this.endAttach.y + (this.endAttach.x - this.endCentre) * this.endAttach.x / this.endAttach.y;
-        this.cx = (this.c1 - this.c2) / (this.g2 - this.g1);
-        this.cy = this.g1 * this.cx + this.c1;
-        this.arcRadius = Math.sqrt(this.square(this.cx - this.startAttach.x) + this.square(this.cy - this.startAttach.y));
-        this.shaftRadius = this.arrowWidth / 2;
-        this.headRadius = this.headWidth / 2;
-        this.outline = [
-            "M", this.startTangent(-this.shaftRadius),
-            "L", this.startTangent(this.shaftRadius),
-            "A", this.arcRadius - this.shaftRadius, this.arcRadius - this.shaftRadius, 0, 0, minOffset > 0 ? 0 : 1, this.endTangent(-this.shaftRadius),
-            "L", this.endTangent(-this.headRadius),
-            "L", this.endNormal(headLength),
-            "L", this.endTangent(this.headRadius),
-            "L", this.endTangent(this.shaftRadius),
-            "A", this.arcRadius + this.shaftRadius, this.arcRadius + this.shaftRadius, 0, 0, minOffset < 0 ? 0 : 1, this.startTangent(-this.shaftRadius)
-        ].join(" ");
-        this.apex = {
-            x: this.cx,
-            y: this.cy > 0 ? this.cy - this.arcRadius : this.cy + this.arcRadius
-        };
-    }
-    square(l) {
-        return l * l;
-    }
-    intersectWithOtherCircle(fixedPoint, radius, xCenter, polarity) {
-        var gradient = fixedPoint.y / (fixedPoint.x - this.homotheticCenter);
-        var hc = fixedPoint.y - gradient * fixedPoint.x;
-        var A = 1 + this.square(gradient);
-        var B = 2 * (gradient * hc - xCenter);
-        var C = this.square(hc) + this.square(xCenter) - this.square(radius);
-        var intersection = { x: (-B + polarity * Math.sqrt(this.square(B) - 4 * A * C)) / (2 * A) };
-        intersection.y = (intersection.x - this.homotheticCenter) * gradient;
-        return intersection;
-    }
-    startTangent(dr) {
-        var dx = (dr < 0 ? -1 : 1) * Math.sqrt(this.square(dr) / (1 + this.square(this.g1)));
-        var dy = this.g1 * dx;
-        return [
-            this.startAttach.x + dx,
-            this.startAttach.y + dy
-        ].join(",");
-    }
-    endTangent(dr) {
-        var dx = (dr < 0 ? -1 : 1) * Math.sqrt(this.square(dr) / (1 + this.square(this.g2)));
-        var dy = this.g2 * dx;
-        return [
-            this.endAttach.x + dx,
-            this.endAttach.y + dy
-        ].join(",");
-    }
-    endNormal(dc) {
-        var dx = (dc < 0 ? -1 : 1) * Math.sqrt(this.square(dc) / (1 + this.square(1 / this.g2)));
-        var dy = dx / this.g2;
-        return [
-            this.endAttach.x + dx,
-            this.endAttach.y - dy
-        ].join(",");
-    }
-}
-exports.default = CurvedArrowOutline;
 
 
 /***/ }),
