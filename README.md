@@ -7,9 +7,10 @@ In-browser examples of graph-diagram are at: [https://wwlib.github.io/graph-diag
 
 Note: This is a first-pass, straight port. Refactoring and optimization is next.
 
-### npm
+Dependency: graph-diagram requires d3 to be installed
 
-npm install graph-diagram
+### npm
+npm install graph-diagram d3
 
 ### contributing: install, build
 ```
