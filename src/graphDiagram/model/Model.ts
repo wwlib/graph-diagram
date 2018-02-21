@@ -176,16 +176,16 @@ export default class Model {
         return this.relationships;
     };
 
-    groupedRelationshipList(): number[][] {
-        var groups: number[][] = [];
+    groupedRelationshipList(): any {
+        var groups: any = {};
         for (var i = 0; i < this.relationships.length; i++)
         {
             var relationship: Relationship = this.relationships[i];
-            var nodeIds: string[] = [relationship.start.id, relationship.end.id].sort();
-            var group = groups[nodeIds[0], nodeIds[1]];
+            var nodeIds: any = [relationship.start.id, relationship.end.id].sort();
+            var group = groups[nodeIds];
             if (!group)
             {
-                group = groups[nodeIds[0], nodeIds[1]] = [];
+                group = groups[nodeIds] = [];
             }
             if (relationship.start.id < relationship.end.id)
             {

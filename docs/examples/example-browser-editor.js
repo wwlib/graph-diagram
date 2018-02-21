@@ -10691,13 +10691,13 @@ class Model {
     }
     ;
     groupedRelationshipList() {
-        var groups = [];
+        var groups = {};
         for (var i = 0; i < this.relationships.length; i++) {
             var relationship = this.relationships[i];
             var nodeIds = [relationship.start.id, relationship.end.id].sort();
-            var group = groups[nodeIds[0], nodeIds[1]];
+            var group = groups[nodeIds];
             if (!group) {
-                group = groups[nodeIds[0], nodeIds[1]] = [];
+                group = groups[nodeIds] = [];
             }
             if (relationship.start.id < relationship.end.id) {
                 group.push(relationship);
