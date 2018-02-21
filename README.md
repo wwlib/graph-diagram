@@ -16,7 +16,7 @@ Note: This is a first-pass, straight port. Refactoring and optimization is next.
 Dependency: graph-diagram requires d3 to be installed
 
 ### npm
-npm install graph-diagram d3
+`npm install graph-diagram d3`
 
 ### contributing: install, build
 ```
