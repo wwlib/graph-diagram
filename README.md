@@ -3,7 +3,13 @@
 ### About
 graph-diagram is a TypeScript library version of apcjones Arrows project: github.com/apcj/arrows
 
-In-browser examples of graph-diagram are at: [https://wwlib.github.io/graph-diagram/](https://wwlib.github.io/graph-diagram/)
+In-browser examples of graph-diagram are at:
+
+- editor: [https://wwlib.github.io/graph-diagram/examples/example-browser-editor.html?#](https://wwlib.github.io/graph-diagram/examples/example-browser-editor.html?#)
+
+- tests: [https://wwlib.github.io/graph-diagram/examples/example-browser-tests.html?#](https://wwlib.github.io/graph-diagram/examples/example-browser-tests.html?#)
+
+- [https://wwlib.github.io/graph-diagram/](https://wwlib.github.io/graph-diagram/)
 
 Note: This is a first-pass, straight port. Refactoring and optimization is next.
 
@@ -21,20 +27,26 @@ npm run build
 ```
 
 ### in-browser examples
-```
-npm run build:example-browser-tests`
-cd docs/examples
-http-server
-```
-[http://localhost:8080/example-browser-tests.html](http://localhost:8080/example-browser-tests.html)
 
-
+#### in-browser editor:
 ```
 npm run build:example-browser-editor
 cd docs/examples
 http-server
 ```
 [http://localhost:8080/example-browser-editor.html?#](http://localhost:8080/example-browser-editor.html?#)
+
+![alt text](./docs/img/graph-diagram-editor.png)
+
+#### in-browser tests:
+```
+npm run build:example-browser-tests
+cd docs/examples
+http-server
+```
+[http://localhost:8080/example-browser-tests.html](http://localhost:8080/example-browser-tests.html)
+
+![alt text](./docs/img/graph-diagram-tests.png)
 
 ### tests, coverage
 Note: Tests are incomplete

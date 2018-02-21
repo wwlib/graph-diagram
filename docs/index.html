@@ -1,17 +1,80 @@
 <html>
+<head>
+    <title>graph-diagram library</title>
+    <link rel="stylesheet" href="examples/css/bootstrap.css" type="text/css">
+    <style>
+      body {
+        padding: 20px;
+      }
+    </style>
+</head>
 <body>
-  <p>
-    <a href="./examples/example-browser-editor.html?#">
-      <img src= "./img/graph-diagram-editor.png" width="600px"/>
-    </a>
-  </p>
-  <p><a href="./examples/example-browser-editor.html?#">Example Editor</a></p>
 
-  <p>
-    <a href="./examples/example-browser-tests.html?#">
-      <img src= "./img/graph-diagram-tests.png" width="600px"/>
-    </a>
-  </p>
-  <p><a href="./examples/example-browser-tests.html?#">Example Tests</a></p>
+  <h1 id="graphdiagram">graph-diagram</h1>
+
+  <h3 id="about">About</h3>
+
+  <p>graph-diagram is a TypeScript library version of apcjones Arrows project: github.com/apcj/arrows</p>
+
+  <p>In-browser examples of graph-diagram are at:</p>
+
+  <ul>
+  <li><p>editor: <a href="https://wwlib.github.io/graph-diagram/examples/example-browser-editor.html?#">https://wwlib.github.io/graph-diagram/examples/example-browser-editor.html?#</a></p></li>
+
+  <li><p>tests: <a href="https://wwlib.github.io/graph-diagram/examples/example-browser-tests.html?#">https://wwlib.github.io/graph-diagram/examples/example-browser-tests.html?#</a></p></li>
+
+  <li><p><a href="https://wwlib.github.io/graph-diagram/">https://wwlib.github.io/graph-diagram/</a></p></li>
+  </ul>
+
+  <p>Note: This is a first-pass, straight port. Refactoring and optimization is next.</p>
+
+  <p>Dependency: graph-diagram requires d3 to be installed</p>
+
+  <h3 id="npm">npm</h3>
+
+  <p>npm install graph-diagram d3</p>
+
+  <h3 id="contributinginstallbuild">contributing: install, build</h3>
+
+  <pre><code>
+  git clone git@github.com:wwlib/graph-diagram.git
+  cd graph-diagram
+  npm install
+  npm run build
+  </code></pre>
+
+  <h3 id="inbrowserexamples">in-browser examples</h3>
+
+  <h4 id="inbrowsereditor">in-browser editor:</h4>
+
+  <pre><code>
+  npm run build:example-browser-editor
+  cd docs/examples
+  http-server
+  </code></pre>
+
+  <p><a href="http://localhost:8080/example-browser-editor.html?#">http://localhost:8080/example-browser-editor.html?#</a></p>
+
+  <p><img src="./img/graph-diagram-editor.png" alt="alt text" /></p>
+
+  <h4 id="inbrowsertests">in-browser tests:</h4>
+
+  <pre><code>
+  npm run build:example-browser-tests
+  cd docs/examples
+  http-server
+  </code></pre>
+
+  <p><a href="http://localhost:8080/example-browser-tests.html">http://localhost:8080/example-browser-tests.html</a></p>
+
+  <p><img src="./img/graph-diagram-tests.png" alt="alt text" /></p>
+
+  <h3 id="testscoverage">tests, coverage</h3>
+
+  <p>Note: Tests are incomplete</p>
+
+  <p><code>npm run test</code></p>
+
+  <p><code>npm run coverage</code></p>
 </body>
 </html>
