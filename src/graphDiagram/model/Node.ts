@@ -6,6 +6,7 @@ import SimpleStyle from './SimpleStyle';
 export default class Node extends Entity {
     public position: any = {};
     public prototypePosition: any;
+    public radius: number = 25; //TODO get the actual radius, i.e. from LayoutNode
 
     constructor(model: Model) {
         super(model);
