@@ -917,7 +917,7 @@ class GraphDiagram {
         return entity.model.properties.list({ exclude: [GraphDiagram.MODEL_ID_KEY] }).length > 0;
     }
 }
-GraphDiagram.MODEL_ID_KEY = 'GRAPH-ID';
+GraphDiagram.MODEL_ID_KEY = 'MODEL_ID';
 exports.default = GraphDiagram;
 
 
@@ -10748,7 +10748,7 @@ class Node extends Entity_1.default {
     constructor(model) {
         super(model);
         this.position = {};
-        this._type = "node";
+        this._entityType = "node";
         this._properties = new Properties_1.default(model.stylePrototype.nodeProperties);
         this._style = new SimpleStyle_1.default(model.stylePrototype.node);
         this._caption = "";
@@ -10869,7 +10869,7 @@ class Entity {
         this.classes = [];
         this.model = model;
         this._caption = "";
-        this._type = "";
+        this._entityType = "";
     }
     style(cssPropertyKey, cssPropertyValue) {
         return this._style.style(cssPropertyKey, cssPropertyValue);
@@ -10877,11 +10877,11 @@ class Entity {
     class(classesString) {
         if (arguments.length == 1) {
             this.classes = classesString.split(" ").filter((className) => {
-                return className.length > 0 && className != this._type;
+                return className.length > 0 && className != this._entityType;
             });
             return this;
         }
-        return [this._type].concat(this.classes);
+        return [this._entityType].concat(this.classes);
     }
     ;
     set caption(captionText) {
@@ -10982,7 +10982,7 @@ const SimpleStyle_1 = __webpack_require__(23);
 class Relationship extends Entity_1.default {
     constructor(model, start, end) {
         super(model);
-        this._type = "relationship";
+        this._entityType = "relationship";
         this.start = start;
         this.end = end;
         this._properties = new Properties_1.default(model.stylePrototype.relationshipProperties);
@@ -11385,7 +11385,7 @@ function loadGraph() {
         d3_selection_1.select("#graphName").attr("value", graphName);
     }
     if (!localStorage.getItem(getLocalStorageGraphName())) {
-        graphModel = new index_1.Model(graphName);
+        graphModel = new index_1.Model();
         newNode = graphModel.createNode();
         newNode.x = svgElement.clientWidth / 2;
         newNode.y = svgElement.clientHeight / 2;
@@ -11397,7 +11397,7 @@ function loadGraph() {
     draw();
 }
 var resetGraph = function () {
-    graphModel = new index_1.Model(graphName);
+    graphModel = new index_1.Model();
     newNode = graphModel.createNode();
     var svgElement = document.getElementById('svgElement');
     newNode.x = svgElement.clientWidth / 2;
@@ -11412,7 +11412,7 @@ var toggleBubbles = function () {
 function parseMarkup(markup) {
     var container = d3_selection_1.select("body").append("div");
     container.node().innerHTML = markup;
-    var model = index_1.Markup.parse(container.select("ul.graph-diagram-markup"), graphName);
+    var model = index_1.Markup.parse(container.select("ul.graph-diagram-markup"), null);
     container.remove();
     return model;
 }

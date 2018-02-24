@@ -7,7 +7,7 @@ import LayoutRelationship from './layout/LayoutRelationship';
 
 export default class GraphDiagram {
 
-    public static  MODEL_ID_KEY: string = 'GRAPH-ID';
+    public static  MODEL_ID_KEY: string = 'MODEL_ID';
 
     static parsePixels(fontSize: string): number
     {

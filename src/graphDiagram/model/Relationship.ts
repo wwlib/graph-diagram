@@ -11,7 +11,7 @@ export default class Relationship extends Entity {
 
     constructor(model: Model, start: Node, end: Node) {
         super(model);
-        this._type = "relationship";
+        this._entityType = "relationship";
         this.start = start;
         this.end = end;
         this._properties = new Properties(model.stylePrototype.relationshipProperties);

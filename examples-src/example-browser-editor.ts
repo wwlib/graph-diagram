@@ -490,7 +490,7 @@ import {
       }
       if ( !localStorage.getItem( getLocalStorageGraphName() ) )
       {
-          graphModel = new Model(graphName);
+          graphModel = new Model();
           newNode = graphModel.createNode();
           newNode.x = svgElement.clientWidth / 2;
           newNode.y = svgElement.clientHeight / 2;
@@ -504,7 +504,7 @@ import {
 
     var resetGraph = function()
     {
-      graphModel = new Model(graphName);
+      graphModel = new Model();
       newNode = graphModel.createNode();
       var svgElement = document.getElementById('svgElement')
       newNode.x = svgElement.clientWidth / 2;
@@ -523,7 +523,7 @@ import {
     {
         var container: any = select( "body" ).append( "div" );
         container.node().innerHTML = markup;
-        var model = Markup.parse( container.select("ul.graph-diagram-markup"), graphName );
+        var model = Markup.parse( container.select("ul.graph-diagram-markup"), null );
         container.remove();
         return model;
     }

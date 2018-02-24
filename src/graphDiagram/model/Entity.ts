@@ -9,13 +9,13 @@ export default class Entity {
     public classes: string[] = [];
     protected _properties:Properties;
     protected _caption: string;
-    protected _type: string;
+    protected _entityType: string;
     public _style: SimpleStyle;
 
     constructor(model: Model) {
         this.model = model;
         this._caption = "";
-        this._type = "";
+        this._entityType = "";
     }
 
     style(cssPropertyKey?: string, cssPropertyValue?: string): any {
@@ -25,11 +25,11 @@ export default class Entity {
     class(classesString?: string): any {
         if (arguments.length == 1) {
             this.classes = classesString.split(" ").filter((className: string) => {
-                return className.length > 0 && className != this._type;
+                return className.length > 0 && className != this._entityType;
             });
             return this;
         }
-        return [this._type].concat(this.classes);
+        return [this._entityType].concat(this.classes);
     };
 
     set caption(captionText: string) {
