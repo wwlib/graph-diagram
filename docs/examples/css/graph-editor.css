@@ -38,6 +38,7 @@ body {
 .modal.export-markup .modal-body {
     overflow: hidden;
     height: 500px;
+    max-height: 500px;
 }
 
 p.button-row {
