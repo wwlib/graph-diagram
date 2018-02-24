@@ -97,7 +97,7 @@ class GraphDiagram {
         return entity.model.properties.list({ exclude: [GraphDiagram.MODEL_ID_KEY] }).length > 0;
     }
 }
-GraphDiagram.MODEL_ID_KEY = 'GRAPH-ID';
+GraphDiagram.MODEL_ID_KEY = 'MODEL_ID';
 exports.default = GraphDiagram;
 
 
@@ -690,9 +690,10 @@ class Model {
         }
     */
     constructor(id) {
-        this.nodes = []; //Map
-        this.relationships = [];
-        this.highestId = 0;
+        this.nodes = new Map();
+        this.relationships = new Map();
+        this.highestNodeId = 0;
+        this.highestRelationshipId = 0;
         this.parameters = {
             radius: 50,
             nodeStrokeWidth: 8,
@@ -754,9 +755,10 @@ class Model {
     toString() {
         let result = 'Model:\n';
         let obj = {
-            highestId: this.highestId,
-            nodeCount: this.nodes.length,
-            relationshipCount: this.relationships.length,
+            highestNodeId: this.highestNodeId,
+            highestRelationshipId: this.highestRelationshipId,
+            nodeCount: this.nodes.size,
+            relationshipCount: this.relationships.size,
             nodeStylePrototype: this.stylePrototype.node.style(),
         };
         result += JSON.stringify(obj);
@@ -764,71 +766,79 @@ class Model {
     }
     summary() {
         let obj = {
-            highestId: this.highestId,
-            nodeCount: this.nodes.length,
-            relationshipCount: this.relationships.length,
+            highestNodeId: this.highestNodeId,
+            highestRelationshipId: this.highestRelationshipId,
+            nodeCount: this.nodes.size,
+            relationshipCount: this.relationships.size,
             nodePropertiesStylePrototype: this.stylePrototype.nodeProperties.style(),
             relationshipPropertiesStylePrototype: this.stylePrototype.relationshipProperties.style(),
         };
         return obj;
     }
     generateNodeId() {
-        while (this.nodes[this.highestId]) {
-            this.highestId++;
+        while (this.nodes.get(`${this.highestNodeId}`)) {
+            this.highestNodeId++;
         }
-        return `${this.highestId}`;
+        return `${this.highestNodeId}`;
     }
-    createNode(optionalNodeId) {
-        var nodeId = optionalNodeId || this.generateNodeId();
+    createNode(optionalId) {
+        var nodeId = optionalId || this.generateNodeId();
         var node = new Node_1.default(this);
         node.id = nodeId;
-        this.nodes[nodeId] = node;
+        this.nodes.set(nodeId, node);
         return node;
     }
     ;
     deleteNode(node) {
-        this.relationships = this.relationships.filter(function (relationship) {
-            return !(relationship.start === node || relationship.end == node);
+        // this.relationships = this.relationships.filter(function (relationship) {
+        //     return !(relationship.start === node || relationship.end == node);
+        // });
+        this.relationships.forEach((relationship, id, map) => {
+            if ((relationship.start === node) || (relationship.end === node)) {
+                this.relationships.delete(id);
+            }
         });
-        delete this.nodes[node.id];
+        this.nodes.delete(node.id);
     }
     ;
     deleteRelationship(relationship) {
-        this.relationships.splice(this.relationships.indexOf(relationship), 1);
+        //this.relationships.splice(this.relationships.indexOf(relationship), 1);
+        this.relationships.delete(relationship.id);
     }
     ;
-    createRelationship(start, end) {
+    generateRelationshipId() {
+        while (this.relationships.get(`${this.highestRelationshipId}`)) {
+            this.highestRelationshipId++;
+        }
+        return `${this.highestRelationshipId}`;
+    }
+    createRelationship(start, end, optionalId) {
+        var relationshipId = optionalId || this.generateRelationshipId();
         var relationship = new Relationship_1.default(this, start, end);
-        this.relationships.push(relationship);
+        relationship.id = relationshipId;
+        this.relationships.set(relationshipId, relationship);
         return relationship;
     }
     ;
     nodeList() {
-        var list = [];
-        for (var nodeId in this.nodes) {
-            if (this.nodes.hasOwnProperty(nodeId)) {
-                list.push(this.nodes[nodeId]);
-            }
-        }
-        return list;
+        return Array.from(this.nodes.values());
     }
     ;
     lookupNode(nodeId) {
-        return this.nodes[nodeId];
+        return this.nodes.get(`${nodeId}`);
     }
     ;
     relationshipList() {
-        return this.relationships;
+        return Array.from(this.relationships.values());
     }
     ;
     groupedRelationshipList() {
-        var groups = [];
-        for (var i = 0; i < this.relationships.length; i++) {
-            var relationship = this.relationships[i];
+        var groups = {};
+        this.relationships.forEach((relationship, id, map) => {
             var nodeIds = [relationship.start.id, relationship.end.id].sort();
-            var group = groups[nodeIds[0], nodeIds[1]];
+            var group = groups[nodeIds];
             if (!group) {
-                group = groups[nodeIds[0], nodeIds[1]] = [];
+                group = groups[nodeIds] = [];
             }
             if (relationship.start.id < relationship.end.id) {
                 group.push(relationship);
@@ -836,7 +846,7 @@ class Model {
             else {
                 group.splice(0, 0, relationship);
             }
-        }
+        });
         return d3.values(groups);
     }
     ;
@@ -879,7 +889,8 @@ class Node extends Entity_1.default {
     constructor(model) {
         super(model);
         this.position = {};
-        this._type = "node";
+        this.radius = 25; //TODO get the actual radius, i.e. from LayoutNode
+        this._entityType = "node";
         this._properties = new Properties_1.default(model.stylePrototype.nodeProperties);
         this._style = new SimpleStyle_1.default(model.stylePrototype.node);
         this._caption = "";
@@ -1000,7 +1011,7 @@ class Entity {
         this.classes = [];
         this.model = model;
         this._caption = "";
-        this._type = "";
+        this._entityType = "";
     }
     style(cssPropertyKey, cssPropertyValue) {
         return this._style.style(cssPropertyKey, cssPropertyValue);
@@ -1008,11 +1019,11 @@ class Entity {
     class(classesString) {
         if (arguments.length == 1) {
             this.classes = classesString.split(" ").filter((className) => {
-                return className.length > 0 && className != this._type;
+                return className.length > 0 && className != this._entityType;
             });
             return this;
         }
-        return [this._type].concat(this.classes);
+        return [this._entityType].concat(this.classes);
     }
     ;
     set caption(captionText) {
@@ -1113,7 +1124,7 @@ const SimpleStyle_1 = __webpack_require__(2);
 class Relationship extends Entity_1.default {
     constructor(model, start, end) {
         super(model);
-        this._type = "relationship";
+        this._entityType = "relationship";
         this.start = start;
         this.end = end;
         this._properties = new Properties_1.default(model.stylePrototype.relationshipProperties);

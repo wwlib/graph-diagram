@@ -10559,9 +10559,10 @@ class Model {
         }
     */
     constructor(id) {
-        this.nodes = []; //Map
-        this.relationships = [];
-        this.highestId = 0;
+        this.nodes = new Map();
+        this.relationships = new Map();
+        this.highestNodeId = 0;
+        this.highestRelationshipId = 0;
         this.parameters = {
             radius: 50,
             nodeStrokeWidth: 8,
@@ -10623,9 +10624,10 @@ class Model {
     toString() {
         let result = 'Model:\n';
         let obj = {
-            highestId: this.highestId,
-            nodeCount: this.nodes.length,
-            relationshipCount: this.relationships.length,
+            highestNodeId: this.highestNodeId,
+            highestRelationshipId: this.highestRelationshipId,
+            nodeCount: this.nodes.size,
+            relationshipCount: this.relationships.size,
             nodeStylePrototype: this.stylePrototype.node.style(),
         };
         result += JSON.stringify(obj);
@@ -10633,67 +10635,75 @@ class Model {
     }
     summary() {
         let obj = {
-            highestId: this.highestId,
-            nodeCount: this.nodes.length,
-            relationshipCount: this.relationships.length,
+            highestNodeId: this.highestNodeId,
+            highestRelationshipId: this.highestRelationshipId,
+            nodeCount: this.nodes.size,
+            relationshipCount: this.relationships.size,
             nodePropertiesStylePrototype: this.stylePrototype.nodeProperties.style(),
             relationshipPropertiesStylePrototype: this.stylePrototype.relationshipProperties.style(),
         };
         return obj;
     }
     generateNodeId() {
-        while (this.nodes[this.highestId]) {
-            this.highestId++;
+        while (this.nodes.get(`${this.highestNodeId}`)) {
+            this.highestNodeId++;
         }
-        return `${this.highestId}`;
+        return `${this.highestNodeId}`;
     }
-    createNode(optionalNodeId) {
-        var nodeId = optionalNodeId || this.generateNodeId();
+    createNode(optionalId) {
+        var nodeId = optionalId || this.generateNodeId();
         var node = new Node_1.default(this);
         node.id = nodeId;
-        this.nodes[nodeId] = node;
+        this.nodes.set(nodeId, node);
         return node;
     }
     ;
     deleteNode(node) {
-        this.relationships = this.relationships.filter(function (relationship) {
-            return !(relationship.start === node || relationship.end == node);
+        // this.relationships = this.relationships.filter(function (relationship) {
+        //     return !(relationship.start === node || relationship.end == node);
+        // });
+        this.relationships.forEach((relationship, id, map) => {
+            if ((relationship.start === node) || (relationship.end === node)) {
+                this.relationships.delete(id);
+            }
         });
-        delete this.nodes[node.id];
+        this.nodes.delete(node.id);
     }
     ;
     deleteRelationship(relationship) {
-        this.relationships.splice(this.relationships.indexOf(relationship), 1);
+        //this.relationships.splice(this.relationships.indexOf(relationship), 1);
+        this.relationships.delete(relationship.id);
     }
     ;
-    createRelationship(start, end) {
+    generateRelationshipId() {
+        while (this.relationships.get(`${this.highestRelationshipId}`)) {
+            this.highestRelationshipId++;
+        }
+        return `${this.highestRelationshipId}`;
+    }
+    createRelationship(start, end, optionalId) {
+        var relationshipId = optionalId || this.generateRelationshipId();
         var relationship = new Relationship_1.default(this, start, end);
-        this.relationships.push(relationship);
+        relationship.id = relationshipId;
+        this.relationships.set(relationshipId, relationship);
         return relationship;
     }
     ;
     nodeList() {
-        var list = [];
-        for (var nodeId in this.nodes) {
-            if (this.nodes.hasOwnProperty(nodeId)) {
-                list.push(this.nodes[nodeId]);
-            }
-        }
-        return list;
+        return Array.from(this.nodes.values());
     }
     ;
     lookupNode(nodeId) {
-        return this.nodes[nodeId];
+        return this.nodes.get(`${nodeId}`);
     }
     ;
     relationshipList() {
-        return this.relationships;
+        return Array.from(this.relationships.values());
     }
     ;
     groupedRelationshipList() {
         var groups = {};
-        for (var i = 0; i < this.relationships.length; i++) {
-            var relationship = this.relationships[i];
+        this.relationships.forEach((relationship, id, map) => {
             var nodeIds = [relationship.start.id, relationship.end.id].sort();
             var group = groups[nodeIds];
             if (!group) {
@@ -10705,7 +10715,7 @@ class Model {
             else {
                 group.splice(0, 0, relationship);
             }
-        }
+        });
         return d3.values(groups);
     }
     ;
@@ -10748,6 +10758,7 @@ class Node extends Entity_1.default {
     constructor(model) {
         super(model);
         this.position = {};
+        this.radius = 25; //TODO get the actual radius, i.e. from LayoutNode
         this._entityType = "node";
         this._properties = new Properties_1.default(model.stylePrototype.nodeProperties);
         this._style = new SimpleStyle_1.default(model.stylePrototype.node);

@@ -5,9 +5,10 @@ import Relationship from './Relationship';
 
 export default class Model {
 
-    public nodes: any[] = []; //Map
-    public relationships: any[] = [];
-    public highestId: number = 0;
+    public nodes: Map<string, Node> = new Map<string, Node>();
+    public relationships: Map<string, Relationship> = new Map<string, Relationship>();
+    public highestNodeId: number = 0;
+    public highestRelationshipId: number = 0;
 
     public stylePrototype: any;
 
@@ -106,9 +107,10 @@ export default class Model {
     toString(): string {
         let result: string = 'Model:\n';
         let obj: any = {
-            highestId: this.highestId,
-            nodeCount: this.nodes.length,
-            relationshipCount: this.relationships.length,
+            highestNodeId: this.highestNodeId,
+            highestRelationshipId: this.highestRelationshipId,
+            nodeCount: this.nodes.size,
+            relationshipCount: this.relationships.size,
             nodeStylePrototype: this.stylePrototype.node.style(),
         }
         result += JSON.stringify(obj);
@@ -117,9 +119,10 @@ export default class Model {
 
     summary(): any {
         let obj: any = {
-            highestId: this.highestId,
-            nodeCount: this.nodes.length,
-            relationshipCount: this.relationships.length,
+            highestNodeId: this.highestNodeId,
+            highestRelationshipId: this.highestRelationshipId,
+            nodeCount: this.nodes.size,
+            relationshipCount: this.relationships.size,
             nodePropertiesStylePrototype: this.stylePrototype.nodeProperties.style(),
             relationshipPropertiesStylePrototype: this.stylePrototype.relationshipProperties.style(),
         }
@@ -127,60 +130,67 @@ export default class Model {
     }
 
     generateNodeId(): string {
-        while (this.nodes[this.highestId]) {
-            this.highestId++;
+        while (this.nodes.get(`${this.highestNodeId}`)) {
+            this.highestNodeId++;
         }
-        return `${this.highestId}`;
+        return `${this.highestNodeId}`;
     }
 
-    createNode(optionalNodeId?: string): Node {
-        var nodeId: string = optionalNodeId || this.generateNodeId();
+    createNode(optionalId?: string): Node {
+        var nodeId: string = optionalId || this.generateNodeId();
         var node: Node = new Node(this);
         node.id = nodeId;
-        this.nodes[nodeId] = node;
+        this.nodes.set(nodeId, node);
         return node;
     };
 
     deleteNode(node: Node) {
-        this.relationships = this.relationships.filter(function (relationship) {
-            return !(relationship.start === node || relationship.end == node);
+        // this.relationships = this.relationships.filter(function (relationship) {
+        //     return !(relationship.start === node || relationship.end == node);
+        // });
+        this.relationships.forEach((relationship: Relationship, id: string, map) => {
+            if ((relationship.start === node) || (relationship.end === node)) {
+                this.relationships.delete(id)
+            }
         });
-        delete this.nodes[node.id];
+        this.nodes.delete(node.id);
     };
 
-    deleteRelationship(relationship: any) {
-        this.relationships.splice(this.relationships.indexOf(relationship), 1);
+    deleteRelationship(relationship: Relationship) {
+        //this.relationships.splice(this.relationships.indexOf(relationship), 1);
+        this.relationships.delete(relationship.id);
     };
 
-    createRelationship(start: Node, end: Node) {
+    generateRelationshipId(): string {
+        while (this.relationships.get(`${this.highestRelationshipId}`)) {
+            this.highestRelationshipId++;
+        }
+        return `${this.highestRelationshipId}`;
+    }
+
+    createRelationship(start: Node, end: Node, optionalId?: string) {
+        var relationshipId: string = optionalId || this.generateRelationshipId();
         var relationship = new Relationship(this, start, end);
-        this.relationships.push(relationship);
+        relationship.id = relationshipId;
+        this.relationships.set(relationshipId, relationship);
         return relationship;
     };
 
     nodeList(): Node[] {
-        var list: Node[] = [];
-        for (var nodeId in this.nodes) {
-            if (this.nodes.hasOwnProperty(nodeId)) {
-                list.push(this.nodes[nodeId]);
-            }
-        }
-        return list;
+        return Array.from( this.nodes.values() );
     };
 
     lookupNode(nodeId: number): Node {
-        return this.nodes[nodeId];
+        return this.nodes.get(`${nodeId}`);
     };
 
     relationshipList(): Relationship[] {
-        return this.relationships;
+        return Array.from( this.relationships.values() );
     };
 
     groupedRelationshipList(): any {
         var groups: any = {};
-        for (var i = 0; i < this.relationships.length; i++)
-        {
-            var relationship: Relationship = this.relationships[i];
+        this.relationships.forEach((relationship: Relationship, id: string, map) => {
             var nodeIds: any = [relationship.start.id, relationship.end.id].sort();
             var group = groups[nodeIds];
             if (!group)
@@ -195,7 +205,7 @@ export default class Model {
             {
                 group.splice(0, 0, relationship);
             }
-        }
+        });
         return d3.values(groups);
     };
 
