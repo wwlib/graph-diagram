@@ -11022,31 +11022,31 @@ var graphName = "example";
 var exampleMarkup = `
     <ul class="graph-diagram-markup" data-internal-scale="1" data-external-scale="1">
       <li class="node" data-node-id="0" data-x="672" data-y="193.5">
-        <span class="caption">Food</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd></dl></li>
+        <span class="caption">Food</span><dl class="properties"></dl></li>
       <li class="node" data-node-id="1" data-x="672" data-y="370.5">
-        <span class="caption">Pizza</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd><dt>name</dt><dd>Special</dd></dl></li>
+        <span class="caption">Pizza</span><dl class="properties"><dt>name</dt><dd>Special</dd></dl></li>
       <li class="node" data-node-id="2" data-x="802" data-y="545.5">
-        <span class="caption">Topping</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd><dt>name</dt><dd>cheese</dd></dl></li>
+        <span class="caption">Topping</span><dl class="properties"><dt>name</dt><dd>cheese</dd></dl></li>
       <li class="node" data-node-id="3" data-x="599" data-y="566.5">
-        <span class="caption">Topping</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd><dt>name</dt><dd>Pepperoni</dd></dl></li>
+        <span class="caption">Topping</span><dl class="properties"><dt>name</dt><dd>Pepperoni</dd></dl></li>
       <li class="node" data-node-id="4" data-x="439" data-y="449.5">
-        <span class="caption">Topping</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd><dt>name</dt><dd>sausage</dd></dl></li>
+        <span class="caption">Topping</span><dl class="properties"><dt>name</dt><dd>sausage</dd></dl></li>
       <li class="node" data-node-id="5" data-x="894" data-y="391.5">
-        <span class="caption">Crust</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd><dt>name</dt><dd>Deep Dish</dd></dl></li>
+        <span class="caption">Crust</span><dl class="properties"><dt>name</dt><dd>Deep Dish</dd></dl></li>
       <li class="node" data-node-id="6" data-x="488" data-y="258.5">
-        <span class="caption">User</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd><dt>name</dt><dd>Michael</dd></dl></li>
+        <span class="caption">User</span><dl class="properties"><dt>name</dt><dd>Michael</dd></dl></li>
       <li class="relationship" data-from="1" data-to="0">
-        <span class="type">IS_A</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd></dl></li>
+        <span class="type">IS_A</span><dl class="properties"></dl></li>
       <li class="relationship" data-from="1" data-to="2">
-        <span class="type">HAS</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd></dl></li>
+        <span class="type">HAS</span><dl class="properties"></dl></li>
       <li class="relationship" data-from="1" data-to="3">
-        <span class="type">HAS</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd></dl></li>
+        <span class="type">HAS</span><dl class="properties"></dl></li>
       <li class="relationship" data-from="1" data-to="4">
-        <span class="type">HAS</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd></dl></li>
+        <span class="type">HAS</span><dl class="properties"></dl></li>
       <li class="relationship" data-from="6" data-to="1">
-        <span class="type">LIKES</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd></dl></li>
+        <span class="type">LIKES</span><dl class="properties"></dl></li>
       <li class="relationship" data-from="1" data-to="5">
-        <span class="type">HAS</span><dl class="properties"><dt>GRAPH-ID</dt><dd>example</dd></dl></li>
+        <span class="type">HAS</span><dl class="properties"></dl></li>
     </ul>
     `;
 save(exampleMarkup);
