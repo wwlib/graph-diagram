@@ -10758,6 +10758,7 @@ class Node extends Entity_1.default {
     constructor(model) {
         super(model);
         this.position = {};
+        this.radius = 25; //TODO get the actual radius, i.e. from LayoutNode
         this._entityType = "node";
         this._properties = new Properties_1.default(model.stylePrototype.nodeProperties);
         this._style = new SimpleStyle_1.default(model.stylePrototype.node);
