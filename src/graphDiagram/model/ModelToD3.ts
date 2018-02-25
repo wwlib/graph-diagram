@@ -4,20 +4,20 @@ import {
   Relationship
 } from '../..';
 
-import { DataTypes, d3Graph, d3Node, d3Link } from "./DataTypes";
+import { DataTypes, d3Types } from "./DataTypes";
 
 export default class ModelToD3 {
 
   public dataTypes: DataTypes = new DataTypes(); // included to force DataTypes to be included in d.ts
 
-  static convert(model: Model): d3Graph {
-    let graph: d3Graph = {
+  static convert(model: Model): d3Types.d3Graph {
+    let graph:  d3Types.d3Graph = {
       nodes: [],
       links: []
     };
 
     model.nodeList().forEach((node: Node) => {
-        let nodeData: d3Node = {
+        let nodeData:  d3Types.d3Node = {
           id: node.id,
           group: 1,
           properties: node.properties.toJSON(),
@@ -27,7 +27,7 @@ export default class ModelToD3 {
     });
 
     model.relationshipList().forEach((relationship: Relationship) => {
-      let relationshipData: d3Link = {
+      let relationshipData:  d3Types.d3Link = {
           source: relationship.start.id,
           target: relationship.end.id,
           value: 1,
@@ -67,6 +67,7 @@ export default class ModelToD3 {
         let toId = linkData.endNode;
         let newRelationship: Relationship = model.createRelationship(model.lookupNode(fromId), model.lookupNode(toId));
         newRelationship.caption = linkData.type;
+        newRelationship.relationshipType = linkData.type;
         newRelationship.id = linkData.id;
         let properties: any = linkData.properties;
         for (let key in properties) {

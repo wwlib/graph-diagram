@@ -2159,6 +2159,7 @@ class ModelToD3 {
             let toId = linkData.endNode;
             let newRelationship = model.createRelationship(model.lookupNode(fromId), model.lookupNode(toId));
             newRelationship.caption = linkData.type;
+            newRelationship.relationshipType = linkData.type;
             newRelationship.id = linkData.id;
             let properties = linkData.properties;
             for (let key in properties) {
