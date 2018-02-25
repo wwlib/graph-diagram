@@ -18,6 +18,7 @@ import {
   Markup,
   Model,
   ModelToCypher,
+  ModelToD3,
   Node,
   Relationship,
   Scaling,

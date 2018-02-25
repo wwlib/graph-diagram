@@ -20,6 +20,7 @@ var thiz: Diagram;
 
 export default class Diagram {
 
+    public layout: Layout;
     private _overlay: any;
     private _scaling: any;
     private _renderPropertyBubblesFlag: boolean = true;
@@ -330,8 +331,8 @@ export default class Diagram {
         selection.each( function ( model: Model )
         {
             var view = d3.select( this );
-            let layout: Layout = new Layout(model);
-            var layoutModel = layout.layoutModel;
+            thiz.layout = new Layout(model);
+            var layoutModel = thiz.layout.layoutModel;
 
             function layer(name: string)
             {

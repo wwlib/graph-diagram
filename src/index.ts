@@ -4,6 +4,7 @@ import Markup from './graphDiagram/markup/Markup';
 
 import Model from './graphDiagram/model/Model';
 import ModelToCypher from './graphDiagram/model/ModelToCypher';
+import ModelToD3 from './graphDiagram/model/ModelToD3';
 import Node from './graphDiagram/model/Node';
 import SimpleStyle from './graphDiagram/model/SimpleStyle';
 
@@ -19,6 +20,7 @@ export {
   Markup,
   Model,
   ModelToCypher,
+  ModelToD3,
   Node,
   SimpleStyle,
   CurvedArrowOutline,

@@ -6,6 +6,7 @@ import SimpleStyle from './SimpleStyle';
 export default class Entity {
     public model: Model;
     public id: string;
+    public index: number;
     public classes: string[] = [];
     protected _properties:Properties;
     protected _caption: string;
