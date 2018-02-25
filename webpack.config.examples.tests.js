@@ -2,7 +2,7 @@ module.exports = {
     entry: "./examples-src/example-browser-tests.ts",
     output: {
         filename: "example-browser-tests.js",
-        path: __dirname + "/docs/examples"
+        path: __dirname + "/docs/examples/lib"
     },
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
@@ -14,7 +14,7 @@ module.exports = {
     module: {
         rules: [{
             test: /\.tsx?$/,
-            loaders: ['awesome-typescript-loader'],
+            loaders: ['awesome-typescript-loader?configFileName=./tsconfig-examples.json'],
             exclude: /(node_modules)/
         }, {
             enforce: 'pre',

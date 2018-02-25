@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "./docs/examples/lib/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "declaration": false,
+        "module": "commonjs",
+        "target": "es6"
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}
