@@ -7,8 +7,8 @@ export default class Model {
 
     public nodes: Map<string, Node> = new Map<string, Node>();
     public relationships: Map<string, Relationship> = new Map<string, Relationship>();
-    public highestNodeId: number = 0;
-    public highestRelationshipId: number = 0;
+    public highestNodeIndex: number = 0;
+    public highestRelationshipIndex: number = 0;
 
     public stylePrototype: any;
 
@@ -107,8 +107,8 @@ export default class Model {
     toString(): string {
         let result: string = 'Model:\n';
         let obj: any = {
-            highestNodeId: this.highestNodeId,
-            highestRelationshipId: this.highestRelationshipId,
+            highestNodeIndex: this.highestNodeIndex,
+            highestRelationshipIndex: this.highestRelationshipIndex,
             nodeCount: this.nodes.size,
             relationshipCount: this.relationships.size,
             nodeStylePrototype: this.stylePrototype.node.style(),
@@ -119,8 +119,8 @@ export default class Model {
 
     summary(): any {
         let obj: any = {
-            highestNodeId: this.highestNodeId,
-            highestRelationshipId: this.highestRelationshipId,
+            highestNodeIndex: this.highestNodeIndex,
+            highestRelationshipIndex: this.highestRelationshipIndex,
             nodeCount: this.nodes.size,
             relationshipCount: this.relationships.size,
             nodePropertiesStylePrototype: this.stylePrototype.nodeProperties.style(),
@@ -129,16 +129,17 @@ export default class Model {
         return obj
     }
 
-    generateNodeId(): string {
-        while (this.nodes.get(`${this.highestNodeId}`)) {
-            this.highestNodeId++;
-        }
-        return `${this.highestNodeId}`;
+    generateNodeIndex(): number {
+        // while (this.nodes.get(`${this.highestNodeIndex}`)) {
+        //     this.highestNodeIndex++;
+        // }
+        return this.highestNodeIndex++;
     }
 
     createNode(optionalId?: string): Node {
-        var nodeId: string = optionalId || this.generateNodeId();
         var node: Node = new Node(this);
+        node.index = this.generateNodeIndex();
+        var nodeId: string = optionalId || `${node.index}`;
         node.id = nodeId;
         this.nodes.set(nodeId, node);
         return node;
@@ -161,16 +162,17 @@ export default class Model {
         this.relationships.delete(relationship.id);
     };
 
-    generateRelationshipId(): string {
-        while (this.relationships.get(`${this.highestRelationshipId}`)) {
-            this.highestRelationshipId++;
-        }
-        return `${this.highestRelationshipId}`;
+    generateRelationshipIndex(): number {
+        // while (this.relationships.get(`${this.highestRelationshipIndex}`)) {
+        //     this.highestRelationshipIndex++;
+        // }
+        return this.highestRelationshipIndex++;
     }
 
     createRelationship(start: Node, end: Node, optionalId?: string) {
-        var relationshipId: string = optionalId || this.generateRelationshipId();
         var relationship = new Relationship(this, start, end);
+        relationship.index = this.generateRelationshipIndex();
+        var relationshipId: string = optionalId || `${relationship.index }`;
         relationship.id = relationshipId;
         this.relationships.set(relationshipId, relationship);
         return relationship;

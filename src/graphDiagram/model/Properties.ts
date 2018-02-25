@@ -36,6 +36,14 @@ export default class Properties {
       return this.list({exclude: [GraphDiagram.MODEL_ID_KEY]});
     }
 
+    toJSON(): any {
+      let properties: any = {};
+      this.list().forEach((propertyObj: any) => {
+          properties[propertyObj.key] = propertyObj.value;
+      });
+      return properties;
+    }
+
     toString() {
         return JSON.stringify(this.list());
     }

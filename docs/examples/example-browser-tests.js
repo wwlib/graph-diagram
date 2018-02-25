@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -220,6 +220,41 @@ exports.default = SimpleStyle;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+const GraphDiagram_1 = __webpack_require__(0);
+exports.GraphDiagram = GraphDiagram_1.default;
+const Diagram_1 = __webpack_require__(15);
+exports.Diagram = Diagram_1.default;
+const Markup_1 = __webpack_require__(22);
+exports.Markup = Markup_1.default;
+const Model_1 = __webpack_require__(9);
+exports.Model = Model_1.default;
+const ModelToCypher_1 = __webpack_require__(23);
+exports.ModelToCypher = ModelToCypher_1.default;
+const ModelToD3_1 = __webpack_require__(24);
+exports.ModelToD3 = ModelToD3_1.default;
+const Node_1 = __webpack_require__(10);
+exports.Node = Node_1.default;
+const SimpleStyle_1 = __webpack_require__(2);
+exports.SimpleStyle = SimpleStyle_1.default;
+const CurvedArrowOutline_1 = __webpack_require__(7);
+exports.CurvedArrowOutline = CurvedArrowOutline_1.default;
+const Relationship_1 = __webpack_require__(13);
+exports.Relationship = Relationship_1.default;
+const Scaling_1 = __webpack_require__(8);
+exports.Scaling = Scaling_1.default;
+const LayoutModel_1 = __webpack_require__(25);
+exports.LayoutModel = LayoutModel_1.default;
+const LayoutNode_1 = __webpack_require__(6);
+exports.LayoutNode = LayoutNode_1.default;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 class LayoutEntity {
     constructor(entity) {
         this.model = entity;
@@ -230,7 +265,7 @@ exports.default = LayoutEntity;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -291,14 +326,14 @@ exports.default = Bubble;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const GraphDiagram_1 = __webpack_require__(0);
-const LayoutEntity_1 = __webpack_require__(3);
+const LayoutEntity_1 = __webpack_require__(4);
 const NodeSpeechBubble_1 = __webpack_require__(19);
 const Radius_1 = __webpack_require__(20);
 class LayoutNode extends LayoutEntity_1.default {
@@ -372,7 +407,7 @@ exports.default = LayoutNode;
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -471,7 +506,7 @@ exports.default = CurvedArrowOutline;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -648,7 +683,7 @@ exports.default = Scaling;
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -656,8 +691,8 @@ exports.default = Scaling;
 Object.defineProperty(exports, "__esModule", { value: true });
 const SimpleStyle_1 = __webpack_require__(2);
 const d3 = __webpack_require__(1);
-const Node_1 = __webpack_require__(9);
-const Relationship_1 = __webpack_require__(12);
+const Node_1 = __webpack_require__(10);
+const Relationship_1 = __webpack_require__(13);
 class Model {
     /*
         .graph-diagram-markup {
@@ -692,8 +727,8 @@ class Model {
     constructor(id) {
         this.nodes = new Map();
         this.relationships = new Map();
-        this.highestNodeId = 0;
-        this.highestRelationshipId = 0;
+        this.highestNodeIndex = 0;
+        this.highestRelationshipIndex = 0;
         this.parameters = {
             radius: 50,
             nodeStrokeWidth: 8,
@@ -755,8 +790,8 @@ class Model {
     toString() {
         let result = 'Model:\n';
         let obj = {
-            highestNodeId: this.highestNodeId,
-            highestRelationshipId: this.highestRelationshipId,
+            highestNodeIndex: this.highestNodeIndex,
+            highestRelationshipIndex: this.highestRelationshipIndex,
             nodeCount: this.nodes.size,
             relationshipCount: this.relationships.size,
             nodeStylePrototype: this.stylePrototype.node.style(),
@@ -766,8 +801,8 @@ class Model {
     }
     summary() {
         let obj = {
-            highestNodeId: this.highestNodeId,
-            highestRelationshipId: this.highestRelationshipId,
+            highestNodeIndex: this.highestNodeIndex,
+            highestRelationshipIndex: this.highestRelationshipIndex,
             nodeCount: this.nodes.size,
             relationshipCount: this.relationships.size,
             nodePropertiesStylePrototype: this.stylePrototype.nodeProperties.style(),
@@ -775,15 +810,16 @@ class Model {
         };
         return obj;
     }
-    generateNodeId() {
-        while (this.nodes.get(`${this.highestNodeId}`)) {
-            this.highestNodeId++;
-        }
-        return `${this.highestNodeId}`;
+    generateNodeIndex() {
+        // while (this.nodes.get(`${this.highestNodeIndex}`)) {
+        //     this.highestNodeIndex++;
+        // }
+        return this.highestNodeIndex++;
     }
     createNode(optionalId) {
-        var nodeId = optionalId || this.generateNodeId();
         var node = new Node_1.default(this);
+        node.index = this.generateNodeIndex();
+        var nodeId = optionalId || `${node.index}`;
         node.id = nodeId;
         this.nodes.set(nodeId, node);
         return node;
@@ -806,15 +842,16 @@ class Model {
         this.relationships.delete(relationship.id);
     }
     ;
-    generateRelationshipId() {
-        while (this.relationships.get(`${this.highestRelationshipId}`)) {
-            this.highestRelationshipId++;
-        }
-        return `${this.highestRelationshipId}`;
+    generateRelationshipIndex() {
+        // while (this.relationships.get(`${this.highestRelationshipIndex}`)) {
+        //     this.highestRelationshipIndex++;
+        // }
+        return this.highestRelationshipIndex++;
     }
     createRelationship(start, end, optionalId) {
-        var relationshipId = optionalId || this.generateRelationshipId();
         var relationship = new Relationship_1.default(this, start, end);
+        relationship.index = this.generateRelationshipIndex();
+        var relationshipId = optionalId || `${relationship.index}`;
         relationship.id = relationshipId;
         this.relationships.set(relationshipId, relationship);
         return relationship;
@@ -876,14 +913,14 @@ exports.default = Model;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const Entity_1 = __webpack_require__(10);
-const Properties_1 = __webpack_require__(11);
+const Entity_1 = __webpack_require__(11);
+const Properties_1 = __webpack_require__(12);
 const SimpleStyle_1 = __webpack_require__(2);
 class Node extends Entity_1.default {
     constructor(model) {
@@ -999,7 +1036,7 @@ exports.default = Node;
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1052,7 +1089,7 @@ exports.default = Entity;
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1085,6 +1122,13 @@ class Properties {
     listEditable() {
         return this.list({ exclude: [GraphDiagram_1.default.MODEL_ID_KEY] });
     }
+    toJSON() {
+        let properties = {};
+        this.list().forEach((propertyObj) => {
+            properties[propertyObj.key] = propertyObj.value;
+        });
+        return properties;
+    }
     toString() {
         return JSON.stringify(this.list());
     }
@@ -1112,14 +1156,14 @@ exports.default = Properties;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const Entity_1 = __webpack_require__(10);
-const Properties_1 = __webpack_require__(11);
+const Entity_1 = __webpack_require__(11);
+const Properties_1 = __webpack_require__(12);
 const SimpleStyle_1 = __webpack_require__(2);
 class Relationship extends Entity_1.default {
     constructor(model, start, end) {
@@ -1146,7 +1190,7 @@ exports.default = Relationship;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1154,7 +1198,7 @@ exports.default = Relationship;
 Object.defineProperty(exports, "__esModule", { value: true });
 console.log(`graph-diagram: Typescript Browser Tests:`);
 const d3 = __webpack_require__(1);
-const index_1 = __webpack_require__(14);
+const index_1 = __webpack_require__(3);
 function compareSvg(expected, actual, report) {
     if (expected.tagName != actual.tagName) {
         report(expected, actual, "Expected <" + expected.tagName + "> got <" + actual.tagName + ">");
@@ -1254,39 +1298,6 @@ d3.selectAll(".example").each(function () {
 
 
 /***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const GraphDiagram_1 = __webpack_require__(0);
-exports.GraphDiagram = GraphDiagram_1.default;
-const Diagram_1 = __webpack_require__(15);
-exports.Diagram = Diagram_1.default;
-const Markup_1 = __webpack_require__(22);
-exports.Markup = Markup_1.default;
-const Model_1 = __webpack_require__(8);
-exports.Model = Model_1.default;
-const ModelToCypher_1 = __webpack_require__(23);
-exports.ModelToCypher = ModelToCypher_1.default;
-const Node_1 = __webpack_require__(9);
-exports.Node = Node_1.default;
-const SimpleStyle_1 = __webpack_require__(2);
-exports.SimpleStyle = SimpleStyle_1.default;
-const CurvedArrowOutline_1 = __webpack_require__(6);
-exports.CurvedArrowOutline = CurvedArrowOutline_1.default;
-const Relationship_1 = __webpack_require__(12);
-exports.Relationship = Relationship_1.default;
-const Scaling_1 = __webpack_require__(7);
-exports.Scaling = Scaling_1.default;
-const LayoutModel_1 = __webpack_require__(24);
-exports.LayoutModel = LayoutModel_1.default;
-const LayoutNode_1 = __webpack_require__(5);
-exports.LayoutNode = LayoutNode_1.default;
-
-
-/***/ }),
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1296,7 +1307,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const d3 = __webpack_require__(1);
 const GraphDiagram_1 = __webpack_require__(0);
 const Layout_1 = __webpack_require__(16);
-const Scaling_1 = __webpack_require__(7);
+const Scaling_1 = __webpack_require__(8);
 var thiz;
 class Diagram {
     constructor() {
@@ -1535,8 +1546,8 @@ class Diagram {
     render(selection) {
         selection.each(function (model) {
             var view = d3.select(this);
-            let layout = new Layout_1.default(model);
-            var layoutModel = layout.layoutModel;
+            thiz.layout = new Layout_1.default(model);
+            var layoutModel = thiz.layout.layoutModel;
             function layer(name) {
                 var layer = view.selectAll("g.layer." + name).data([name]);
                 var layerEnter = layer.enter().append("g")
@@ -1571,9 +1582,9 @@ const GraphDiagram_1 = __webpack_require__(0);
 //import NodeSpeechBubble from '../bubble/NodeSpeechBubble';
 //import RelationshipSpeechBubble from '../bubble/RelationshipSpeechBubble';
 const LayoutRelationship_1 = __webpack_require__(17);
-const LayoutNode_1 = __webpack_require__(5);
+const LayoutNode_1 = __webpack_require__(6);
 const HorizontalArrowOutline_1 = __webpack_require__(21);
-const CurvedArrowOutline_1 = __webpack_require__(6);
+const CurvedArrowOutline_1 = __webpack_require__(7);
 class Layout {
     constructor(graphModel) {
         this.nodesById = new Map();
@@ -1627,7 +1638,7 @@ exports.default = Layout;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const LayoutEntity_1 = __webpack_require__(3);
+const LayoutEntity_1 = __webpack_require__(4);
 const RelationshipSpeechBubble_1 = __webpack_require__(18);
 class LayoutRelationship extends LayoutEntity_1.default {
     constructor(graphRelationship, start, end, arrow) {
@@ -1651,7 +1662,7 @@ exports.default = LayoutRelationship;
 Object.defineProperty(exports, "__esModule", { value: true });
 const d3 = __webpack_require__(1);
 const GraphDiagram_1 = __webpack_require__(0);
-const Bubble_1 = __webpack_require__(4);
+const Bubble_1 = __webpack_require__(5);
 class RelationshipSpeechBubble extends Bubble_1.default {
     constructor(relationship, apex) {
         super(relationship);
@@ -1772,7 +1783,7 @@ exports.default = RelationshipSpeechBubble;
 Object.defineProperty(exports, "__esModule", { value: true });
 const d3 = __webpack_require__(1);
 const GraphDiagram_1 = __webpack_require__(0);
-const Bubble_1 = __webpack_require__(4);
+const Bubble_1 = __webpack_require__(5);
 class NodeSpeechBubble extends Bubble_1.default {
     constructor(node, radius) {
         super(node);
@@ -1985,7 +1996,7 @@ exports.default = HorizontalArrowOutline;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const d3 = __webpack_require__(1);
-const Model_1 = __webpack_require__(8);
+const Model_1 = __webpack_require__(9);
 const SimpleStyle_1 = __webpack_require__(2);
 class Markup {
     static parseAll(selection) {
@@ -2170,6 +2181,80 @@ exports.default = ModelToCypher;
 
 /***/ }),
 /* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const __1 = __webpack_require__(3);
+class ModelToD3 {
+    static convert(model) {
+        let graph = {
+            nodes: [],
+            links: []
+        };
+        model.nodeList().forEach((node) => {
+            let nodeData = {
+                id: node.id,
+                group: 1,
+                properties: node.properties.toJSON(),
+                labels: [node.caption]
+            };
+            graph.nodes.push(nodeData);
+        });
+        model.relationshipList().forEach((relationship) => {
+            let relationshipData = {
+                source: relationship.start.id,
+                target: relationship.end.id,
+                value: 1,
+                id: relationship.id,
+                type: relationship.caption,
+                startNode: relationship.start.id,
+                endNode: relationship.end.id,
+                properties: relationship.properties.toJSON(),
+                linknum: 1
+            };
+            graph.links.push(relationshipData);
+        });
+        return graph;
+    }
+    static parseD3(data, modelId, origin) {
+        var model = new __1.Model(modelId);
+        data.nodes.forEach((nodeData) => {
+            let newNode = model.createNode(nodeData.id);
+            if (origin) {
+                newNode.x = origin.x;
+                newNode.y = origin.y;
+            }
+            newNode.caption = nodeData.labels[0];
+            let properties = nodeData.properties;
+            for (let key in properties) {
+                if (properties.hasOwnProperty(key)) {
+                    newNode.properties.set(key, properties[key]);
+                }
+            }
+        });
+        data.links.forEach((linkData) => {
+            let fromId = linkData.startNode;
+            let toId = linkData.endNode;
+            let newRelationship = model.createRelationship(model.lookupNode(fromId), model.lookupNode(toId));
+            newRelationship.caption = linkData.type;
+            newRelationship.id = linkData.id;
+            let properties = linkData.properties;
+            for (let key in properties) {
+                if (properties.hasOwnProperty(key)) {
+                    newRelationship.properties.set(key, properties[key]);
+                }
+            }
+        });
+        return model;
+    }
+}
+exports.default = ModelToD3;
+
+
+/***/ }),
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
