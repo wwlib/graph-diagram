@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "webpack || echo not ok",
+    "build": "npm run clean && webpack || echo not ok",
+    "clean": "rimraf dist",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "coverage": "npm test -- --coverage --no-cache",
@@ -36,6 +37,7 @@
     "awesome-typescript-loader": "^3.4.1",
     "d3": "^4.13.0",
     "jest": "^22.2.1",
+    "rimraf": "^2.6.2",
     "source-map-loader": "^0.2.3",
     "ts-jest": "^22.0.3",
     "typescript": "^2.7.1",

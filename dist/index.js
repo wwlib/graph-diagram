@@ -232,15 +232,15 @@ exports.default = SimpleStyle;
 Object.defineProperty(exports, "__esModule", { value: true });
 const GraphDiagram_1 = __webpack_require__(0);
 exports.GraphDiagram = GraphDiagram_1.default;
-const Diagram_1 = __webpack_require__(14);
+const Diagram_1 = __webpack_require__(15);
 exports.Diagram = Diagram_1.default;
-const Markup_1 = __webpack_require__(21);
+const Markup_1 = __webpack_require__(22);
 exports.Markup = Markup_1.default;
 const Model_1 = __webpack_require__(9);
 exports.Model = Model_1.default;
-const ModelToCypher_1 = __webpack_require__(22);
+const ModelToCypher_1 = __webpack_require__(23);
 exports.ModelToCypher = ModelToCypher_1.default;
-const ModelToD3_1 = __webpack_require__(23);
+const ModelToD3_1 = __webpack_require__(24);
 exports.ModelToD3 = ModelToD3_1.default;
 const Node_1 = __webpack_require__(10);
 exports.Node = Node_1.default;
@@ -252,10 +252,12 @@ const Relationship_1 = __webpack_require__(13);
 exports.Relationship = Relationship_1.default;
 const Scaling_1 = __webpack_require__(8);
 exports.Scaling = Scaling_1.default;
-const LayoutModel_1 = __webpack_require__(24);
+const LayoutModel_1 = __webpack_require__(25);
 exports.LayoutModel = LayoutModel_1.default;
 const LayoutNode_1 = __webpack_require__(6);
 exports.LayoutNode = LayoutNode_1.default;
+const DataTypes_1 = __webpack_require__(14);
+exports.DataTypes = DataTypes_1.DataTypes;
 
 
 /***/ }),
@@ -344,8 +346,8 @@ exports.default = Bubble;
 Object.defineProperty(exports, "__esModule", { value: true });
 const GraphDiagram_1 = __webpack_require__(0);
 const LayoutEntity_1 = __webpack_require__(4);
-const NodeSpeechBubble_1 = __webpack_require__(18);
-const Radius_1 = __webpack_require__(19);
+const NodeSpeechBubble_1 = __webpack_require__(19);
+const Radius_1 = __webpack_require__(20);
 class LayoutNode extends LayoutEntity_1.default {
     constructor(graphNode) {
         super(graphNode);
@@ -1206,9 +1208,21 @@ exports.default = Relationship;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+class DataTypes {
+}
+exports.DataTypes = DataTypes;
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 const d3 = __webpack_require__(1);
 const GraphDiagram_1 = __webpack_require__(0);
-const Layout_1 = __webpack_require__(15);
+const Layout_1 = __webpack_require__(16);
 const Scaling_1 = __webpack_require__(8);
 var thiz;
 class Diagram {
@@ -1474,7 +1488,7 @@ exports.default = Diagram;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1483,9 +1497,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const GraphDiagram_1 = __webpack_require__(0);
 //import NodeSpeechBubble from '../bubble/NodeSpeechBubble';
 //import RelationshipSpeechBubble from '../bubble/RelationshipSpeechBubble';
-const LayoutRelationship_1 = __webpack_require__(16);
+const LayoutRelationship_1 = __webpack_require__(17);
 const LayoutNode_1 = __webpack_require__(6);
-const HorizontalArrowOutline_1 = __webpack_require__(20);
+const HorizontalArrowOutline_1 = __webpack_require__(21);
 const CurvedArrowOutline_1 = __webpack_require__(7);
 class Layout {
     constructor(graphModel) {
@@ -1534,14 +1548,14 @@ exports.default = Layout;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const LayoutEntity_1 = __webpack_require__(4);
-const RelationshipSpeechBubble_1 = __webpack_require__(17);
+const RelationshipSpeechBubble_1 = __webpack_require__(18);
 class LayoutRelationship extends LayoutEntity_1.default {
     constructor(graphRelationship, start, end, arrow) {
         super(graphRelationship);
@@ -1556,7 +1570,7 @@ exports.default = LayoutRelationship;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1677,7 +1691,7 @@ exports.default = RelationshipSpeechBubble;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1803,7 +1817,7 @@ exports.default = NodeSpeechBubble;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1859,7 +1873,7 @@ exports.default = Radius;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1891,7 +1905,7 @@ exports.default = HorizontalArrowOutline;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2029,7 +2043,7 @@ exports.default = Markup;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2082,14 +2096,18 @@ exports.default = ModelToCypher;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const __1 = __webpack_require__(3);
+const DataTypes_1 = __webpack_require__(14);
 class ModelToD3 {
+    constructor() {
+        this.dataTypes = new DataTypes_1.DataTypes(); // included to force DataTypes to be included in d.ts
+    }
     static convert(model) {
         let graph = {
             nodes: [],
@@ -2156,7 +2174,7 @@ exports.default = ModelToD3;
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

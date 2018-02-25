@@ -1,7 +1,8 @@
 import { Model } from '../..';
-import { d3Types } from "../d3/d3Types";
+import { DataTypes, d3Graph } from "./DataTypes";
 export default class ModelToD3 {
-    static convert(model: Model): d3Types.d3Graph;
+    dataTypes: DataTypes;
+    static convert(model: Model): d3Graph;
     static parseD3(data: any, modelId?: string, origin?: {
         x: number;
         y: number;
