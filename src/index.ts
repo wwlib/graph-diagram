@@ -13,6 +13,7 @@ import Relationship from './graphDiagram/model/Relationship';
 import Scaling from './graphDiagram/scaling/Scaling';
 import LayoutModel from './graphDiagram/layout/LayoutModel';
 import LayoutNode from './graphDiagram/layout/LayoutNode';
+import LayoutRelationship from './graphDiagram/layout/LayoutRelationship';
 
 import { DataTypes,  d3Types } from "./graphDiagram/model/DataTypes";
 
@@ -30,5 +31,6 @@ export {
   Scaling,
   LayoutModel,
   LayoutNode,
+  LayoutRelationship,
   DataTypes,  d3Types
 }
