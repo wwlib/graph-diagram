@@ -11,6 +11,7 @@ import SimpleStyle from './graphDiagram/model/SimpleStyle';
 import CurvedArrowOutline from './graphDiagram/arrow/CurvedArrowOutline';
 import Relationship from './graphDiagram/model/Relationship';
 import Scaling from './graphDiagram/scaling/Scaling';
+import Layout from './graphDiagram/layout/Layout';
 import LayoutModel from './graphDiagram/layout/LayoutModel';
 import LayoutNode from './graphDiagram/layout/LayoutNode';
 import LayoutRelationship from './graphDiagram/layout/LayoutRelationship';
@@ -29,6 +30,7 @@ export {
   CurvedArrowOutline,
   Relationship,
   Scaling,
+  Layout,
   LayoutModel,
   LayoutNode,
   LayoutRelationship,
