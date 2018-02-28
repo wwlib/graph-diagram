@@ -899,10 +899,10 @@ class Model {
         return obj;
     }
     generateNodeIndex() {
-        // while (this.nodes.get(`${this.highestNodeIndex}`)) {
-        //     this.highestNodeIndex++;
-        // }
-        return this.highestNodeIndex++;
+        while (this.nodes.get(`${this.highestNodeIndex}`)) {
+            this.highestNodeIndex++;
+        }
+        return this.highestNodeIndex;
     }
     createNode(optionalId) {
         var node = new Node_1.default(this);
@@ -931,9 +931,9 @@ class Model {
     }
     ;
     generateRelationshipIndex() {
-        // while (this.relationships.get(`${this.highestRelationshipIndex}`)) {
-        //     this.highestRelationshipIndex++;
-        // }
+        while (this.relationships.get(`${this.highestRelationshipIndex}`)) {
+            this.highestRelationshipIndex++;
+        }
         return this.highestRelationshipIndex++;
     }
     createRelationship(start, end, optionalId) {

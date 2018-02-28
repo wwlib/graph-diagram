@@ -130,10 +130,10 @@ export default class Model {
     }
 
     generateNodeIndex(): number {
-        // while (this.nodes.get(`${this.highestNodeIndex}`)) {
-        //     this.highestNodeIndex++;
-        // }
-        return this.highestNodeIndex++;
+        while (this.nodes.get(`${this.highestNodeIndex}`)) {
+            this.highestNodeIndex++;
+        }
+        return this.highestNodeIndex;
     }
 
     createNode(optionalId?: string): Node {
@@ -163,10 +163,10 @@ export default class Model {
     };
 
     generateRelationshipIndex(): number {
-        // while (this.relationships.get(`${this.highestRelationshipIndex}`)) {
-        //     this.highestRelationshipIndex++;
-        // }
-        return this.highestRelationshipIndex++;
+        while (this.relationships.get(`${this.highestRelationshipIndex}`)) {
+            this.highestRelationshipIndex++;
+        }
+        return this.highestRelationshipIndex;
     }
 
     createRelationship(start: Node, end: Node, optionalId?: string) {
