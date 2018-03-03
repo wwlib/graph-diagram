@@ -4,7 +4,7 @@ import Model from '../model/Model';
 import Properties from '../model/Properties';
 import Node from '../model/Node';
 import Relationship from '../model/Relationship';
-import Radius from './Radius';
+import Radius from '../layout/Radius';
 import Bubble from './Bubble';
 import {Point, BoundingBox} from '../scaling/Scaling';
 

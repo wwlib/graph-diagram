@@ -6,7 +6,7 @@ import Relationship from '../model/Relationship';
 //import RelationshipSpeechBubble from '../bubble/RelationshipSpeechBubble';
 import LayoutRelationship from './LayoutRelationship';
 import LayoutNode from './LayoutNode';
-import Radius from '../bubble/Radius';
+import Radius from '../layout/Radius';
 import HorizontalArrowOutline from '../arrow/HorizontalArrowOutline';
 import CurvedArrowOutline from '../arrow/CurvedArrowOutline';
 

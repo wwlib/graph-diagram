@@ -1,5 +1,5 @@
 import Node from '../model/Node';
-import Radius from './Radius';
+import Radius from '../layout/Radius';
 import Bubble from './Bubble';
 export default class NodeSpeechBubble extends Bubble {
     constructor(node: Node, radius: Radius);

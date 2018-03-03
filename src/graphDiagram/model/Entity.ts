@@ -9,13 +9,13 @@ export default class Entity {
     public index: number;
     public classes: string[] = [];
     protected _properties:Properties;
-    protected _caption: string;
+    protected _label: string;
     protected _entityType: string;
     public _style: SimpleStyle;
 
     constructor(model: Model) {
         this.model = model;
-        this._caption = "";
+        this._label = "";
         this._entityType = "";
     }
 
@@ -34,19 +34,31 @@ export default class Entity {
     };
 
     set caption(captionText: string) {
-        this._caption = captionText;
+        this._label = captionText;
     }
 
     get caption(): string {
-        return this._caption;
+        return this._label;
+    }
+
+    set label(labelText: string) {
+        this._label = labelText;
+    }
+
+    get label(): string {
+        return this._label;
     }
 
     get displayCaption(): string {
+        return this.displayLabel;
+    }
+
+    get displayLabel(): string {
         let name = this.properties.has('name');
         if (name) {
-            return `${this._caption}: ${name}`;
+            return `${this._label}: ${name}`;
         } else {
-            return this._caption;
+            return this._label;
         }
     }
 

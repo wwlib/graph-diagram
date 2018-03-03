@@ -1,6 +1,6 @@
 import Node from '../model/Node';
 import LayoutEntity from '../layout/LayoutEntity';
-import Radius from '../bubble/Radius';
+import Radius from '../layout/Radius';
 export default class LayoutNode extends LayoutEntity {
     class: any;
     x: number;
