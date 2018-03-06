@@ -7,7 +7,7 @@
 		exports["graphDiagram"] = factory(require("d3"));
 	else
 		root["graphDiagram"] = factory(root["d3"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+})(window, function(__WEBPACK_EXTERNAL_MODULE_d3__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -54,6 +54,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		}
 /******/ 	};
 /******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -69,18 +74,24 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.ts");
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ "./src/graphDiagram/GraphDiagram.ts":
+/*!******************************************!*\
+  !*** ./src/graphDiagram/GraphDiagram.ts ***!
+  \******************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const d3 = __webpack_require__(1);
+const d3 = __webpack_require__(/*! d3 */ "d3");
 class GraphDiagram {
     static parsePixels(fontSize) {
         let result = 0;
@@ -112,400 +123,12 @@ exports.default = GraphDiagram;
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-class SimpleStyle {
-    constructor(stylePrototype) {
-        this._styles = {};
-        if (stylePrototype && (stylePrototype instanceof SimpleStyle)) {
-            let styleMap = stylePrototype.style();
-            // console.log(`styleMap:`, styleMap);
-            for (let key in styleMap) {
-                if (styleMap.hasOwnProperty(key)) {
-                    this._styles[key] = styleMap[key];
-                }
-            }
-        }
-        else {
-            let styleMap = stylePrototype;
-            // console.log(`styleMap:`, styleMap);
-            for (let key in styleMap) {
-                this._styles[key] = styleMap[key];
-            }
-        }
-    }
-    style(cssPropertyKey, cssPropertyValue) {
-        // console.log(`SimpleStyle: style: ${cssPropertyKey}, ${cssPropertyValue}`, arguments, this);
-        if (cssPropertyKey && cssPropertyValue) {
-            this._styles[cssPropertyKey] = cssPropertyValue;
-            return this;
-        }
-        else if (cssPropertyKey) {
-            return this._styles[cssPropertyKey];
-        }
-        else {
-            return this._styles;
-        }
-    }
-    static copyStyle(entity, computedStyle, cssPropertyKey, backupCssPropertyKey, debug = false) {
-        var propertyValue = computedStyle.getPropertyValue(cssPropertyKey);
-        if (!propertyValue) {
-            propertyValue = computedStyle.getPropertyValue(backupCssPropertyKey);
-        }
-        if (debug) {
-            console.log(`  ${cssPropertyKey}: ${propertyValue}`);
-        }
-        entity.style(cssPropertyKey, propertyValue);
-    }
-    static copyStyles(entity, markup, debug = false) {
-        var computedStyle = window.getComputedStyle(markup.node());
-        if (debug) {
-            console.log(`copyStyles from: `, markup.node());
-        }
-        SimpleStyle.copyStyle(entity, computedStyle, "width", "width", debug);
-        SimpleStyle.copyStyle(entity, computedStyle, "min-width", "min-width", debug);
-        SimpleStyle.copyStyle(entity, computedStyle, "font-family", "font-family", debug);
-        SimpleStyle.copyStyle(entity, computedStyle, "font-size", "font-size", debug);
-        SimpleStyle.copyStyle(entity, computedStyle, "margin", "margin-top", debug);
-        SimpleStyle.copyStyle(entity, computedStyle, "padding", "padding-top", debug);
-        SimpleStyle.copyStyle(entity, computedStyle, "color", "color", debug);
-        SimpleStyle.copyStyle(entity, computedStyle, "background-color", "background-color", debug);
-        SimpleStyle.copyStyle(entity, computedStyle, "border-width", "border-top-width", debug);
-        SimpleStyle.copyStyle(entity, computedStyle, "border-style", "border-top-style", debug);
-        SimpleStyle.copyStyle(entity, computedStyle, "border-color", "border-top-color", debug);
-    }
-}
-exports.default = SimpleStyle;
-// export default class SimpleStyle {
-//     private _style: any;
-//
-//     constructor(stylePrototype?: any) {
-//         this._style = this.styleSet(stylePrototype);
-//     }
-//
-//     get style(): any {
-//         return this._style;
-//     }
-//
-//     styleSet(stylePrototype?: any) {
-//         var styles = {};
-//
-//         if (stylePrototype) {
-//             var styleMap = stylePrototype.style();
-//             for (var key in styleMap) {
-//                 if (styleMap.hasOwnProperty(key)) {
-//                     styles[key] = styleMap[key];
-//                 }
-//             }
-//         }
-//
-//         return function(cssPropertyKey: string, cssPropertyValue: string) {
-//             if (arguments.length == 2) {
-//                 styles[cssPropertyKey] = cssPropertyValue;
-//                 return this;
-//             }
-//             if (arguments.length == 1) {
-//                 return styles[cssPropertyKey];
-//             }
-//             return styles;
-//         }
-//     }
-// }
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const GraphDiagram_1 = __webpack_require__(0);
-exports.GraphDiagram = GraphDiagram_1.default;
-const Diagram_1 = __webpack_require__(17);
-exports.Diagram = Diagram_1.default;
-const Markup_1 = __webpack_require__(22);
-exports.Markup = Markup_1.default;
-const Model_1 = __webpack_require__(11);
-exports.Model = Model_1.default;
-const ModelToCypher_1 = __webpack_require__(23);
-exports.ModelToCypher = ModelToCypher_1.default;
-const ModelToD3_1 = __webpack_require__(24);
-exports.ModelToD3 = ModelToD3_1.default;
-const Node_1 = __webpack_require__(12);
-exports.Node = Node_1.default;
-const SimpleStyle_1 = __webpack_require__(2);
-exports.SimpleStyle = SimpleStyle_1.default;
-const CurvedArrowOutline_1 = __webpack_require__(9);
-exports.CurvedArrowOutline = CurvedArrowOutline_1.default;
-const Relationship_1 = __webpack_require__(15);
-exports.Relationship = Relationship_1.default;
-const Scaling_1 = __webpack_require__(10);
-exports.Scaling = Scaling_1.default;
-const Layout_1 = __webpack_require__(4);
-exports.Layout = Layout_1.default;
-const LayoutModel_1 = __webpack_require__(25);
-exports.LayoutModel = LayoutModel_1.default;
-const LayoutNode_1 = __webpack_require__(8);
-exports.LayoutNode = LayoutNode_1.default;
-const LayoutRelationship_1 = __webpack_require__(5);
-exports.LayoutRelationship = LayoutRelationship_1.default;
-const DataTypes_1 = __webpack_require__(16);
-exports.DataTypes = DataTypes_1.DataTypes;
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const GraphDiagram_1 = __webpack_require__(0);
-//import NodeSpeechBubble from '../bubble/NodeSpeechBubble';
-//import RelationshipSpeechBubble from '../bubble/RelationshipSpeechBubble';
-const LayoutRelationship_1 = __webpack_require__(5);
-const LayoutNode_1 = __webpack_require__(8);
-const HorizontalArrowOutline_1 = __webpack_require__(21);
-const CurvedArrowOutline_1 = __webpack_require__(9);
-class Layout {
-    constructor(graphModel) {
-        this.nodesById = new Map();
-        this.layoutModel = {
-            graphModel: graphModel,
-            nodes: [],
-            relationships: [],
-            relationshipGroups: []
-        };
-        graphModel.nodeList().forEach((node) => {
-            // var measurement: any = Layout.wrapAndMeasureCaption( node ); //FUNKY //TODO
-            var layoutNode = new LayoutNode_1.default(node);
-            this.nodesById.set(node.id, layoutNode);
-            this.layoutModel.nodes.push(layoutNode);
-        });
-        graphModel.groupedRelationshipList().forEach((group) => {
-            var nominatedStart = group[0].start;
-            var offsetStep = GraphDiagram_1.default.parsePixels(group[0].style("margin"));
-            var relationshipGroup = [];
-            for (var i = 0; i < group.length; i++) {
-                var relationship = group[i];
-                var offset = (relationship.start === nominatedStart ? 1 : -1) *
-                    offsetStep * (i - (group.length - 1) / 2);
-                // console.log(`groupedRelationshipList: offset: ${offset}`);
-                var start = this.nodesById.get(relationship.start.id);
-                var end = this.nodesById.get(relationship.end.id);
-                var arrow = this.horizontalArrow(relationship, start, end, offset);
-                var layoutRelationship = new LayoutRelationship_1.default(relationship, start, end, arrow);
-                relationshipGroup.push(layoutRelationship);
-                this.layoutModel.relationships.push(layoutRelationship);
-            }
-            this.layoutModel.relationshipGroups.push(relationshipGroup);
-        });
-    }
-    horizontalArrow(relationship, start, end, offset) {
-        var length = start.model.distanceTo(end.model);
-        var arrowWidth = GraphDiagram_1.default.parsePixels(relationship.style("width"));
-        if (offset === 0) {
-            return new HorizontalArrowOutline_1.default(start.radius.startRelationship(), (length - end.radius.endRelationship()), arrowWidth);
-        }
-        return new CurvedArrowOutline_1.default(start.radius.startRelationship(), end.radius.endRelationship(), length, offset, arrowWidth, arrowWidth * 4, arrowWidth * 4);
-    }
-}
-exports.default = Layout;
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const LayoutEntity_1 = __webpack_require__(6);
-const RelationshipSpeechBubble_1 = __webpack_require__(18);
-class LayoutRelationship extends LayoutEntity_1.default {
-    constructor(graphRelationship, start, end, arrow) {
-        super(graphRelationship);
-        this.start = start;
-        this.end = end;
-        this.arrow = arrow;
-        this.propertiesBubble = new RelationshipSpeechBubble_1.default(graphRelationship, arrow.apex);
-        this.model = graphRelationship;
-    }
-}
-exports.default = LayoutRelationship;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-class LayoutEntity {
-    constructor(entity) {
-        this.model = entity;
-        this.propertiesBubble = {};
-    }
-}
-exports.default = LayoutEntity;
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-class Bubble {
-    constructor(entity) {
-        this.entity = entity;
-    }
-}
-Bubble.speechBubblePath = function (textSize, style, margin, padding) {
-    var width = textSize.width, height = textSize.height;
-    var styles = {
-        diagonal: [
-            "M", 0, 0,
-            "L", margin + padding, margin,
-            "L", margin + width + padding, margin,
-            "A", padding, padding, 0, 0, 1, margin + width + padding * 2, margin + padding,
-            "L", margin + width + padding * 2, margin + height + padding,
-            "A", padding, padding, 0, 0, 1, margin + width + padding, margin + height + padding * 2,
-            "L", margin + padding, margin + height + padding * 2,
-            "A", padding, padding, 0, 0, 1, margin, margin + height + padding,
-            "L", margin, margin + padding,
-            "Z"
-        ],
-        horizontal: [
-            "M", 0, 0,
-            "L", margin, -padding,
-            "L", margin, -height / 2,
-            "A", padding, padding, 0, 0, 1, margin + padding, -height / 2 - padding,
-            "L", margin + width + padding, -height / 2 - padding,
-            "A", padding, padding, 0, 0, 1, margin + width + padding * 2, -height / 2,
-            "L", margin + width + padding * 2, height / 2,
-            "A", padding, padding, 0, 0, 1, margin + width + padding, height / 2 + padding,
-            "L", margin + padding, height / 2 + padding,
-            "A", padding, padding, 0, 0, 1, margin, height / 2,
-            "L", margin, padding,
-            "Z"
-        ],
-        vertical: [
-            "M", 0, 0,
-            "L", -padding, margin,
-            "L", -width / 2, margin,
-            "A", padding, padding, 0, 0, 0, -width / 2 - padding, margin + padding,
-            "L", -width / 2 - padding, margin + height + padding,
-            "A", padding, padding, 0, 0, 0, -width / 2, margin + height + padding * 2,
-            "L", width / 2, margin + height + padding * 2,
-            "A", padding, padding, 0, 0, 0, width / 2 + padding, margin + height + padding,
-            "L", width / 2 + padding, margin + padding,
-            "A", padding, padding, 0, 0, 0, width / 2, margin,
-            "L", padding, margin,
-            "Z"
-        ]
-    };
-    return styles[style].join(" ");
-};
-exports.default = Bubble;
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const GraphDiagram_1 = __webpack_require__(0);
-const LayoutEntity_1 = __webpack_require__(6);
-const NodeSpeechBubble_1 = __webpack_require__(19);
-const Radius_1 = __webpack_require__(20);
-class LayoutNode extends LayoutEntity_1.default {
-    constructor(graphNode) {
-        super(graphNode);
-        this.class = graphNode.class;
-        this.x = graphNode.ex();
-        this.y = graphNode.ey();
-        let captionMeasurements = this.wrapAndMeasureCaption(graphNode);
-        this.radius = captionMeasurements.radius;
-        this.captionLines = captionMeasurements.captionLines;
-        this.captionLineHeight = captionMeasurements.captionLineHeight;
-        this.propertiesBubble = new NodeSpeechBubble_1.default(graphNode, captionMeasurements.radius);
-    }
-    wrapAndMeasureCaption(node) {
-        // function measure( text: string )
-        // {
-        //     return GraphDiagram.measureTextDimensions( text, node );
-        // }
-        // console.log(node, node.style(), node.style("font-size"));
-        var lineHeight = GraphDiagram_1.default.parsePixels(node.style("font-size"));
-        // console.log(lineHeight);
-        var insideRadius = 0;
-        var captionLines = [];
-        if (node.displayCaption) {
-            var padding = GraphDiagram_1.default.parsePixels(node.style("padding"));
-            var fontSize = node.properties.style("font-size");
-            var fontFamily = node.properties.style("font-family");
-            var totalWidth = GraphDiagram_1.default.measureTextDimensions(node.displayCaption, fontSize, fontFamily);
-            var idealRadius = Math.sqrt(totalWidth * lineHeight / Math.PI);
-            var idealRows = idealRadius * 2 / lineHeight;
-            function idealLength(row) {
-                var rowOffset = lineHeight * (row - idealRows) / 2;
-                return Math.sqrt(idealRadius * idealRadius - rowOffset * rowOffset) * 2;
-            }
-            var words = node.displayCaption.split(" ");
-            var currentLine = words.shift();
-            while (words.length > 0) {
-                if (GraphDiagram_1.default.measureTextDimensions(currentLine, fontSize, fontFamily) > idealLength(captionLines.length)) {
-                    captionLines.push(currentLine);
-                    currentLine = words.shift();
-                }
-                else {
-                    currentLine += " " + words.shift();
-                }
-            }
-            captionLines.push(currentLine);
-            for (var row = 0; row < captionLines.length; row++) {
-                var width = GraphDiagram_1.default.measureTextDimensions(captionLines[row], fontSize, fontFamily) / 2;
-                var middleRow = (captionLines.length - 1) / 2;
-                var rowOffset = lineHeight * (row > middleRow ? (row - middleRow + 0.5) : (row - middleRow - 0.5));
-                insideRadius = padding + Math.max(Math.sqrt(width * width + rowOffset * rowOffset), insideRadius);
-            }
-        }
-        let minWidthProperty = node.style("min-width") ? node.style("min-width") : "30px";
-        var minRadius = GraphDiagram_1.default.parsePixels(minWidthProperty) / 2;
-        if (minRadius > insideRadius) {
-            insideRadius = minRadius;
-        }
-        var radius = new Radius_1.default(node.model, insideRadius);
-        radius.border = GraphDiagram_1.default.parsePixels(node.style("border-width"));
-        radius.margin = GraphDiagram_1.default.parsePixels(node.style("margin"));
-        return {
-            radius: radius,
-            captionLines: captionLines,
-            captionLineHeight: lineHeight
-        };
-    }
-}
-exports.default = LayoutNode;
-
-
-/***/ }),
-/* 9 */
+/***/ "./src/graphDiagram/arrow/CurvedArrowOutline.ts":
+/*!******************************************************!*\
+  !*** ./src/graphDiagram/arrow/CurvedArrowOutline.ts ***!
+  \******************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -604,720 +227,381 @@ exports.default = CurvedArrowOutline;
 
 
 /***/ }),
-/* 10 */
+
+/***/ "./src/graphDiagram/arrow/HorizontalArrowOutline.ts":
+/*!**********************************************************!*\
+  !*** ./src/graphDiagram/arrow/HorizontalArrowOutline.ts ***!
+  \**********************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const GraphDiagram_1 = __webpack_require__(0);
-// export type ViewDimensions = {
-//     width: number;
-//     height: number;
-// }
-class Scaling {
-    static nodeBox(node) {
-        var margin = node.radius.outside();
-        let graphNode = node.model;
-        return {
-            x1: graphNode.ex() - margin,
-            y1: graphNode.ey() - margin,
-            x2: graphNode.ex() + margin,
-            y2: graphNode.ey() + margin
+class HorizontalArrowOutline {
+    constructor(start, end, arrowWidth) {
+        this.shaftRadius = arrowWidth / 2;
+        this.headRadius = arrowWidth * 2;
+        this.headLength = this.headRadius * 2;
+        this.shoulder = start < end ? end - this.headLength : end + this.headLength;
+        this.outline = [
+            "M", start, this.shaftRadius,
+            "L", this.shoulder, this.shaftRadius,
+            "L", this.shoulder, this.headRadius,
+            "L", end, 0,
+            "L", this.shoulder, -this.headRadius,
+            "L", this.shoulder, -this.shaftRadius,
+            "L", start, -this.shaftRadius,
+            "Z"
+        ].join(" ");
+        this.apex = {
+            x: start + (this.shoulder - start) / 2,
+            y: 0
         };
     }
-    ;
-    static boxNormalise(box) {
-        return {
-            x1: box.width > 0 ? box.x : box.x + box.width,
-            y1: box.height > 0 ? box.y : box.y + box.height,
-            x2: box.width < 0 ? box.x : box.x + box.width,
-            y2: box.height < 0 ? box.y : box.y + box.height
-        };
-    }
-    ;
-    static boxUnion(boxes) {
-        if (boxes.length < 1) {
-            return { x1: 0, y1: 0, x2: 0, y2: 0 };
-        }
-        return boxes.reduce(function (previous, current) {
-            return {
-                x1: Math.min(previous.x1, current.x1),
-                y1: Math.min(previous.y1, current.y1),
-                x2: Math.max(previous.x2, current.x2),
-                y2: Math.max(previous.y2, current.y2)
-            };
-        });
-    }
-    ;
-    static smallestContainingBox(layoutModel) {
-        function boundingBox(entity) {
-            return entity.propertiesBubble.boundingBox;
-        }
-        var bounds = Scaling.boxUnion(layoutModel.nodes.map(Scaling.nodeBox)
-            .concat(layoutModel.nodes.filter(GraphDiagram_1.default.hasProperties).map(boundingBox)
-            .map(Scaling.boxNormalise))
-            .concat(layoutModel.relationships.filter(GraphDiagram_1.default.hasProperties).map(boundingBox)
-            .map(Scaling.boxNormalise)));
-        return { x: bounds.x1, y: bounds.y1,
-            width: (bounds.x2 - bounds.x1), height: (bounds.y2 - bounds.y1) };
-    }
-    static centeredOrScaledViewBox(viewDimensions, diagramExtent) {
-        var xScale = diagramExtent.width / viewDimensions.width;
-        var yScale = diagramExtent.height / viewDimensions.height;
-        var scaleFactor = xScale < 1 && yScale < 1 ? 1 : (xScale > yScale ? xScale : yScale);
-        return {
-            x: ((diagramExtent.width - viewDimensions.width * scaleFactor) / 2) + diagramExtent.x,
-            y: ((diagramExtent.height - viewDimensions.height * scaleFactor) / 2) + diagramExtent.y,
-            width: viewDimensions.width * scaleFactor,
-            height: viewDimensions.height * scaleFactor
-        };
-    }
-    ;
-    static effectiveBox(viewBox, viewSize) {
-        if (viewBox.width / viewSize.width > viewBox.height / viewSize.height) {
-            return {
-                x: viewBox.x,
-                y: viewBox.y - ((viewBox.width * viewSize.height / viewSize.width) - viewBox.height) / 2,
-                width: viewBox.width,
-                height: viewBox.width * viewSize.height / viewSize.width
-            };
-        }
-        else {
-            return {
-                x: viewBox.x - ((viewBox.height * viewSize.width / viewSize.height) - viewBox.width) / 2,
-                y: viewBox.y,
-                width: viewBox.height * viewSize.width / viewSize.height,
-                height: viewBox.height
-            };
-        }
-    }
-    static viewDimensions(view) {
-        var svgElement = view.node();
-        return {
-            x: 0,
-            y: 0,
-            width: svgElement.clientWidth,
-            height: svgElement.clientHeight
-        };
-    }
-    static centerOrScaleDiagramToFitSvg(layoutModel, view) {
-        var box = Scaling.centeredOrScaledViewBox(Scaling.viewDimensions(view), Scaling.smallestContainingBox(layoutModel));
-        view
-            .attr("viewBox", [box.x, box.y, box.width, box.height].join(" "));
-    }
-    ;
-    static centerOrScaleDiagramToFitWindow(layoutModel, view) {
-        var windowDimensions = {
-            x: 0,
-            y: 0,
-            width: window.innerWidth,
-            height: window.innerHeight
-        };
-        var box = Scaling.centeredOrScaledViewBox(windowDimensions, Scaling.smallestContainingBox(layoutModel));
-        view
-            .attr("width", windowDimensions.width)
-            .attr("height", windowDimensions.height)
-            .attr("viewBox", [box.x, box.y, box.width, box.height].join(" "));
-    }
-    ;
-    static centerOrScaleDiagramToFitSvgSmooth(layoutModel, view) {
-        var box = Scaling.centeredOrScaledViewBox(Scaling.viewDimensions(view), Scaling.smallestContainingBox(layoutModel));
-        view
-            .transition()
-            .attr("viewBox", [box.x, box.y, box.width, box.height].join(" "));
-    }
-    ;
-    static fitsInside(extent, box) {
-        return extent.x >= box.x &&
-            extent.y >= box.y &&
-            extent.x + extent.width <= box.x + box.width &&
-            extent.y + extent.height <= box.y + box.height;
-    }
-    static growButDoNotShrink(layoutModel, view) {
-        var currentViewBoxAttr = view.attr("viewBox");
-        if (currentViewBoxAttr === null) {
-            // Scaling.centeredOrScaledViewBox(layoutModel, view); //FUNKY //TODO
-        }
-        else {
-            var currentDimensions = currentViewBoxAttr.split(" ").map(parseFloat);
-            var currentBox = {
-                x: currentDimensions[0],
-                y: currentDimensions[1],
-                width: currentDimensions[2],
-                height: currentDimensions[3]
-            };
-            var diagramExtent = Scaling.smallestContainingBox(layoutModel);
-            var box;
-            if (Scaling.fitsInside(diagramExtent, Scaling.effectiveBox(currentBox, Scaling.viewDimensions(view)))) {
-                box = currentBox;
-            }
-            else {
-                var idealBox = Scaling.centeredOrScaledViewBox(Scaling.viewDimensions(view), diagramExtent);
-                box = {
-                    x: Math.min(currentBox.x, idealBox.x),
-                    y: Math.min(currentBox.y, idealBox.y),
-                    width: Math.max(currentBox.x + currentBox.width, idealBox.x + idealBox.width) -
-                        Math.min(currentBox.x, idealBox.x),
-                    height: Math.max(currentBox.y + currentBox.height, idealBox.y + idealBox.height) -
-                        Math.min(currentBox.y, idealBox.y)
-                };
-            }
-            view
-                .attr("viewBox", [box.x, box.y, box.width, box.height].join(" "));
-        }
-    }
-    ;
-    static sizeSvgToFitDiagram(layoutModel, view) {
-        var box = Scaling.smallestContainingBox(layoutModel);
-        view
-            .attr("viewBox", [box.x, box.y, box.width, box.height].join(" "))
-            .attr("width", box.width * layoutModel.graphModel.externalScale)
-            .attr("height", box.height * layoutModel.graphModel.externalScale);
-    }
-    ;
 }
-exports.default = Scaling;
+exports.default = HorizontalArrowOutline;
 
 
 /***/ }),
-/* 11 */
+
+/***/ "./src/graphDiagram/bubble/Bubble.ts":
+/*!*******************************************!*\
+  !*** ./src/graphDiagram/bubble/Bubble.ts ***!
+  \*******************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const SimpleStyle_1 = __webpack_require__(2);
-const d3 = __webpack_require__(1);
-const Node_1 = __webpack_require__(12);
-const Relationship_1 = __webpack_require__(15);
-class Model {
-    /*
-        .graph-diagram-markup {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
-    
-        .graph-diagram-markup .node {
-            font-size: 14px;
-            margin: 5px;
-            padding: 5px;
-            min-width: 30px;
-            background-color: #f7f7f9;
-            border: 1px solid rgba(0, 0, 0, 0.3);
-        }
-    
-        .graph-diagram-markup .relationship {
-            font-size: 14px;
-            width: 2px;
-            margin: 10px;
-            background-color: rgba(0, 0, 0, 0.3);
-            border: none;
-        }
-    
-        .graph-diagram-markup .properties {
-            font-size: 14px;
-            margin: 12px;
-            padding: 4px;
-            background-color: white;
-            border: 1px solid rgba(0, 0, 0, 0.5);
-        }
-    */
-    constructor(id) {
-        this.nodes = new Map();
-        this.relationships = new Map();
-        this.highestNodeIndex = 0;
-        this.highestRelationshipIndex = 0;
-        this.parameters = {
-            radius: 50,
-            nodeStrokeWidth: 8,
-            nodeStartMargin: 11,
-            nodeEndMargin: 11,
-            speechBubbleMargin: 20,
-            speechBubblePadding: 10,
-            speechBubbleStrokeWidth: 3,
-            snapTolerance: 20
-        };
-        this._internalScale = 1;
-        this._externalScale = 1;
-        if (id) {
-            this._id = id;
-        }
-        this.stylePrototype = {
-            node: new SimpleStyle_1.default({
-                'min-width': '30px',
-                'font-size': '14px',
-                'font-family': '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                'padding': '5px',
-                'border-width': '1px',
-                'border-color': 'rgba(0, 0, 0, 0.3)',
-                'margin': '5px',
-                'background-color': '#f7f7f9',
-                'border': '1px solid rgba(0, 0, 0, 0.3)'
-            }),
-            nodeProperties: new SimpleStyle_1.default({
-                'font-size': '14px',
-                'font-family': '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                'padding': '4px',
-                'margin': '12px',
-                'background-color': 'white',
-                'border': '1px solid rgba(0, 0, 0, 0.5)',
-                'border-color': 'rgba(0, 0, 0, 0.5)',
-                'border-width': '1px'
-            }),
-            relationship: new SimpleStyle_1.default({
-                'font-size': '14px',
-                'font-family': '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                'width': '2px',
-                'border-width': '3px',
-                'margin': '10px',
-                'background-color': 'rgba(0, 0, 0, 0.3)',
-                'border': 'none'
-            }),
-            relationshipProperties: new SimpleStyle_1.default({
-                'font-size': '14px',
-                'font-family': '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                'padding': '4px',
-                'margin': '12px',
-                'background-color': 'white',
-                'border': '1px solid rgba(0, 0, 0, 0.5)',
-                'border-color': 'rgba(0, 0, 0, 0.5)',
-                'border-width': '1px'
-            })
-        };
-    }
-    toString() {
-        let result = 'Model:\n';
-        let obj = {
-            highestNodeIndex: this.highestNodeIndex,
-            highestRelationshipIndex: this.highestRelationshipIndex,
-            nodeCount: this.nodes.size,
-            relationshipCount: this.relationships.size,
-            nodeStylePrototype: this.stylePrototype.node.style(),
-        };
-        result += JSON.stringify(obj);
-        return result;
-    }
-    summary() {
-        let obj = {
-            highestNodeIndex: this.highestNodeIndex,
-            highestRelationshipIndex: this.highestRelationshipIndex,
-            nodeCount: this.nodes.size,
-            relationshipCount: this.relationships.size,
-            nodePropertiesStylePrototype: this.stylePrototype.nodeProperties.style(),
-            relationshipPropertiesStylePrototype: this.stylePrototype.relationshipProperties.style(),
-        };
-        return obj;
-    }
-    generateNodeIndex() {
-        while (this.nodes.get(`${this.highestNodeIndex}`)) {
-            this.highestNodeIndex++;
-        }
-        return this.highestNodeIndex;
-    }
-    createNode(optionalId) {
-        var node = new Node_1.default(this);
-        node.index = this.generateNodeIndex();
-        var nodeId = optionalId || `${node.index}`;
-        node.id = nodeId;
-        this.nodes.set(nodeId, node);
-        return node;
-    }
-    ;
-    deleteNode(node) {
-        // this.relationships = this.relationships.filter(function (relationship) {
-        //     return !(relationship.start === node || relationship.end == node);
-        // });
-        this.relationships.forEach((relationship, id, map) => {
-            if ((relationship.start === node) || (relationship.end === node)) {
-                this.relationships.delete(id);
-            }
-        });
-        this.nodes.delete(node.id);
-    }
-    ;
-    deleteRelationship(relationship) {
-        //this.relationships.splice(this.relationships.indexOf(relationship), 1);
-        this.relationships.delete(relationship.id);
-    }
-    ;
-    generateRelationshipIndex() {
-        while (this.relationships.get(`${this.highestRelationshipIndex}`)) {
-            this.highestRelationshipIndex++;
-        }
-        return this.highestRelationshipIndex;
-    }
-    createRelationship(start, end, optionalId) {
-        var relationship = new Relationship_1.default(this, start, end);
-        relationship.index = this.generateRelationshipIndex();
-        var relationshipId = optionalId || `${relationship.index}`;
-        relationship.id = relationshipId;
-        this.relationships.set(relationshipId, relationship);
-        return relationship;
-    }
-    ;
-    nodeList() {
-        return Array.from(this.nodes.values());
-    }
-    ;
-    lookupNode(nodeId) {
-        return this.nodes.get(`${nodeId}`);
-    }
-    ;
-    relationshipList() {
-        return Array.from(this.relationships.values());
-    }
-    ;
-    groupedRelationshipList() {
-        var groups = {};
-        this.relationships.forEach((relationship, id, map) => {
-            var nodeIds = [relationship.start.id, relationship.end.id].sort();
-            var group = groups[nodeIds];
-            if (!group) {
-                group = groups[nodeIds] = [];
-            }
-            if (relationship.start.id < relationship.end.id) {
-                group.push(relationship);
-            }
-            else {
-                group.splice(0, 0, relationship);
-            }
-        });
-        return d3.values(groups);
-    }
-    ;
-    set id(id) {
-        this._id = id;
-    }
-    get id() {
-        return this._id;
-    }
-    set internalScale(newScale) {
-        this._internalScale = newScale; //NOTE parseFloat(newScale);
-    }
-    ;
-    get internalScale() {
-        return this._internalScale;
-    }
-    set externalScale(newScale) {
-        this._externalScale = newScale; //NOTE parseFloat(newScale);
-    }
-    ;
-    get externalScale() {
-        return this._externalScale;
+class Bubble {
+    constructor(entity) {
+        this.entity = entity;
     }
 }
-exports.default = Model;
-;
+Bubble.speechBubblePath = function (textSize, style, margin, padding) {
+    var width = textSize.width, height = textSize.height;
+    var styles = {
+        diagonal: [
+            "M", 0, 0,
+            "L", margin + padding, margin,
+            "L", margin + width + padding, margin,
+            "A", padding, padding, 0, 0, 1, margin + width + padding * 2, margin + padding,
+            "L", margin + width + padding * 2, margin + height + padding,
+            "A", padding, padding, 0, 0, 1, margin + width + padding, margin + height + padding * 2,
+            "L", margin + padding, margin + height + padding * 2,
+            "A", padding, padding, 0, 0, 1, margin, margin + height + padding,
+            "L", margin, margin + padding,
+            "Z"
+        ],
+        horizontal: [
+            "M", 0, 0,
+            "L", margin, -padding,
+            "L", margin, -height / 2,
+            "A", padding, padding, 0, 0, 1, margin + padding, -height / 2 - padding,
+            "L", margin + width + padding, -height / 2 - padding,
+            "A", padding, padding, 0, 0, 1, margin + width + padding * 2, -height / 2,
+            "L", margin + width + padding * 2, height / 2,
+            "A", padding, padding, 0, 0, 1, margin + width + padding, height / 2 + padding,
+            "L", margin + padding, height / 2 + padding,
+            "A", padding, padding, 0, 0, 1, margin, height / 2,
+            "L", margin, padding,
+            "Z"
+        ],
+        vertical: [
+            "M", 0, 0,
+            "L", -padding, margin,
+            "L", -width / 2, margin,
+            "A", padding, padding, 0, 0, 0, -width / 2 - padding, margin + padding,
+            "L", -width / 2 - padding, margin + height + padding,
+            "A", padding, padding, 0, 0, 0, -width / 2, margin + height + padding * 2,
+            "L", width / 2, margin + height + padding * 2,
+            "A", padding, padding, 0, 0, 0, width / 2 + padding, margin + height + padding,
+            "L", width / 2 + padding, margin + padding,
+            "A", padding, padding, 0, 0, 0, width / 2, margin,
+            "L", padding, margin,
+            "Z"
+        ]
+    };
+    return styles[style].join(" ");
+};
+exports.default = Bubble;
 
 
 /***/ }),
-/* 12 */
+
+/***/ "./src/graphDiagram/bubble/NodeSpeechBubble.ts":
+/*!*****************************************************!*\
+  !*** ./src/graphDiagram/bubble/NodeSpeechBubble.ts ***!
+  \*****************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const Entity_1 = __webpack_require__(13);
-const Properties_1 = __webpack_require__(14);
-const SimpleStyle_1 = __webpack_require__(2);
-class Node extends Entity_1.default {
-    constructor(model) {
-        super(model);
-        this.position = {};
-        this.radius = 25; //TODO get the actual radius, i.e. from LayoutNode
-        this._entityType = "node";
-        this._properties = new Properties_1.default(model.stylePrototype.nodeProperties);
-        this._style = new SimpleStyle_1.default(model.stylePrototype.node);
+const d3 = __webpack_require__(/*! d3 */ "d3");
+const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
+const Bubble_1 = __webpack_require__(/*! ./Bubble */ "./src/graphDiagram/bubble/Bubble.ts");
+class NodeSpeechBubble extends Bubble_1.default {
+    constructor(node, radius) {
+        super(node);
+        var relatedNodes = [];
+        node.model.relationshipList().forEach(function (relationship) {
+            if (relationship.start === node) {
+                relatedNodes.push(relationship.end);
+            }
+            if (relationship.end === node) {
+                relatedNodes.push(relationship.start);
+            }
+        });
+        var orientation = NodeSpeechBubble.chooseNodeSpeechBubbleOrientation(node, relatedNodes);
+        var properties = node.properties;
+        var propertyKeysWidth = d3.max(properties.listEditable(), function (property) {
+            return GraphDiagram_1.default.measureTextDimensions(property.key + ": ", node.properties.style("font-size"), node.properties.style("font-family"));
+        });
+        var propertyValuesWidth = d3.max(properties.listEditable(), function (property) {
+            return GraphDiagram_1.default.measureTextDimensions(property.value, node.properties.style("font-size"), node.properties.style("font-family"));
+        });
+        var textSize = {
+            width: parseFloat(propertyKeysWidth) + parseFloat(propertyValuesWidth),
+            height: properties.listEditable().length * GraphDiagram_1.default.parsePixels(properties.style("font-size"))
+        };
+        var mirror = "scale(" + orientation.mirrorX + "," + orientation.mirrorY + ") ";
+        var margin = GraphDiagram_1.default.parsePixels(properties.style("margin"));
+        var padding = GraphDiagram_1.default.parsePixels(properties.style("padding"));
+        var diagonalRadius = radius.mid() * Math.sqrt(2) / 2;
+        var nodeOffsetOptions = {
+            diagonal: { attach: { x: diagonalRadius, y: diagonalRadius },
+                textCorner: {
+                    x: margin + padding,
+                    y: margin + padding
+                } },
+            horizontal: { attach: { x: radius.mid(), y: 0 },
+                textCorner: {
+                    x: margin + padding,
+                    y: -textSize.height / 2
+                } },
+            vertical: { attach: { x: 0, y: radius.mid() },
+                textCorner: {
+                    x: -textSize.width / 2,
+                    y: margin + padding
+                } }
+        };
+        var nodeCenterOffset = nodeOffsetOptions[orientation.style].attach;
+        var textCorner = nodeOffsetOptions[orientation.style].textCorner;
+        var translate = "translate(" + (node.ex() + nodeCenterOffset.x * orientation.mirrorX) + ","
+            + (node.ey() + nodeCenterOffset.y * orientation.mirrorY) + ") ";
+        var textOrigin = {
+            x: parseFloat(propertyKeysWidth) + orientation.mirrorX * (textCorner.x)
+                - (orientation.mirrorX == -1 ? textSize.width : 0),
+            y: orientation.mirrorY * (textCorner.y)
+                - (orientation.mirrorY == -1 ? textSize.height : 0)
+        };
+        var boundingPadding = padding + node.model.parameters.speechBubbleStrokeWidth / 2;
+        var boundingBox = {
+            x: node.ex() + (nodeCenterOffset.x + textCorner.x - boundingPadding) * orientation.mirrorX,
+            y: node.ey() + (nodeCenterOffset.y + textCorner.y - boundingPadding) * orientation.mirrorY,
+            width: orientation.mirrorX * (textSize.width + (boundingPadding * 2)),
+            height: orientation.mirrorY * (textSize.height + (boundingPadding * 2))
+        };
+        this.properties = properties.listEditable().map(function (property) {
+            return {
+                keyText: property.key + ": ",
+                valueText: property.value,
+                textOrigin: textOrigin,
+                style: node.style(),
+                entity: node
+            };
+        });
+        this.style = node.style();
+        this.groupTransform = translate;
+        this.outlineTransform = mirror;
+        this.outlinePath = Bubble_1.default.speechBubblePath(textSize, orientation.style, margin, padding),
+            this.boundingBox = boundingBox;
     }
-    set x(x) {
-        this.position.x = Number(x);
-    }
-    ;
-    get x() {
-        return this.position.x;
-    }
-    set y(y) {
-        this.position.y = Number(y);
-    }
-    get y() {
-        return this.position.y;
-    }
-    // funky usage precludes get/set for now
-    ex() {
-        return this.position.x * this.model.internalScale;
-    }
-    // funky usage precludes get/set for now
-    ey() {
-        return this.position.y * this.model.internalScale;
-    }
-    distanceTo(node) {
-        var dx = node.x - this.x;
-        var dy = node.y - this.y;
-        return Math.sqrt(dx * dx + dy * dy) * this.model.internalScale;
-    }
-    snap(position, field, node) {
-        var ideal = position[field];
-        var closestNode;
-        var closestDistance = Number.MAX_VALUE;
-        for (var nodeId in this.model.nodes) {
-            if (this.model.nodes.hasOwnProperty(nodeId)) {
-                var candidateNode = this.model.nodes[nodeId];
-                if (candidateNode != node) {
-                    // console.log(`Node: snap: field: ${field}`)
-                    var distance = 0;
-                    if (field == "x") {
-                        distance = Math.abs(candidateNode.x - ideal);
-                    }
-                    else if (field == "y") {
-                        distance = Math.abs(candidateNode.y - ideal);
-                    }
-                    // var distance = Math.abs(candidateNode[field]() - ideal); //TODO find a better way to reference accessors of Node
-                    if (distance < closestDistance) {
-                        closestNode = candidateNode;
-                        closestDistance = distance;
-                    }
+}
+NodeSpeechBubble.chooseNodeSpeechBubbleOrientation = function (focusNode, relatedNodes) {
+    var orientations = [
+        { key: "WEST", style: "horizontal", mirrorX: -1, mirrorY: 1, angle: 180 },
+        { key: "NORTH-WEST", style: "diagonal", mirrorX: -1, mirrorY: -1, angle: -135 },
+        { key: "NORTH", style: "vertical", mirrorX: 1, mirrorY: -1, angle: -90 },
+        { key: "NORTH-EAST", style: "diagonal", mirrorX: 1, mirrorY: -1, angle: -45 },
+        { key: "EAST", style: "horizontal", mirrorX: 1, mirrorY: 1, angle: 0 },
+        { key: "SOUTH-EAST", style: "diagonal", mirrorX: 1, mirrorY: 1, angle: 45 },
+        { key: "SOUTH", style: "vertical", mirrorX: 1, mirrorY: 1, angle: 90 },
+        { key: "SOUTH-WEST", style: "diagonal", mirrorX: -1, mirrorY: 1, angle: 135 }
+    ];
+    orientations.forEach(function (orientation) {
+        orientation.closest = 180;
+    });
+    relatedNodes.forEach(function (relatedNode) {
+        orientations.forEach(function (orientation) {
+            var angle = Math.abs(focusNode.angleTo(relatedNode) - orientation.angle);
+            if (angle > 180) {
+                angle = 360 - angle;
+            }
+            if (angle < orientation.closest) {
+                orientation.closest = angle;
+            }
+        });
+    });
+    var maxAngle = 0;
+    var bestOrientation = orientations[0];
+    orientations.forEach(function (orientation) {
+        if (orientation.closest > maxAngle) {
+            maxAngle = orientation.closest;
+            bestOrientation = orientation;
+        }
+    });
+    return bestOrientation;
+};
+exports.default = NodeSpeechBubble;
+
+
+/***/ }),
+
+/***/ "./src/graphDiagram/bubble/RelationshipSpeechBubble.ts":
+/*!*************************************************************!*\
+  !*** ./src/graphDiagram/bubble/RelationshipSpeechBubble.ts ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const d3 = __webpack_require__(/*! d3 */ "d3");
+const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
+const Bubble_1 = __webpack_require__(/*! ./Bubble */ "./src/graphDiagram/bubble/Bubble.ts");
+class RelationshipSpeechBubble extends Bubble_1.default {
+    constructor(relationship, apex) {
+        super(relationship);
+        var properties = relationship.properties;
+        var fontSize = relationship.properties.style("font-size");
+        var fontFamily = relationship.properties.style("font-family");
+        var orientation = RelationshipSpeechBubble.chooseRelationshipSpeechBubbleOrientation(relationship);
+        var propertyKeysWidth = d3.max(properties.listEditable(), function (property) {
+            return GraphDiagram_1.default.measureTextDimensions(property.key + ": ", fontSize, fontFamily);
+        });
+        var propertyValuesWidth = d3.max(properties.listEditable(), function (property) {
+            return GraphDiagram_1.default.measureTextDimensions(property.value, fontSize, fontFamily);
+        });
+        var textSize = {
+            width: propertyKeysWidth + propertyValuesWidth,
+            height: properties.listEditable().length * GraphDiagram_1.default.parsePixels(properties.style("font-size"))
+        };
+        var margin = GraphDiagram_1.default.parsePixels(properties.style("margin"));
+        var padding = GraphDiagram_1.default.parsePixels(properties.style("padding"));
+        var mirror = "scale(" + orientation.mirrorX + "," + orientation.mirrorY + ") ";
+        var nodeOffsetOptions = {
+            diagonal: {
+                textCorner: {
+                    x: margin + padding,
+                    y: margin + padding
+                }
+            },
+            horizontal: {
+                textCorner: {
+                    x: margin + padding,
+                    y: -textSize.height / 2
+                }
+            },
+            vertical: {
+                textCorner: {
+                    x: -textSize.width / 2,
+                    y: margin + padding
                 }
             }
-        }
-        if (closestDistance < this.model.parameters.snapTolerance) {
-            if (field == "x") {
-                return closestNode.x;
-            }
-            else if (field == "y") {
-                return closestNode.y;
-            }
-        }
-        else {
-            if (field == "x") {
-                return position.x;
-            }
-            else if (field == "y") {
-                return position.y;
-            }
-        }
-    }
-    drag(dx, dy) {
-        if (!this.prototypePosition) {
-            this.prototypePosition = {
-                x: this.position.x,
-                y: this.position.y
+        };
+        var textCorner = nodeOffsetOptions[orientation.style].textCorner;
+        var dx = relationship.end.ex() - relationship.start.ex();
+        var dy = relationship.end.ey() - relationship.start.ey();
+        var h = Math.sqrt(dx * dx + dy * dy);
+        var midPoint = {
+            x: relationship.start.ex() + (apex.x * dx - apex.y * dy) / h,
+            y: relationship.start.ey() + (apex.x * dy + apex.y * dx) / h
+        };
+        var translate = "translate(" + midPoint.x + "," + midPoint.y + ") ";
+        var textOrigin = {
+            x: propertyKeysWidth + orientation.mirrorX * (textCorner.x)
+                - (orientation.mirrorX == -1 ? textSize.width : 0),
+            y: orientation.mirrorY * (textCorner.y)
+                - (orientation.mirrorY == -1 ? textSize.height : 0)
+        };
+        var boundingPadding = padding + relationship.model.parameters.speechBubbleStrokeWidth / 2;
+        var boundingBox = {
+            x: midPoint.x + (textCorner.x - boundingPadding) * orientation.mirrorX,
+            y: midPoint.y + (textCorner.y - boundingPadding) * orientation.mirrorY,
+            width: orientation.mirrorX * (textSize.width + (boundingPadding * 2)),
+            height: orientation.mirrorY * (textSize.height + (boundingPadding * 2))
+        };
+        this.properties = properties.listEditable().map(function (property) {
+            return {
+                keyText: property.key + ": ",
+                valueText: property.value,
+                textOrigin: textOrigin,
+                style: relationship.style(),
+                entity: relationship
             };
+        });
+        this.style = relationship.style();
+        this.entity = relationship;
+        this.groupTransform = translate;
+        this.outlineTransform = mirror;
+        this.outlinePath = Bubble_1.default.speechBubblePath(textSize, orientation.style, margin, padding);
+        this.boundingBox = boundingBox;
+    }
+    static chooseRelationshipSpeechBubbleOrientation(relationship) {
+        var orientations = {
+            EAST: { style: "horizontal", mirrorX: 1, mirrorY: 1, angle: 0 },
+            SOUTH_EAST: { style: "diagonal", mirrorX: 1, mirrorY: 1, angle: 45 },
+            SOUTH: { style: "vertical", mirrorX: 1, mirrorY: 1, angle: 90 },
+            SOUTH_WEST: { style: "diagonal", mirrorX: -1, mirrorY: 1, angle: 135 },
+            WEST: { style: "horizontal", mirrorX: -1, mirrorY: 1, angle: 180 }
+        };
+        var relationshipAngle = relationship.start.angleTo(relationship.end);
+        var positiveAngle = relationshipAngle > 0 ? relationshipAngle : relationshipAngle + 180;
+        if (positiveAngle > 175 || positiveAngle < 5) {
+            return orientations.SOUTH;
         }
-        this.prototypePosition.x += dx / this.model.internalScale;
-        this.prototypePosition.y += dy / this.model.internalScale;
-        this.position.x = this.snap(this.prototypePosition, "x", this); //TODO
-        this.position.y = this.snap(this.prototypePosition, "y", this); //TODO
-        // console.log(this.position, this.prototypePosition, this.model.internalScale);
-    }
-    dragEnd() {
-        this.prototypePosition = undefined;
-        // console.log(this.position, this.prototypePosition);
-    }
-    // distance() {
-    //     var dx = this.node.x - this.x;
-    //     var dy = this.node.y - this.y;
-    //     return Math.sqrt(dx * dx + dy * dy) * this.model.internalScale;
-    // };
-    angleTo(node) {
-        var dx = node.x - this.x;
-        var dy = node.y - this.y;
-        return Math.atan2(dy, dx) * 180 / Math.PI;
-    }
-    ;
-    isLeftOf(node) {
-        return this.x < node.x;
-    }
-    ;
-}
-exports.default = Node;
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const GraphDiagram_1 = __webpack_require__(0);
-class Entity {
-    constructor(model) {
-        this.classes = [];
-        this.model = model;
-        this._label = "";
-        this._entityType = "";
-    }
-    style(cssPropertyKey, cssPropertyValue) {
-        return this._style.style(cssPropertyKey, cssPropertyValue);
-    }
-    class(classesString) {
-        if (arguments.length == 1) {
-            this.classes = classesString.split(" ").filter((className) => {
-                return className.length > 0 && className != this._entityType;
-            });
-            return this;
+        else if (positiveAngle < 85) {
+            return orientations.SOUTH_WEST;
         }
-        return [this._entityType].concat(this.classes);
-    }
-    ;
-    set caption(captionText) {
-        this._label = captionText;
-    }
-    get caption() {
-        return this._label;
-    }
-    set label(labelText) {
-        this._label = labelText;
-    }
-    get label() {
-        return this._label;
-    }
-    get displayCaption() {
-        return this.displayLabel;
-    }
-    get displayLabel() {
-        let name = this.properties.has('name');
-        if (name) {
-            return `${this._label}: ${name}`;
+        else if (positiveAngle < 90) {
+            return orientations.WEST;
+        }
+        else if (positiveAngle === 90) {
+            return relationshipAngle > 0 ? orientations.WEST : orientations.EAST;
+        }
+        else if (positiveAngle < 95) {
+            return orientations.EAST;
         }
         else {
-            return this._label;
+            return orientations.SOUTH_EAST;
         }
     }
-    get properties() {
-        if (this.model.id) {
-            this._properties.set(GraphDiagram_1.default.MODEL_ID_KEY, this.model.id);
-        }
-        return this._properties;
-    }
 }
-exports.default = Entity;
+exports.default = RelationshipSpeechBubble;
 
 
 /***/ }),
-/* 14 */
+
+/***/ "./src/graphDiagram/diagram/Diagram.ts":
+/*!*********************************************!*\
+  !*** ./src/graphDiagram/diagram/Diagram.ts ***!
+  \*********************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const GraphDiagram_1 = __webpack_require__(0);
-const SimpleStyle_1 = __webpack_require__(2);
-class Properties {
-    constructor(stylePrototype) {
-        this._propertiesMap = new Map();
-        this._style = new SimpleStyle_1.default(stylePrototype);
-    }
-    style(cssPropertyKey, cssPropertyValue) {
-        return this._style.style(cssPropertyKey, cssPropertyValue);
-    }
-    list(options) {
-        let exclude;
-        if (options) {
-            exclude = options.exclude;
-        }
-        let result = [];
-        this._propertiesMap.forEach((value, key) => {
-            if (!exclude || exclude.indexOf(key) == -1) {
-                result.push({ key: key, value: value });
-            }
-        });
-        return result;
-    }
-    ;
-    listEditable() {
-        return this.list({ exclude: [GraphDiagram_1.default.MODEL_ID_KEY] });
-    }
-    toJSON() {
-        let properties = {};
-        this.list().forEach((propertyObj) => {
-            properties[propertyObj.key] = propertyObj.value;
-        });
-        return properties;
-    }
-    toString() {
-        return JSON.stringify(this.list());
-    }
-    set(key, value) {
-        // if (!this.values[key]) {
-        //     this.keys.push(key);
-        // }
-        // this.values[key] = value;
-        this._propertiesMap.set(key, value);
-        return this;
-    }
-    ;
-    has(property) {
-        return this._propertiesMap.get(property);
-    }
-    clearAll() {
-        // this.keys = [];
-        // this.values = {};
-        this._propertiesMap = new Map();
-    }
-    ;
-}
-exports.default = Properties;
-;
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const Entity_1 = __webpack_require__(13);
-const Properties_1 = __webpack_require__(14);
-const SimpleStyle_1 = __webpack_require__(2);
-class Relationship extends Entity_1.default {
-    constructor(model, start, end) {
-        super(model);
-        this._entityType = "relationship";
-        this.start = start;
-        this.end = end;
-        this._properties = new Properties_1.default(model.stylePrototype.relationshipProperties);
-        this._style = new SimpleStyle_1.default(model.stylePrototype.relationship);
-    }
-    set relationshipType(relationshipTypeText) {
-        this._relationshipType = relationshipTypeText;
-    }
-    get relationshipType() {
-        return this._relationshipType;
-    }
-    reverse() {
-        var oldStart = this.start;
-        this.start = this.end;
-        this.end = oldStart;
-    }
-}
-exports.default = Relationship;
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-class DataTypes {
-}
-exports.DataTypes = DataTypes;
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const d3 = __webpack_require__(1);
-const GraphDiagram_1 = __webpack_require__(0);
-const Layout_1 = __webpack_require__(4);
-const Scaling_1 = __webpack_require__(10);
+const d3 = __webpack_require__(/*! d3 */ "d3");
+const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
+const Layout_1 = __webpack_require__(/*! ../layout/Layout */ "./src/graphDiagram/layout/Layout.ts");
+const Scaling_1 = __webpack_require__(/*! ../scaling/Scaling */ "./src/graphDiagram/scaling/Scaling.ts");
 var thiz;
 class Diagram {
     constructor() {
@@ -1582,254 +866,234 @@ exports.default = Diagram;
 
 
 /***/ }),
-/* 18 */
+
+/***/ "./src/graphDiagram/layout/Layout.ts":
+/*!*******************************************!*\
+  !*** ./src/graphDiagram/layout/Layout.ts ***!
+  \*******************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const d3 = __webpack_require__(1);
-const GraphDiagram_1 = __webpack_require__(0);
-const Bubble_1 = __webpack_require__(7);
-class RelationshipSpeechBubble extends Bubble_1.default {
-    constructor(relationship, apex) {
-        super(relationship);
-        var properties = relationship.properties;
-        var fontSize = relationship.properties.style("font-size");
-        var fontFamily = relationship.properties.style("font-family");
-        var orientation = RelationshipSpeechBubble.chooseRelationshipSpeechBubbleOrientation(relationship);
-        var propertyKeysWidth = d3.max(properties.listEditable(), function (property) {
-            return GraphDiagram_1.default.measureTextDimensions(property.key + ": ", fontSize, fontFamily);
-        });
-        var propertyValuesWidth = d3.max(properties.listEditable(), function (property) {
-            return GraphDiagram_1.default.measureTextDimensions(property.value, fontSize, fontFamily);
-        });
-        var textSize = {
-            width: propertyKeysWidth + propertyValuesWidth,
-            height: properties.listEditable().length * GraphDiagram_1.default.parsePixels(properties.style("font-size"))
+const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
+//import NodeSpeechBubble from '../bubble/NodeSpeechBubble';
+//import RelationshipSpeechBubble from '../bubble/RelationshipSpeechBubble';
+const LayoutRelationship_1 = __webpack_require__(/*! ./LayoutRelationship */ "./src/graphDiagram/layout/LayoutRelationship.ts");
+const LayoutNode_1 = __webpack_require__(/*! ./LayoutNode */ "./src/graphDiagram/layout/LayoutNode.ts");
+const HorizontalArrowOutline_1 = __webpack_require__(/*! ../arrow/HorizontalArrowOutline */ "./src/graphDiagram/arrow/HorizontalArrowOutline.ts");
+const CurvedArrowOutline_1 = __webpack_require__(/*! ../arrow/CurvedArrowOutline */ "./src/graphDiagram/arrow/CurvedArrowOutline.ts");
+class Layout {
+    constructor(graphModel) {
+        this.nodesById = new Map();
+        this.layoutModel = {
+            graphModel: graphModel,
+            nodes: [],
+            relationships: [],
+            relationshipGroups: []
         };
-        var margin = GraphDiagram_1.default.parsePixels(properties.style("margin"));
-        var padding = GraphDiagram_1.default.parsePixels(properties.style("padding"));
-        var mirror = "scale(" + orientation.mirrorX + "," + orientation.mirrorY + ") ";
-        var nodeOffsetOptions = {
-            diagonal: {
-                textCorner: {
-                    x: margin + padding,
-                    y: margin + padding
-                }
-            },
-            horizontal: {
-                textCorner: {
-                    x: margin + padding,
-                    y: -textSize.height / 2
-                }
-            },
-            vertical: {
-                textCorner: {
-                    x: -textSize.width / 2,
-                    y: margin + padding
-                }
+        graphModel.nodeList().forEach((node) => {
+            // var measurement: any = Layout.wrapAndMeasureCaption( node ); //FUNKY //TODO
+            var layoutNode = new LayoutNode_1.default(node);
+            this.nodesById.set(node.id, layoutNode);
+            this.layoutModel.nodes.push(layoutNode);
+        });
+        graphModel.groupedRelationshipList().forEach((group) => {
+            var nominatedStart = group[0].start;
+            var offsetStep = GraphDiagram_1.default.parsePixels(group[0].style("margin"));
+            var relationshipGroup = [];
+            for (var i = 0; i < group.length; i++) {
+                var relationship = group[i];
+                var offset = (relationship.start === nominatedStart ? 1 : -1) *
+                    offsetStep * (i - (group.length - 1) / 2);
+                // console.log(`groupedRelationshipList: offset: ${offset}`);
+                var start = this.nodesById.get(relationship.start.id);
+                var end = this.nodesById.get(relationship.end.id);
+                var arrow = this.horizontalArrow(relationship, start, end, offset);
+                var layoutRelationship = new LayoutRelationship_1.default(relationship, start, end, arrow);
+                relationshipGroup.push(layoutRelationship);
+                this.layoutModel.relationships.push(layoutRelationship);
             }
-        };
-        var textCorner = nodeOffsetOptions[orientation.style].textCorner;
-        var dx = relationship.end.ex() - relationship.start.ex();
-        var dy = relationship.end.ey() - relationship.start.ey();
-        var h = Math.sqrt(dx * dx + dy * dy);
-        var midPoint = {
-            x: relationship.start.ex() + (apex.x * dx - apex.y * dy) / h,
-            y: relationship.start.ey() + (apex.x * dy + apex.y * dx) / h
-        };
-        var translate = "translate(" + midPoint.x + "," + midPoint.y + ") ";
-        var textOrigin = {
-            x: propertyKeysWidth + orientation.mirrorX * (textCorner.x)
-                - (orientation.mirrorX == -1 ? textSize.width : 0),
-            y: orientation.mirrorY * (textCorner.y)
-                - (orientation.mirrorY == -1 ? textSize.height : 0)
-        };
-        var boundingPadding = padding + relationship.model.parameters.speechBubbleStrokeWidth / 2;
-        var boundingBox = {
-            x: midPoint.x + (textCorner.x - boundingPadding) * orientation.mirrorX,
-            y: midPoint.y + (textCorner.y - boundingPadding) * orientation.mirrorY,
-            width: orientation.mirrorX * (textSize.width + (boundingPadding * 2)),
-            height: orientation.mirrorY * (textSize.height + (boundingPadding * 2))
-        };
-        this.properties = properties.listEditable().map(function (property) {
-            return {
-                keyText: property.key + ": ",
-                valueText: property.value,
-                textOrigin: textOrigin,
-                style: relationship.style(),
-                entity: relationship
-            };
+            this.layoutModel.relationshipGroups.push(relationshipGroup);
         });
-        this.style = relationship.style();
-        this.entity = relationship;
-        this.groupTransform = translate;
-        this.outlineTransform = mirror;
-        this.outlinePath = Bubble_1.default.speechBubblePath(textSize, orientation.style, margin, padding);
-        this.boundingBox = boundingBox;
     }
-    static chooseRelationshipSpeechBubbleOrientation(relationship) {
-        var orientations = {
-            EAST: { style: "horizontal", mirrorX: 1, mirrorY: 1, angle: 0 },
-            SOUTH_EAST: { style: "diagonal", mirrorX: 1, mirrorY: 1, angle: 45 },
-            SOUTH: { style: "vertical", mirrorX: 1, mirrorY: 1, angle: 90 },
-            SOUTH_WEST: { style: "diagonal", mirrorX: -1, mirrorY: 1, angle: 135 },
-            WEST: { style: "horizontal", mirrorX: -1, mirrorY: 1, angle: 180 }
-        };
-        var relationshipAngle = relationship.start.angleTo(relationship.end);
-        var positiveAngle = relationshipAngle > 0 ? relationshipAngle : relationshipAngle + 180;
-        if (positiveAngle > 175 || positiveAngle < 5) {
-            return orientations.SOUTH;
+    horizontalArrow(relationship, start, end, offset) {
+        var length = start.model.distanceTo(end.model);
+        var arrowWidth = GraphDiagram_1.default.parsePixels(relationship.style("width"));
+        if (offset === 0) {
+            return new HorizontalArrowOutline_1.default(start.radius.startRelationship(), (length - end.radius.endRelationship()), arrowWidth);
         }
-        else if (positiveAngle < 85) {
-            return orientations.SOUTH_WEST;
-        }
-        else if (positiveAngle < 90) {
-            return orientations.WEST;
-        }
-        else if (positiveAngle === 90) {
-            return relationshipAngle > 0 ? orientations.WEST : orientations.EAST;
-        }
-        else if (positiveAngle < 95) {
-            return orientations.EAST;
-        }
-        else {
-            return orientations.SOUTH_EAST;
-        }
+        return new CurvedArrowOutline_1.default(start.radius.startRelationship(), end.radius.endRelationship(), length, offset, arrowWidth, arrowWidth * 4, arrowWidth * 4);
     }
 }
-exports.default = RelationshipSpeechBubble;
+exports.default = Layout;
 
 
 /***/ }),
-/* 19 */
+
+/***/ "./src/graphDiagram/layout/LayoutEntity.ts":
+/*!*************************************************!*\
+  !*** ./src/graphDiagram/layout/LayoutEntity.ts ***!
+  \*************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const d3 = __webpack_require__(1);
-const GraphDiagram_1 = __webpack_require__(0);
-const Bubble_1 = __webpack_require__(7);
-class NodeSpeechBubble extends Bubble_1.default {
-    constructor(node, radius) {
-        super(node);
-        var relatedNodes = [];
-        node.model.relationshipList().forEach(function (relationship) {
-            if (relationship.start === node) {
-                relatedNodes.push(relationship.end);
-            }
-            if (relationship.end === node) {
-                relatedNodes.push(relationship.start);
-            }
-        });
-        var orientation = NodeSpeechBubble.chooseNodeSpeechBubbleOrientation(node, relatedNodes);
-        var properties = node.properties;
-        var propertyKeysWidth = d3.max(properties.listEditable(), function (property) {
-            return GraphDiagram_1.default.measureTextDimensions(property.key + ": ", node.properties.style("font-size"), node.properties.style("font-family"));
-        });
-        var propertyValuesWidth = d3.max(properties.listEditable(), function (property) {
-            return GraphDiagram_1.default.measureTextDimensions(property.value, node.properties.style("font-size"), node.properties.style("font-family"));
-        });
-        var textSize = {
-            width: parseFloat(propertyKeysWidth) + parseFloat(propertyValuesWidth),
-            height: properties.listEditable().length * GraphDiagram_1.default.parsePixels(properties.style("font-size"))
-        };
-        var mirror = "scale(" + orientation.mirrorX + "," + orientation.mirrorY + ") ";
-        var margin = GraphDiagram_1.default.parsePixels(properties.style("margin"));
-        var padding = GraphDiagram_1.default.parsePixels(properties.style("padding"));
-        var diagonalRadius = radius.mid() * Math.sqrt(2) / 2;
-        var nodeOffsetOptions = {
-            diagonal: { attach: { x: diagonalRadius, y: diagonalRadius },
-                textCorner: {
-                    x: margin + padding,
-                    y: margin + padding
-                } },
-            horizontal: { attach: { x: radius.mid(), y: 0 },
-                textCorner: {
-                    x: margin + padding,
-                    y: -textSize.height / 2
-                } },
-            vertical: { attach: { x: 0, y: radius.mid() },
-                textCorner: {
-                    x: -textSize.width / 2,
-                    y: margin + padding
-                } }
-        };
-        var nodeCenterOffset = nodeOffsetOptions[orientation.style].attach;
-        var textCorner = nodeOffsetOptions[orientation.style].textCorner;
-        var translate = "translate(" + (node.ex() + nodeCenterOffset.x * orientation.mirrorX) + ","
-            + (node.ey() + nodeCenterOffset.y * orientation.mirrorY) + ") ";
-        var textOrigin = {
-            x: parseFloat(propertyKeysWidth) + orientation.mirrorX * (textCorner.x)
-                - (orientation.mirrorX == -1 ? textSize.width : 0),
-            y: orientation.mirrorY * (textCorner.y)
-                - (orientation.mirrorY == -1 ? textSize.height : 0)
-        };
-        var boundingPadding = padding + node.model.parameters.speechBubbleStrokeWidth / 2;
-        var boundingBox = {
-            x: node.ex() + (nodeCenterOffset.x + textCorner.x - boundingPadding) * orientation.mirrorX,
-            y: node.ey() + (nodeCenterOffset.y + textCorner.y - boundingPadding) * orientation.mirrorY,
-            width: orientation.mirrorX * (textSize.width + (boundingPadding * 2)),
-            height: orientation.mirrorY * (textSize.height + (boundingPadding * 2))
-        };
-        this.properties = properties.listEditable().map(function (property) {
-            return {
-                keyText: property.key + ": ",
-                valueText: property.value,
-                textOrigin: textOrigin,
-                style: node.style(),
-                entity: node
-            };
-        });
-        this.style = node.style();
-        this.groupTransform = translate;
-        this.outlineTransform = mirror;
-        this.outlinePath = Bubble_1.default.speechBubblePath(textSize, orientation.style, margin, padding),
-            this.boundingBox = boundingBox;
+class LayoutEntity {
+    constructor(entity) {
+        this.model = entity;
+        this.propertiesBubble = {};
     }
 }
-NodeSpeechBubble.chooseNodeSpeechBubbleOrientation = function (focusNode, relatedNodes) {
-    var orientations = [
-        { key: "WEST", style: "horizontal", mirrorX: -1, mirrorY: 1, angle: 180 },
-        { key: "NORTH-WEST", style: "diagonal", mirrorX: -1, mirrorY: -1, angle: -135 },
-        { key: "NORTH", style: "vertical", mirrorX: 1, mirrorY: -1, angle: -90 },
-        { key: "NORTH-EAST", style: "diagonal", mirrorX: 1, mirrorY: -1, angle: -45 },
-        { key: "EAST", style: "horizontal", mirrorX: 1, mirrorY: 1, angle: 0 },
-        { key: "SOUTH-EAST", style: "diagonal", mirrorX: 1, mirrorY: 1, angle: 45 },
-        { key: "SOUTH", style: "vertical", mirrorX: 1, mirrorY: 1, angle: 90 },
-        { key: "SOUTH-WEST", style: "diagonal", mirrorX: -1, mirrorY: 1, angle: 135 }
-    ];
-    orientations.forEach(function (orientation) {
-        orientation.closest = 180;
-    });
-    relatedNodes.forEach(function (relatedNode) {
-        orientations.forEach(function (orientation) {
-            var angle = Math.abs(focusNode.angleTo(relatedNode) - orientation.angle);
-            if (angle > 180) {
-                angle = 360 - angle;
-            }
-            if (angle < orientation.closest) {
-                orientation.closest = angle;
-            }
-        });
-    });
-    var maxAngle = 0;
-    var bestOrientation = orientations[0];
-    orientations.forEach(function (orientation) {
-        if (orientation.closest > maxAngle) {
-            maxAngle = orientation.closest;
-            bestOrientation = orientation;
-        }
-    });
-    return bestOrientation;
-};
-exports.default = NodeSpeechBubble;
+exports.default = LayoutEntity;
 
 
 /***/ }),
-/* 20 */
+
+/***/ "./src/graphDiagram/layout/LayoutModel.ts":
+/*!************************************************!*\
+  !*** ./src/graphDiagram/layout/LayoutModel.ts ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+class layoutModel {
+    constructor(model) {
+        this.graphModel = model;
+        this.nodes = [];
+        this.relationships = [];
+        this.relationshipGroups = [];
+    }
+}
+exports.default = layoutModel;
+
+
+/***/ }),
+
+/***/ "./src/graphDiagram/layout/LayoutNode.ts":
+/*!***********************************************!*\
+  !*** ./src/graphDiagram/layout/LayoutNode.ts ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
+const LayoutEntity_1 = __webpack_require__(/*! ../layout/LayoutEntity */ "./src/graphDiagram/layout/LayoutEntity.ts");
+const NodeSpeechBubble_1 = __webpack_require__(/*! ../bubble/NodeSpeechBubble */ "./src/graphDiagram/bubble/NodeSpeechBubble.ts");
+const Radius_1 = __webpack_require__(/*! ../layout/Radius */ "./src/graphDiagram/layout/Radius.ts");
+class LayoutNode extends LayoutEntity_1.default {
+    constructor(graphNode) {
+        super(graphNode);
+        this.class = graphNode.class;
+        this.x = graphNode.ex();
+        this.y = graphNode.ey();
+        let captionMeasurements = this.wrapAndMeasureCaption(graphNode);
+        this.radius = captionMeasurements.radius;
+        this.captionLines = captionMeasurements.captionLines;
+        this.captionLineHeight = captionMeasurements.captionLineHeight;
+        this.propertiesBubble = new NodeSpeechBubble_1.default(graphNode, captionMeasurements.radius);
+    }
+    wrapAndMeasureCaption(node) {
+        // function measure( text: string )
+        // {
+        //     return GraphDiagram.measureTextDimensions( text, node );
+        // }
+        // console.log(node, node.style(), node.style("font-size"));
+        var lineHeight = GraphDiagram_1.default.parsePixels(node.style("font-size"));
+        // console.log(lineHeight);
+        var insideRadius = 0;
+        var captionLines = [];
+        if (node.displayCaption) {
+            var padding = GraphDiagram_1.default.parsePixels(node.style("padding"));
+            var fontSize = node.properties.style("font-size");
+            var fontFamily = node.properties.style("font-family");
+            var totalWidth = GraphDiagram_1.default.measureTextDimensions(node.displayCaption, fontSize, fontFamily);
+            var idealRadius = Math.sqrt(totalWidth * lineHeight / Math.PI);
+            var idealRows = idealRadius * 2 / lineHeight;
+            function idealLength(row) {
+                var rowOffset = lineHeight * (row - idealRows) / 2;
+                return Math.sqrt(idealRadius * idealRadius - rowOffset * rowOffset) * 2;
+            }
+            var words = node.displayCaption.split(" ");
+            var currentLine = words.shift();
+            while (words.length > 0) {
+                if (GraphDiagram_1.default.measureTextDimensions(currentLine, fontSize, fontFamily) > idealLength(captionLines.length)) {
+                    captionLines.push(currentLine);
+                    currentLine = words.shift();
+                }
+                else {
+                    currentLine += " " + words.shift();
+                }
+            }
+            captionLines.push(currentLine);
+            for (var row = 0; row < captionLines.length; row++) {
+                var width = GraphDiagram_1.default.measureTextDimensions(captionLines[row], fontSize, fontFamily) / 2;
+                var middleRow = (captionLines.length - 1) / 2;
+                var rowOffset = lineHeight * (row > middleRow ? (row - middleRow + 0.5) : (row - middleRow - 0.5));
+                insideRadius = padding + Math.max(Math.sqrt(width * width + rowOffset * rowOffset), insideRadius);
+            }
+        }
+        let minWidthProperty = node.style("min-width") ? node.style("min-width") : "30px";
+        var minRadius = GraphDiagram_1.default.parsePixels(minWidthProperty) / 2;
+        if (minRadius > insideRadius) {
+            insideRadius = minRadius;
+        }
+        var radius = new Radius_1.default(node.model, insideRadius);
+        radius.border = GraphDiagram_1.default.parsePixels(node.style("border-width"));
+        radius.margin = GraphDiagram_1.default.parsePixels(node.style("margin"));
+        return {
+            radius: radius,
+            captionLines: captionLines,
+            captionLineHeight: lineHeight
+        };
+    }
+}
+exports.default = LayoutNode;
+
+
+/***/ }),
+
+/***/ "./src/graphDiagram/layout/LayoutRelationship.ts":
+/*!*******************************************************!*\
+  !*** ./src/graphDiagram/layout/LayoutRelationship.ts ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const LayoutEntity_1 = __webpack_require__(/*! ../layout/LayoutEntity */ "./src/graphDiagram/layout/LayoutEntity.ts");
+const RelationshipSpeechBubble_1 = __webpack_require__(/*! ../bubble/RelationshipSpeechBubble */ "./src/graphDiagram/bubble/RelationshipSpeechBubble.ts");
+class LayoutRelationship extends LayoutEntity_1.default {
+    constructor(graphRelationship, start, end, arrow) {
+        super(graphRelationship);
+        this.start = start;
+        this.end = end;
+        this.arrow = arrow;
+        this.propertiesBubble = new RelationshipSpeechBubble_1.default(graphRelationship, arrow.apex);
+        this.model = graphRelationship;
+    }
+}
+exports.default = LayoutRelationship;
+
+
+/***/ }),
+
+/***/ "./src/graphDiagram/layout/Radius.ts":
+/*!*******************************************!*\
+  !*** ./src/graphDiagram/layout/Radius.ts ***!
+  \*******************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1885,47 +1149,20 @@ exports.default = Radius;
 
 
 /***/ }),
-/* 21 */
+
+/***/ "./src/graphDiagram/markup/Markup.ts":
+/*!*******************************************!*\
+  !*** ./src/graphDiagram/markup/Markup.ts ***!
+  \*******************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-class HorizontalArrowOutline {
-    constructor(start, end, arrowWidth) {
-        this.shaftRadius = arrowWidth / 2;
-        this.headRadius = arrowWidth * 2;
-        this.headLength = this.headRadius * 2;
-        this.shoulder = start < end ? end - this.headLength : end + this.headLength;
-        this.outline = [
-            "M", start, this.shaftRadius,
-            "L", this.shoulder, this.shaftRadius,
-            "L", this.shoulder, this.headRadius,
-            "L", end, 0,
-            "L", this.shoulder, -this.headRadius,
-            "L", this.shoulder, -this.shaftRadius,
-            "L", start, -this.shaftRadius,
-            "Z"
-        ].join(" ");
-        this.apex = {
-            x: start + (this.shoulder - start) / 2,
-            y: 0
-        };
-    }
-}
-exports.default = HorizontalArrowOutline;
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const d3 = __webpack_require__(1);
-const Model_1 = __webpack_require__(11);
-const SimpleStyle_1 = __webpack_require__(2);
+const d3 = __webpack_require__(/*! d3 */ "d3");
+const Model_1 = __webpack_require__(/*! ../model/Model */ "./src/graphDiagram/model/Model.ts");
+const SimpleStyle_1 = __webpack_require__(/*! ../model/SimpleStyle */ "./src/graphDiagram/model/SimpleStyle.ts");
 class Markup {
     static parseAll(selection) {
         var models = [];
@@ -2055,7 +1292,331 @@ exports.default = Markup;
 
 
 /***/ }),
-/* 23 */
+
+/***/ "./src/graphDiagram/model/DataTypes.ts":
+/*!*********************************************!*\
+  !*** ./src/graphDiagram/model/DataTypes.ts ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+class DataTypes {
+}
+exports.DataTypes = DataTypes;
+
+
+/***/ }),
+
+/***/ "./src/graphDiagram/model/Entity.ts":
+/*!******************************************!*\
+  !*** ./src/graphDiagram/model/Entity.ts ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
+class Entity {
+    constructor(model) {
+        this.classes = [];
+        this.model = model;
+        this._label = "";
+        this._entityType = "";
+    }
+    style(cssPropertyKey, cssPropertyValue) {
+        return this._style.style(cssPropertyKey, cssPropertyValue);
+    }
+    class(classesString) {
+        if (arguments.length == 1) {
+            this.classes = classesString.split(" ").filter((className) => {
+                return className.length > 0 && className != this._entityType;
+            });
+            return this;
+        }
+        return [this._entityType].concat(this.classes);
+    }
+    ;
+    set caption(captionText) {
+        this._label = captionText;
+    }
+    get caption() {
+        return this._label;
+    }
+    set label(labelText) {
+        this._label = labelText;
+    }
+    get label() {
+        return this._label;
+    }
+    get displayCaption() {
+        return this.displayLabel;
+    }
+    get displayLabel() {
+        let name = this.properties.has('name');
+        if (name) {
+            return `${this._label}: ${name}`;
+        }
+        else {
+            return this._label;
+        }
+    }
+    get properties() {
+        if (this.model.id) {
+            this._properties.set(GraphDiagram_1.default.MODEL_ID_KEY, this.model.id);
+        }
+        return this._properties;
+    }
+}
+exports.default = Entity;
+
+
+/***/ }),
+
+/***/ "./src/graphDiagram/model/Model.ts":
+/*!*****************************************!*\
+  !*** ./src/graphDiagram/model/Model.ts ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const SimpleStyle_1 = __webpack_require__(/*! ./SimpleStyle */ "./src/graphDiagram/model/SimpleStyle.ts");
+const d3 = __webpack_require__(/*! d3 */ "d3");
+const Node_1 = __webpack_require__(/*! ./Node */ "./src/graphDiagram/model/Node.ts");
+const Relationship_1 = __webpack_require__(/*! ./Relationship */ "./src/graphDiagram/model/Relationship.ts");
+class Model {
+    /*
+        .graph-diagram-markup {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+    
+        .graph-diagram-markup .node {
+            font-size: 14px;
+            margin: 5px;
+            padding: 5px;
+            min-width: 30px;
+            background-color: #f7f7f9;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+    
+        .graph-diagram-markup .relationship {
+            font-size: 14px;
+            width: 2px;
+            margin: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: none;
+        }
+    
+        .graph-diagram-markup .properties {
+            font-size: 14px;
+            margin: 12px;
+            padding: 4px;
+            background-color: white;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+        }
+    */
+    constructor(id) {
+        this.nodes = new Map();
+        this.relationships = new Map();
+        this.highestNodeIndex = 0;
+        this.highestRelationshipIndex = 0;
+        this.parameters = {
+            radius: 50,
+            nodeStrokeWidth: 8,
+            nodeStartMargin: 11,
+            nodeEndMargin: 11,
+            speechBubbleMargin: 20,
+            speechBubblePadding: 10,
+            speechBubbleStrokeWidth: 3,
+            snapTolerance: 20
+        };
+        this._internalScale = 1;
+        this._externalScale = 1;
+        if (id) {
+            this._id = id;
+        }
+        this.stylePrototype = {
+            node: new SimpleStyle_1.default({
+                'min-width': '30px',
+                'font-size': '14px',
+                'font-family': '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                'padding': '5px',
+                'border-width': '1px',
+                'border-color': 'rgba(0, 0, 0, 0.3)',
+                'margin': '5px',
+                'background-color': '#f7f7f9',
+                'border': '1px solid rgba(0, 0, 0, 0.3)'
+            }),
+            nodeProperties: new SimpleStyle_1.default({
+                'font-size': '14px',
+                'font-family': '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                'padding': '4px',
+                'margin': '12px',
+                'background-color': 'white',
+                'border': '1px solid rgba(0, 0, 0, 0.5)',
+                'border-color': 'rgba(0, 0, 0, 0.5)',
+                'border-width': '1px'
+            }),
+            relationship: new SimpleStyle_1.default({
+                'font-size': '14px',
+                'font-family': '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                'width': '2px',
+                'border-width': '3px',
+                'margin': '10px',
+                'background-color': 'rgba(0, 0, 0, 0.3)',
+                'border': 'none'
+            }),
+            relationshipProperties: new SimpleStyle_1.default({
+                'font-size': '14px',
+                'font-family': '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                'padding': '4px',
+                'margin': '12px',
+                'background-color': 'white',
+                'border': '1px solid rgba(0, 0, 0, 0.5)',
+                'border-color': 'rgba(0, 0, 0, 0.5)',
+                'border-width': '1px'
+            })
+        };
+    }
+    toString() {
+        let result = 'Model:\n';
+        let obj = {
+            highestNodeIndex: this.highestNodeIndex,
+            highestRelationshipIndex: this.highestRelationshipIndex,
+            nodeCount: this.nodes.size,
+            relationshipCount: this.relationships.size,
+            nodeStylePrototype: this.stylePrototype.node.style(),
+        };
+        result += JSON.stringify(obj);
+        return result;
+    }
+    summary() {
+        let obj = {
+            highestNodeIndex: this.highestNodeIndex,
+            highestRelationshipIndex: this.highestRelationshipIndex,
+            nodeCount: this.nodes.size,
+            relationshipCount: this.relationships.size,
+            nodePropertiesStylePrototype: this.stylePrototype.nodeProperties.style(),
+            relationshipPropertiesStylePrototype: this.stylePrototype.relationshipProperties.style(),
+        };
+        return obj;
+    }
+    generateNodeIndex() {
+        while (this.nodes.get(`${this.highestNodeIndex}`)) {
+            this.highestNodeIndex++;
+        }
+        return this.highestNodeIndex;
+    }
+    createNode(optionalId) {
+        var node = new Node_1.default(this);
+        node.index = this.generateNodeIndex();
+        var nodeId = optionalId || `${node.index}`;
+        node.id = nodeId;
+        this.nodes.set(nodeId, node);
+        return node;
+    }
+    ;
+    deleteNode(node) {
+        // this.relationships = this.relationships.filter(function (relationship) {
+        //     return !(relationship.start === node || relationship.end == node);
+        // });
+        this.relationships.forEach((relationship, id, map) => {
+            if ((relationship.start === node) || (relationship.end === node)) {
+                this.relationships.delete(id);
+            }
+        });
+        this.nodes.delete(node.id);
+    }
+    ;
+    deleteRelationship(relationship) {
+        //this.relationships.splice(this.relationships.indexOf(relationship), 1);
+        this.relationships.delete(relationship.id);
+    }
+    ;
+    generateRelationshipIndex() {
+        while (this.relationships.get(`${this.highestRelationshipIndex}`)) {
+            this.highestRelationshipIndex++;
+        }
+        return this.highestRelationshipIndex;
+    }
+    createRelationship(start, end, optionalId) {
+        var relationship = new Relationship_1.default(this, start, end);
+        relationship.index = this.generateRelationshipIndex();
+        var relationshipId = optionalId || `${relationship.index}`;
+        relationship.id = relationshipId;
+        this.relationships.set(relationshipId, relationship);
+        return relationship;
+    }
+    ;
+    nodeList() {
+        return Array.from(this.nodes.values());
+    }
+    ;
+    lookupNode(nodeId) {
+        return this.nodes.get(`${nodeId}`);
+    }
+    ;
+    relationshipList() {
+        return Array.from(this.relationships.values());
+    }
+    ;
+    groupedRelationshipList() {
+        var groups = {};
+        this.relationships.forEach((relationship, id, map) => {
+            var nodeIds = [relationship.start.id, relationship.end.id].sort();
+            var group = groups[nodeIds];
+            if (!group) {
+                group = groups[nodeIds] = [];
+            }
+            if (relationship.start.id < relationship.end.id) {
+                group.push(relationship);
+            }
+            else {
+                group.splice(0, 0, relationship);
+            }
+        });
+        return d3.values(groups);
+    }
+    ;
+    set id(id) {
+        this._id = id;
+    }
+    get id() {
+        return this._id;
+    }
+    set internalScale(newScale) {
+        this._internalScale = newScale; //NOTE parseFloat(newScale);
+    }
+    ;
+    get internalScale() {
+        return this._internalScale;
+    }
+    set externalScale(newScale) {
+        this._externalScale = newScale; //NOTE parseFloat(newScale);
+    }
+    ;
+    get externalScale() {
+        return this._externalScale;
+    }
+}
+exports.default = Model;
+;
+
+
+/***/ }),
+
+/***/ "./src/graphDiagram/model/ModelToCypher.ts":
+/*!*************************************************!*\
+  !*** ./src/graphDiagram/model/ModelToCypher.ts ***!
+  \*************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2108,14 +1669,19 @@ exports.default = ModelToCypher;
 
 
 /***/ }),
-/* 24 */
+
+/***/ "./src/graphDiagram/model/ModelToD3.ts":
+/*!*********************************************!*\
+  !*** ./src/graphDiagram/model/ModelToD3.ts ***!
+  \*********************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const __1 = __webpack_require__(3);
-const DataTypes_1 = __webpack_require__(16);
+const __1 = __webpack_require__(/*! ../.. */ "./src/index.ts");
+const DataTypes_1 = __webpack_require__(/*! ./DataTypes */ "./src/graphDiagram/model/DataTypes.ts");
 class ModelToD3 {
     constructor() {
         this.dataTypes = new DataTypes_1.DataTypes(); // included to force DataTypes to be included in d.ts
@@ -2187,24 +1753,595 @@ exports.default = ModelToD3;
 
 
 /***/ }),
-/* 25 */
+
+/***/ "./src/graphDiagram/model/Node.ts":
+/*!****************************************!*\
+  !*** ./src/graphDiagram/model/Node.ts ***!
+  \****************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-class layoutModel {
+const Entity_1 = __webpack_require__(/*! ./Entity */ "./src/graphDiagram/model/Entity.ts");
+const Properties_1 = __webpack_require__(/*! ./Properties */ "./src/graphDiagram/model/Properties.ts");
+const SimpleStyle_1 = __webpack_require__(/*! ./SimpleStyle */ "./src/graphDiagram/model/SimpleStyle.ts");
+class Node extends Entity_1.default {
     constructor(model) {
-        this.graphModel = model;
-        this.nodes = [];
-        this.relationships = [];
-        this.relationshipGroups = [];
+        super(model);
+        this.position = {};
+        this.radius = 25; //TODO get the actual radius, i.e. from LayoutNode
+        this._entityType = "node";
+        this._properties = new Properties_1.default(model.stylePrototype.nodeProperties);
+        this._style = new SimpleStyle_1.default(model.stylePrototype.node);
+    }
+    set x(x) {
+        this.position.x = Number(x);
+    }
+    ;
+    get x() {
+        return this.position.x;
+    }
+    set y(y) {
+        this.position.y = Number(y);
+    }
+    get y() {
+        return this.position.y;
+    }
+    // funky usage precludes get/set for now
+    ex() {
+        return this.position.x * this.model.internalScale;
+    }
+    // funky usage precludes get/set for now
+    ey() {
+        return this.position.y * this.model.internalScale;
+    }
+    distanceTo(node) {
+        var dx = node.x - this.x;
+        var dy = node.y - this.y;
+        return Math.sqrt(dx * dx + dy * dy) * this.model.internalScale;
+    }
+    snap(position, field, node) {
+        var ideal = position[field];
+        var closestNode;
+        var closestDistance = Number.MAX_VALUE;
+        for (var nodeId in this.model.nodes) {
+            if (this.model.nodes.hasOwnProperty(nodeId)) {
+                var candidateNode = this.model.nodes[nodeId];
+                if (candidateNode != node) {
+                    // console.log(`Node: snap: field: ${field}`)
+                    var distance = 0;
+                    if (field == "x") {
+                        distance = Math.abs(candidateNode.x - ideal);
+                    }
+                    else if (field == "y") {
+                        distance = Math.abs(candidateNode.y - ideal);
+                    }
+                    // var distance = Math.abs(candidateNode[field]() - ideal); //TODO find a better way to reference accessors of Node
+                    if (distance < closestDistance) {
+                        closestNode = candidateNode;
+                        closestDistance = distance;
+                    }
+                }
+            }
+        }
+        if (closestDistance < this.model.parameters.snapTolerance) {
+            if (field == "x") {
+                return closestNode.x;
+            }
+            else if (field == "y") {
+                return closestNode.y;
+            }
+        }
+        else {
+            if (field == "x") {
+                return position.x;
+            }
+            else if (field == "y") {
+                return position.y;
+            }
+        }
+    }
+    drag(dx, dy) {
+        if (!this.prototypePosition) {
+            this.prototypePosition = {
+                x: this.position.x,
+                y: this.position.y
+            };
+        }
+        this.prototypePosition.x += dx / this.model.internalScale;
+        this.prototypePosition.y += dy / this.model.internalScale;
+        this.position.x = this.snap(this.prototypePosition, "x", this); //TODO
+        this.position.y = this.snap(this.prototypePosition, "y", this); //TODO
+        // console.log(this.position, this.prototypePosition, this.model.internalScale);
+    }
+    dragEnd() {
+        this.prototypePosition = undefined;
+        // console.log(this.position, this.prototypePosition);
+    }
+    // distance() {
+    //     var dx = this.node.x - this.x;
+    //     var dy = this.node.y - this.y;
+    //     return Math.sqrt(dx * dx + dy * dy) * this.model.internalScale;
+    // };
+    angleTo(node) {
+        var dx = node.x - this.x;
+        var dy = node.y - this.y;
+        return Math.atan2(dy, dx) * 180 / Math.PI;
+    }
+    ;
+    isLeftOf(node) {
+        return this.x < node.x;
+    }
+    ;
+}
+exports.default = Node;
+
+
+/***/ }),
+
+/***/ "./src/graphDiagram/model/Properties.ts":
+/*!**********************************************!*\
+  !*** ./src/graphDiagram/model/Properties.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
+const SimpleStyle_1 = __webpack_require__(/*! ./SimpleStyle */ "./src/graphDiagram/model/SimpleStyle.ts");
+class Properties {
+    constructor(stylePrototype) {
+        this._propertiesMap = new Map();
+        this._style = new SimpleStyle_1.default(stylePrototype);
+    }
+    style(cssPropertyKey, cssPropertyValue) {
+        return this._style.style(cssPropertyKey, cssPropertyValue);
+    }
+    list(options) {
+        let exclude;
+        if (options) {
+            exclude = options.exclude;
+        }
+        let result = [];
+        this._propertiesMap.forEach((value, key) => {
+            if (!exclude || exclude.indexOf(key) == -1) {
+                result.push({ key: key, value: value });
+            }
+        });
+        return result;
+    }
+    ;
+    listEditable() {
+        return this.list({ exclude: [GraphDiagram_1.default.MODEL_ID_KEY] });
+    }
+    toJSON() {
+        let properties = {};
+        this.list().forEach((propertyObj) => {
+            properties[propertyObj.key] = propertyObj.value;
+        });
+        return properties;
+    }
+    toString() {
+        return JSON.stringify(this.list());
+    }
+    set(key, value) {
+        // if (!this.values[key]) {
+        //     this.keys.push(key);
+        // }
+        // this.values[key] = value;
+        this._propertiesMap.set(key, value);
+        return this;
+    }
+    ;
+    has(property) {
+        return this._propertiesMap.get(property);
+    }
+    clearAll() {
+        // this.keys = [];
+        // this.values = {};
+        this._propertiesMap = new Map();
+    }
+    ;
+}
+exports.default = Properties;
+;
+
+
+/***/ }),
+
+/***/ "./src/graphDiagram/model/Relationship.ts":
+/*!************************************************!*\
+  !*** ./src/graphDiagram/model/Relationship.ts ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const Entity_1 = __webpack_require__(/*! ./Entity */ "./src/graphDiagram/model/Entity.ts");
+const Properties_1 = __webpack_require__(/*! ./Properties */ "./src/graphDiagram/model/Properties.ts");
+const SimpleStyle_1 = __webpack_require__(/*! ./SimpleStyle */ "./src/graphDiagram/model/SimpleStyle.ts");
+class Relationship extends Entity_1.default {
+    constructor(model, start, end) {
+        super(model);
+        this._entityType = "relationship";
+        this.start = start;
+        this.end = end;
+        this._properties = new Properties_1.default(model.stylePrototype.relationshipProperties);
+        this._style = new SimpleStyle_1.default(model.stylePrototype.relationship);
+    }
+    set relationshipType(relationshipTypeText) {
+        this._relationshipType = relationshipTypeText;
+    }
+    get relationshipType() {
+        return this._relationshipType;
+    }
+    reverse() {
+        var oldStart = this.start;
+        this.start = this.end;
+        this.end = oldStart;
     }
 }
-exports.default = layoutModel;
+exports.default = Relationship;
 
+
+/***/ }),
+
+/***/ "./src/graphDiagram/model/SimpleStyle.ts":
+/*!***********************************************!*\
+  !*** ./src/graphDiagram/model/SimpleStyle.ts ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+class SimpleStyle {
+    constructor(stylePrototype) {
+        this._styles = {};
+        if (stylePrototype && (stylePrototype instanceof SimpleStyle)) {
+            let styleMap = stylePrototype.style();
+            // console.log(`styleMap:`, styleMap);
+            for (let key in styleMap) {
+                if (styleMap.hasOwnProperty(key)) {
+                    this._styles[key] = styleMap[key];
+                }
+            }
+        }
+        else {
+            let styleMap = stylePrototype;
+            // console.log(`styleMap:`, styleMap);
+            for (let key in styleMap) {
+                this._styles[key] = styleMap[key];
+            }
+        }
+    }
+    style(cssPropertyKey, cssPropertyValue) {
+        // console.log(`SimpleStyle: style: ${cssPropertyKey}, ${cssPropertyValue}`, arguments, this);
+        if (cssPropertyKey && cssPropertyValue) {
+            this._styles[cssPropertyKey] = cssPropertyValue;
+            return this;
+        }
+        else if (cssPropertyKey) {
+            return this._styles[cssPropertyKey];
+        }
+        else {
+            return this._styles;
+        }
+    }
+    static copyStyle(entity, computedStyle, cssPropertyKey, backupCssPropertyKey, debug = false) {
+        var propertyValue = computedStyle.getPropertyValue(cssPropertyKey);
+        if (!propertyValue) {
+            propertyValue = computedStyle.getPropertyValue(backupCssPropertyKey);
+        }
+        if (debug) {
+            console.log(`  ${cssPropertyKey}: ${propertyValue}`);
+        }
+        entity.style(cssPropertyKey, propertyValue);
+    }
+    static copyStyles(entity, markup, debug = false) {
+        var computedStyle = window.getComputedStyle(markup.node());
+        if (debug) {
+            console.log(`copyStyles from: `, markup.node());
+        }
+        SimpleStyle.copyStyle(entity, computedStyle, "width", "width", debug);
+        SimpleStyle.copyStyle(entity, computedStyle, "min-width", "min-width", debug);
+        SimpleStyle.copyStyle(entity, computedStyle, "font-family", "font-family", debug);
+        SimpleStyle.copyStyle(entity, computedStyle, "font-size", "font-size", debug);
+        SimpleStyle.copyStyle(entity, computedStyle, "margin", "margin-top", debug);
+        SimpleStyle.copyStyle(entity, computedStyle, "padding", "padding-top", debug);
+        SimpleStyle.copyStyle(entity, computedStyle, "color", "color", debug);
+        SimpleStyle.copyStyle(entity, computedStyle, "background-color", "background-color", debug);
+        SimpleStyle.copyStyle(entity, computedStyle, "border-width", "border-top-width", debug);
+        SimpleStyle.copyStyle(entity, computedStyle, "border-style", "border-top-style", debug);
+        SimpleStyle.copyStyle(entity, computedStyle, "border-color", "border-top-color", debug);
+    }
+}
+exports.default = SimpleStyle;
+// export default class SimpleStyle {
+//     private _style: any;
+//
+//     constructor(stylePrototype?: any) {
+//         this._style = this.styleSet(stylePrototype);
+//     }
+//
+//     get style(): any {
+//         return this._style;
+//     }
+//
+//     styleSet(stylePrototype?: any) {
+//         var styles = {};
+//
+//         if (stylePrototype) {
+//             var styleMap = stylePrototype.style();
+//             for (var key in styleMap) {
+//                 if (styleMap.hasOwnProperty(key)) {
+//                     styles[key] = styleMap[key];
+//                 }
+//             }
+//         }
+//
+//         return function(cssPropertyKey: string, cssPropertyValue: string) {
+//             if (arguments.length == 2) {
+//                 styles[cssPropertyKey] = cssPropertyValue;
+//                 return this;
+//             }
+//             if (arguments.length == 1) {
+//                 return styles[cssPropertyKey];
+//             }
+//             return styles;
+//         }
+//     }
+// }
+
+
+/***/ }),
+
+/***/ "./src/graphDiagram/scaling/Scaling.ts":
+/*!*********************************************!*\
+  !*** ./src/graphDiagram/scaling/Scaling.ts ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
+// export type ViewDimensions = {
+//     width: number;
+//     height: number;
+// }
+class Scaling {
+    static nodeBox(node) {
+        var margin = node.radius.outside();
+        let graphNode = node.model;
+        return {
+            x1: graphNode.ex() - margin,
+            y1: graphNode.ey() - margin,
+            x2: graphNode.ex() + margin,
+            y2: graphNode.ey() + margin
+        };
+    }
+    ;
+    static boxNormalise(box) {
+        return {
+            x1: box.width > 0 ? box.x : box.x + box.width,
+            y1: box.height > 0 ? box.y : box.y + box.height,
+            x2: box.width < 0 ? box.x : box.x + box.width,
+            y2: box.height < 0 ? box.y : box.y + box.height
+        };
+    }
+    ;
+    static boxUnion(boxes) {
+        if (boxes.length < 1) {
+            return { x1: 0, y1: 0, x2: 0, y2: 0 };
+        }
+        return boxes.reduce(function (previous, current) {
+            return {
+                x1: Math.min(previous.x1, current.x1),
+                y1: Math.min(previous.y1, current.y1),
+                x2: Math.max(previous.x2, current.x2),
+                y2: Math.max(previous.y2, current.y2)
+            };
+        });
+    }
+    ;
+    static smallestContainingBox(layoutModel) {
+        function boundingBox(entity) {
+            return entity.propertiesBubble.boundingBox;
+        }
+        var bounds = Scaling.boxUnion(layoutModel.nodes.map(Scaling.nodeBox)
+            .concat(layoutModel.nodes.filter(GraphDiagram_1.default.hasProperties).map(boundingBox)
+            .map(Scaling.boxNormalise))
+            .concat(layoutModel.relationships.filter(GraphDiagram_1.default.hasProperties).map(boundingBox)
+            .map(Scaling.boxNormalise)));
+        return { x: bounds.x1, y: bounds.y1,
+            width: (bounds.x2 - bounds.x1), height: (bounds.y2 - bounds.y1) };
+    }
+    static centeredOrScaledViewBox(viewDimensions, diagramExtent) {
+        var xScale = diagramExtent.width / viewDimensions.width;
+        var yScale = diagramExtent.height / viewDimensions.height;
+        var scaleFactor = xScale < 1 && yScale < 1 ? 1 : (xScale > yScale ? xScale : yScale);
+        return {
+            x: ((diagramExtent.width - viewDimensions.width * scaleFactor) / 2) + diagramExtent.x,
+            y: ((diagramExtent.height - viewDimensions.height * scaleFactor) / 2) + diagramExtent.y,
+            width: viewDimensions.width * scaleFactor,
+            height: viewDimensions.height * scaleFactor
+        };
+    }
+    ;
+    static effectiveBox(viewBox, viewSize) {
+        if (viewBox.width / viewSize.width > viewBox.height / viewSize.height) {
+            return {
+                x: viewBox.x,
+                y: viewBox.y - ((viewBox.width * viewSize.height / viewSize.width) - viewBox.height) / 2,
+                width: viewBox.width,
+                height: viewBox.width * viewSize.height / viewSize.width
+            };
+        }
+        else {
+            return {
+                x: viewBox.x - ((viewBox.height * viewSize.width / viewSize.height) - viewBox.width) / 2,
+                y: viewBox.y,
+                width: viewBox.height * viewSize.width / viewSize.height,
+                height: viewBox.height
+            };
+        }
+    }
+    static viewDimensions(view) {
+        var svgElement = view.node();
+        return {
+            x: 0,
+            y: 0,
+            width: svgElement.clientWidth,
+            height: svgElement.clientHeight
+        };
+    }
+    static centerOrScaleDiagramToFitSvg(layoutModel, view) {
+        var box = Scaling.centeredOrScaledViewBox(Scaling.viewDimensions(view), Scaling.smallestContainingBox(layoutModel));
+        view
+            .attr("viewBox", [box.x, box.y, box.width, box.height].join(" "));
+    }
+    ;
+    static centerOrScaleDiagramToFitWindow(layoutModel, view) {
+        var windowDimensions = {
+            x: 0,
+            y: 0,
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+        var box = Scaling.centeredOrScaledViewBox(windowDimensions, Scaling.smallestContainingBox(layoutModel));
+        view
+            .attr("width", windowDimensions.width)
+            .attr("height", windowDimensions.height)
+            .attr("viewBox", [box.x, box.y, box.width, box.height].join(" "));
+    }
+    ;
+    static centerOrScaleDiagramToFitSvgSmooth(layoutModel, view) {
+        var box = Scaling.centeredOrScaledViewBox(Scaling.viewDimensions(view), Scaling.smallestContainingBox(layoutModel));
+        view
+            .transition()
+            .attr("viewBox", [box.x, box.y, box.width, box.height].join(" "));
+    }
+    ;
+    static fitsInside(extent, box) {
+        return extent.x >= box.x &&
+            extent.y >= box.y &&
+            extent.x + extent.width <= box.x + box.width &&
+            extent.y + extent.height <= box.y + box.height;
+    }
+    static growButDoNotShrink(layoutModel, view) {
+        var currentViewBoxAttr = view.attr("viewBox");
+        if (currentViewBoxAttr === null) {
+            // Scaling.centeredOrScaledViewBox(layoutModel, view); //FUNKY //TODO
+        }
+        else {
+            var currentDimensions = currentViewBoxAttr.split(" ").map(parseFloat);
+            var currentBox = {
+                x: currentDimensions[0],
+                y: currentDimensions[1],
+                width: currentDimensions[2],
+                height: currentDimensions[3]
+            };
+            var diagramExtent = Scaling.smallestContainingBox(layoutModel);
+            var box;
+            if (Scaling.fitsInside(diagramExtent, Scaling.effectiveBox(currentBox, Scaling.viewDimensions(view)))) {
+                box = currentBox;
+            }
+            else {
+                var idealBox = Scaling.centeredOrScaledViewBox(Scaling.viewDimensions(view), diagramExtent);
+                box = {
+                    x: Math.min(currentBox.x, idealBox.x),
+                    y: Math.min(currentBox.y, idealBox.y),
+                    width: Math.max(currentBox.x + currentBox.width, idealBox.x + idealBox.width) -
+                        Math.min(currentBox.x, idealBox.x),
+                    height: Math.max(currentBox.y + currentBox.height, idealBox.y + idealBox.height) -
+                        Math.min(currentBox.y, idealBox.y)
+                };
+            }
+            view
+                .attr("viewBox", [box.x, box.y, box.width, box.height].join(" "));
+        }
+    }
+    ;
+    static sizeSvgToFitDiagram(layoutModel, view) {
+        var box = Scaling.smallestContainingBox(layoutModel);
+        view
+            .attr("viewBox", [box.x, box.y, box.width, box.height].join(" "))
+            .attr("width", box.width * layoutModel.graphModel.externalScale)
+            .attr("height", box.height * layoutModel.graphModel.externalScale);
+    }
+    ;
+}
+exports.default = Scaling;
+
+
+/***/ }),
+
+/***/ "./src/index.ts":
+/*!**********************!*\
+  !*** ./src/index.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const GraphDiagram_1 = __webpack_require__(/*! ./graphDiagram/GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
+exports.GraphDiagram = GraphDiagram_1.default;
+const Diagram_1 = __webpack_require__(/*! ./graphDiagram/diagram/Diagram */ "./src/graphDiagram/diagram/Diagram.ts");
+exports.Diagram = Diagram_1.default;
+const Markup_1 = __webpack_require__(/*! ./graphDiagram/markup/Markup */ "./src/graphDiagram/markup/Markup.ts");
+exports.Markup = Markup_1.default;
+const Model_1 = __webpack_require__(/*! ./graphDiagram/model/Model */ "./src/graphDiagram/model/Model.ts");
+exports.Model = Model_1.default;
+const ModelToCypher_1 = __webpack_require__(/*! ./graphDiagram/model/ModelToCypher */ "./src/graphDiagram/model/ModelToCypher.ts");
+exports.ModelToCypher = ModelToCypher_1.default;
+const ModelToD3_1 = __webpack_require__(/*! ./graphDiagram/model/ModelToD3 */ "./src/graphDiagram/model/ModelToD3.ts");
+exports.ModelToD3 = ModelToD3_1.default;
+const Node_1 = __webpack_require__(/*! ./graphDiagram/model/Node */ "./src/graphDiagram/model/Node.ts");
+exports.Node = Node_1.default;
+const SimpleStyle_1 = __webpack_require__(/*! ./graphDiagram/model/SimpleStyle */ "./src/graphDiagram/model/SimpleStyle.ts");
+exports.SimpleStyle = SimpleStyle_1.default;
+const CurvedArrowOutline_1 = __webpack_require__(/*! ./graphDiagram/arrow/CurvedArrowOutline */ "./src/graphDiagram/arrow/CurvedArrowOutline.ts");
+exports.CurvedArrowOutline = CurvedArrowOutline_1.default;
+const Relationship_1 = __webpack_require__(/*! ./graphDiagram/model/Relationship */ "./src/graphDiagram/model/Relationship.ts");
+exports.Relationship = Relationship_1.default;
+const Scaling_1 = __webpack_require__(/*! ./graphDiagram/scaling/Scaling */ "./src/graphDiagram/scaling/Scaling.ts");
+exports.Scaling = Scaling_1.default;
+const Layout_1 = __webpack_require__(/*! ./graphDiagram/layout/Layout */ "./src/graphDiagram/layout/Layout.ts");
+exports.Layout = Layout_1.default;
+const LayoutModel_1 = __webpack_require__(/*! ./graphDiagram/layout/LayoutModel */ "./src/graphDiagram/layout/LayoutModel.ts");
+exports.LayoutModel = LayoutModel_1.default;
+const LayoutNode_1 = __webpack_require__(/*! ./graphDiagram/layout/LayoutNode */ "./src/graphDiagram/layout/LayoutNode.ts");
+exports.LayoutNode = LayoutNode_1.default;
+const LayoutRelationship_1 = __webpack_require__(/*! ./graphDiagram/layout/LayoutRelationship */ "./src/graphDiagram/layout/LayoutRelationship.ts");
+exports.LayoutRelationship = LayoutRelationship_1.default;
+const DataTypes_1 = __webpack_require__(/*! ./graphDiagram/model/DataTypes */ "./src/graphDiagram/model/DataTypes.ts");
+exports.DataTypes = DataTypes_1.DataTypes;
+
+
+/***/ }),
+
+/***/ "d3":
+/*!*********************!*\
+  !*** external "d3" ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_d3__;
 
 /***/ })
-/******/ ]);
+
+/******/ });
 });
 //# sourceMappingURL=index.js.map
