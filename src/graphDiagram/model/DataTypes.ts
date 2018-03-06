@@ -3,7 +3,8 @@ export namespace d3Types {
     id: string,
     group?: number,
     properties?: any,
-    labels?: string[]
+    labels?: string[],
+    position: any
   };
 
   export type d3Link = {

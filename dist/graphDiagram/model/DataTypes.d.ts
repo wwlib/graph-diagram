@@ -4,6 +4,7 @@ export declare namespace d3Types {
         group?: number;
         properties?: any;
         labels?: string[];
+        position: any;
     };
     type d3Link = {
         source: string;

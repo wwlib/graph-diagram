@@ -36,7 +36,7 @@ http-server
 ```
 [http://localhost:8080/example-browser-editor.html?#](http://localhost:8080/example-browser-editor.html?#)
 
-![alt text](./docs/img/graph-diagram-editor.png)
+![editor](./docs/img/graph-diagram-editor.png)
 
 #### in-browser tests:
 ```
@@ -46,7 +46,7 @@ http-server
 ```
 [http://localhost:8080/example-browser-tests.html](http://localhost:8080/example-browser-tests.html)
 
-![alt text](./docs/img/graph-diagram-tests.png)
+![tests](./docs/img/graph-diagram-tests.png)
 
 ### tests, coverage
 Note: Tests are incomplete
