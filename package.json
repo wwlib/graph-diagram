@@ -14,7 +14,8 @@
     "build:example-browser-tests": "webpack --config webpack.config.examples.tests.js",
     "build:example-browser-tests:watch": "webpack --config webpack.config.examples.tests.js --watch",
     "build:example-browser-editor": "webpack --config webpack.config.examples.editor.js",
-    "build:example-browser-editor:watch": "webpack --config webpack.config.examples.editor.js --watch"
+    "build:example-browser-editor:watch": "webpack --config webpack.config.examples.editor.js --watch",
+    "clean:examples": "rimraf docs/examples/lib"
   },
   "repository": {
     "type": "git",

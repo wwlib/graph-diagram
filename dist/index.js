@@ -944,7 +944,7 @@ class Model {
         while (this.relationships.get(`${this.highestRelationshipIndex}`)) {
             this.highestRelationshipIndex++;
         }
-        return this.highestRelationshipIndex++;
+        return this.highestRelationshipIndex;
     }
     createRelationship(start, end, optionalId) {
         var relationship = new Relationship_1.default(this, start, end);
@@ -1028,7 +1028,6 @@ class Node extends Entity_1.default {
         this._entityType = "node";
         this._properties = new Properties_1.default(model.stylePrototype.nodeProperties);
         this._style = new SimpleStyle_1.default(model.stylePrototype.node);
-        this._caption = "";
     }
     set x(x) {
         this.position.x = Number(x);
@@ -1145,7 +1144,7 @@ class Entity {
     constructor(model) {
         this.classes = [];
         this.model = model;
-        this._caption = "";
+        this._label = "";
         this._entityType = "";
     }
     style(cssPropertyKey, cssPropertyValue) {
@@ -1162,18 +1161,27 @@ class Entity {
     }
     ;
     set caption(captionText) {
-        this._caption = captionText;
+        this._label = captionText;
     }
     get caption() {
-        return this._caption;
+        return this._label;
+    }
+    set label(labelText) {
+        this._label = labelText;
+    }
+    get label() {
+        return this._label;
     }
     get displayCaption() {
+        return this.displayLabel;
+    }
+    get displayLabel() {
         let name = this.properties.has('name');
         if (name) {
-            return `${this._caption}: ${name}`;
+            return `${this._label}: ${name}`;
         }
         else {
-            return this._caption;
+            return this._label;
         }
     }
     get properties() {

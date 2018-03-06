@@ -13,7 +13,6 @@ export default class Node extends Entity {
         this._entityType = "node";
         this._properties = new Properties(model.stylePrototype.nodeProperties);
         this._style = new SimpleStyle(model.stylePrototype.node);
-        this._caption = "";
     }
 
     set x(x: number) {

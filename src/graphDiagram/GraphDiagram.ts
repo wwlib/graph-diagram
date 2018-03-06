@@ -1,7 +1,4 @@
 import * as d3 from 'd3';
-import Model from './model/Model';
-import Node from './model/Node';
-import Radius from './bubble/Radius';
 import LayoutNode from './layout/LayoutNode';
 import LayoutRelationship from './layout/LayoutRelationship';
 

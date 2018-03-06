@@ -2,7 +2,7 @@ import GraphDiagram from '../GraphDiagram';
 import Node from '../model/Node';
 import LayoutEntity from '../layout/LayoutEntity';
 import NodeSpeechBubble from '../bubble/NodeSpeechBubble';
-import Radius from '../bubble/Radius';
+import Radius from '../layout/Radius';
 
 export default class LayoutNode extends LayoutEntity {
 

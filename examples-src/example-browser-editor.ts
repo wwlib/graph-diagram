@@ -542,8 +542,21 @@ import {
     select( "#save_markup" ).on( "click", useMarkupFromMarkupEditor );
 
     select("#downloadSvgButton").on( "click", (() => {
-        var temp: any = select("#svgContainer svg").node();
-        var rawSvg: any = new XMLSerializer().serializeToString(temp);
+        let graphEditorStyleSheet = document.getElementById('graph-editor-style');
+        let styleData = graphEditorStyleSheet.innerHTML;
+
+        let svg: any = select("#svgContainer svg");
+        let firstg: any = svg.select("g")
+            .attr("id", "firstg");
+        let style = svg.select("#firststyle")
+        if (style.empty()) {
+            style = svg.insert("style", "#firstg")
+                .attr("id", "firststyle");
+        }
+        style.html(styleData);
+
+        let xml: any = select("#svgContainer svg").node();
+        let rawSvg: any = new XMLSerializer().serializeToString(xml);
         select("#downloadSvgButton").attr('href', "data:image/svg+xml;base64," + btoa( rawSvg ));
     }));
 
