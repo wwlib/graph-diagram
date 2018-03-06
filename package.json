@@ -1,6 +1,6 @@
 {
   "name": "graph-diagram",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A TypeScript library version of apcjones Arrows project: github.com/apcj/arrows",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
