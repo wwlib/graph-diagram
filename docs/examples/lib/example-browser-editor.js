@@ -28799,8 +28799,8 @@ class ModelToD3 {
                 newNode.y = origin.y;
             }
             if (nodeData.position && nodeData.position.x && nodeData.position.y) {
-                newNode.x += nodeData.position.x;
-                newNode.y += nodeData.position.y;
+                newNode.x = nodeData.position.x;
+                newNode.y = nodeData.position.y;
             }
             newNode.caption = nodeData.labels[0];
             let properties = nodeData.properties;
