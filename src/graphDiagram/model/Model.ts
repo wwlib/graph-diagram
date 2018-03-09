@@ -148,6 +148,7 @@ export default class Model {
     reassignNodeId(node: Node, newId: string): Node {
         let result: Node = null;
         if (!this.nodes.get(newId)) {
+            this.nodes.delete(node.id);
             node.id = newId;
             this.nodes.set(node.id, node);
             result = node;
@@ -191,6 +192,7 @@ export default class Model {
     reassignRelationshipId(relationship: Relationship, newId: string): Relationship {
         let result: Relationship = null;
         if (!this.relationships.get(newId)) {
+            this.relationships.delete(relationship.id);
             relationship.id = newId;
             this.relationships.set(relationship.id, relationship);
             result = relationship;

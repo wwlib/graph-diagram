@@ -1630,6 +1630,7 @@ class Model {
     reassignNodeId(node, newId) {
         let result = null;
         if (!this.nodes.get(newId)) {
+            this.nodes.delete(node.id);
             node.id = newId;
             this.nodes.set(node.id, node);
             result = node;
@@ -1671,6 +1672,7 @@ class Model {
     reassignRelationshipId(relationship, newId) {
         let result = null;
         if (!this.relationships.get(newId)) {
+            this.relationships.delete(relationship.id);
             relationship.id = newId;
             this.relationships.set(relationship.id, relationship);
             result = relationship;
