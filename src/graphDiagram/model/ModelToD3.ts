@@ -70,10 +70,8 @@ export default class ModelToD3 {
       data.links.forEach((linkData: any) =>  {
         let fromId = linkData.startNode;
         let toId = linkData.endNode;
-        let newRelationship: Relationship = model.createRelationship(model.lookupNode(fromId), model.lookupNode(toId));
-        newRelationship.caption = linkData.type;
+        let newRelationship: Relationship = model.createRelationship(model.lookupNode(fromId), model.lookupNode(toId), linkData.id);
         newRelationship.relationshipType = linkData.type;
-        newRelationship.id = linkData.id;
         let properties: any = linkData.properties;
         for (let key in properties) {
             if (properties.hasOwnProperty(key)) {

@@ -1761,10 +1761,8 @@ class ModelToD3 {
         data.links.forEach((linkData) => {
             let fromId = linkData.startNode;
             let toId = linkData.endNode;
-            let newRelationship = model.createRelationship(model.lookupNode(fromId), model.lookupNode(toId));
-            newRelationship.caption = linkData.type;
+            let newRelationship = model.createRelationship(model.lookupNode(fromId), model.lookupNode(toId), linkData.id);
             newRelationship.relationshipType = linkData.type;
-            newRelationship.id = linkData.id;
             let properties = linkData.properties;
             for (let key in properties) {
                 if (properties.hasOwnProperty(key)) {
