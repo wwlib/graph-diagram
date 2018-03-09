@@ -4,7 +4,6 @@ import SimpleStyle from './SimpleStyle';
 export default class Entity {
     model: Model;
     id: string;
-    index: number;
     classes: string[];
     protected _properties: Properties;
     protected _label: string;

@@ -28396,6 +28396,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
 class Entity {
     constructor(model) {
+        // public index: number;
         this.classes = [];
         this.model = model;
         this._label = "";
@@ -28589,10 +28590,10 @@ class Model {
     }
     createNode(optionalId) {
         var node = new Node_1.default(this);
-        node.index = this.generateNodeIndex();
-        var nodeId = optionalId || `${node.index}`;
-        node.id = nodeId;
-        this.nodes.set(nodeId, node);
+        // node.index = this.generateNodeIndex();
+        // var nodeId: string = optionalId || `${this.generateNodeIndex()}`;
+        node.id = optionalId || `${this.generateNodeIndex()}`;
+        this.nodes.set(node.id, node);
         return node;
     }
     ;
@@ -28621,10 +28622,10 @@ class Model {
     }
     createRelationship(start, end, optionalId) {
         var relationship = new Relationship_1.default(this, start, end);
-        relationship.index = this.generateRelationshipIndex();
-        var relationshipId = optionalId || `${relationship.index}`;
-        relationship.id = relationshipId;
-        this.relationships.set(relationshipId, relationship);
+        // relationship.index = this.generateRelationshipIndex();
+        // var relationshipId: string = optionalId || `${relationship.index }`;
+        relationship.id = optionalId || `${this.generateRelationshipIndex()}`;
+        this.relationships.set(relationship.id, relationship);
         return relationship;
     }
     ;

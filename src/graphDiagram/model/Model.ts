@@ -138,10 +138,10 @@ export default class Model {
 
     createNode(optionalId?: string): Node {
         var node: Node = new Node(this);
-        node.index = this.generateNodeIndex();
-        var nodeId: string = optionalId || `${node.index}`;
-        node.id = nodeId;
-        this.nodes.set(nodeId, node);
+        // node.index = this.generateNodeIndex();
+        // var nodeId: string = optionalId || `${this.generateNodeIndex()}`;
+        node.id = optionalId || `${this.generateNodeIndex()}`;
+        this.nodes.set(node.id, node);
         return node;
     };
 
@@ -171,10 +171,10 @@ export default class Model {
 
     createRelationship(start: Node, end: Node, optionalId?: string) {
         var relationship = new Relationship(this, start, end);
-        relationship.index = this.generateRelationshipIndex();
-        var relationshipId: string = optionalId || `${relationship.index }`;
-        relationship.id = relationshipId;
-        this.relationships.set(relationshipId, relationship);
+        // relationship.index = this.generateRelationshipIndex();
+        // var relationshipId: string = optionalId || `${relationship.index }`;
+        relationship.id =  optionalId || `${this.generateRelationshipIndex()}`;
+        this.relationships.set(relationship.id , relationship);
         return relationship;
     };
 
