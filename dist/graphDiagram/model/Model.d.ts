@@ -15,10 +15,12 @@ export default class Model {
     summary(): any;
     generateNodeIndex(): number;
     createNode(optionalId?: string): Node;
+    reassignNodeId(node: Node, newId: string): Node;
     deleteNode(node: Node): void;
     deleteRelationship(relationship: Relationship): void;
     generateRelationshipIndex(): number;
     createRelationship(start: Node, end: Node, optionalId?: string): Relationship;
+    reassignRelationshipId(relationship: Relationship, newId: string): Relationship;
     nodeList(): Node[];
     lookupNode(nodeId: number): Node;
     relationshipList(): Relationship[];

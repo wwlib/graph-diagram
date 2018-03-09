@@ -1323,6 +1323,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
 class Entity {
     constructor(model) {
+        // public index: number;
         this.classes = [];
         this.model = model;
         this._label = "";
@@ -1516,13 +1517,23 @@ class Model {
     }
     createNode(optionalId) {
         var node = new Node_1.default(this);
-        node.index = this.generateNodeIndex();
-        var nodeId = optionalId || `${node.index}`;
-        node.id = nodeId;
-        this.nodes.set(nodeId, node);
+        // node.index = this.generateNodeIndex();
+        // var nodeId: string = optionalId || `${this.generateNodeIndex()}`;
+        node.id = optionalId || `${this.generateNodeIndex()}`;
+        this.nodes.set(node.id, node);
         return node;
     }
     ;
+    reassignNodeId(node, newId) {
+        let result = null;
+        if (!this.nodes.get(newId)) {
+            this.nodes.delete(node.id);
+            node.id = newId;
+            this.nodes.set(node.id, node);
+            result = node;
+        }
+        return result;
+    }
     deleteNode(node) {
         // this.relationships = this.relationships.filter(function (relationship) {
         //     return !(relationship.start === node || relationship.end == node);
@@ -1548,13 +1559,23 @@ class Model {
     }
     createRelationship(start, end, optionalId) {
         var relationship = new Relationship_1.default(this, start, end);
-        relationship.index = this.generateRelationshipIndex();
-        var relationshipId = optionalId || `${relationship.index}`;
-        relationship.id = relationshipId;
-        this.relationships.set(relationshipId, relationship);
+        // relationship.index = this.generateRelationshipIndex();
+        // var relationshipId: string = optionalId || `${relationship.index }`;
+        relationship.id = optionalId || `${this.generateRelationshipIndex()}`;
+        this.relationships.set(relationship.id, relationship);
         return relationship;
     }
     ;
+    reassignRelationshipId(relationship, newId) {
+        let result = null;
+        if (!this.relationships.get(newId)) {
+            this.relationships.delete(relationship.id);
+            relationship.id = newId;
+            this.relationships.set(relationship.id, relationship);
+            result = relationship;
+        }
+        return result;
+    }
     nodeList() {
         return Array.from(this.nodes.values());
     }
@@ -1740,10 +1761,8 @@ class ModelToD3 {
         data.links.forEach((linkData) => {
             let fromId = linkData.startNode;
             let toId = linkData.endNode;
-            let newRelationship = model.createRelationship(model.lookupNode(fromId), model.lookupNode(toId));
-            newRelationship.caption = linkData.type;
+            let newRelationship = model.createRelationship(model.lookupNode(fromId), model.lookupNode(toId), linkData.id);
             newRelationship.relationshipType = linkData.type;
-            newRelationship.id = linkData.id;
             let properties = linkData.properties;
             for (let key in properties) {
                 if (properties.hasOwnProperty(key)) {
