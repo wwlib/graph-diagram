@@ -145,6 +145,16 @@ export default class Model {
         return node;
     };
 
+    reassignNodeId(node: Node, newId: string): Node {
+        let result: Node = null;
+        if (!this.nodes.get(newId)) {
+            node.id = newId;
+            this.nodes.set(node.id, node);
+            result = node;
+        }
+        return result;
+    }
+
     deleteNode(node: Node) {
         // this.relationships = this.relationships.filter(function (relationship) {
         //     return !(relationship.start === node || relationship.end == node);
@@ -177,6 +187,16 @@ export default class Model {
         this.relationships.set(relationship.id , relationship);
         return relationship;
     };
+
+    reassignRelationshipId(relationship: Relationship, newId: string): Relationship {
+        let result: Relationship = null;
+        if (!this.relationships.get(newId)) {
+            relationship.id = newId;
+            this.relationships.set(relationship.id, relationship);
+            result = relationship;
+        }
+        return result;
+    }
 
     nodeList(): Node[] {
         return Array.from( this.nodes.values() );

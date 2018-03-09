@@ -1627,6 +1627,15 @@ class Model {
         return node;
     }
     ;
+    reassignNodeId(node, newId) {
+        let result = null;
+        if (!this.nodes.get(newId)) {
+            node.id = newId;
+            this.nodes.set(node.id, node);
+            result = node;
+        }
+        return result;
+    }
     deleteNode(node) {
         // this.relationships = this.relationships.filter(function (relationship) {
         //     return !(relationship.start === node || relationship.end == node);
@@ -1659,6 +1668,15 @@ class Model {
         return relationship;
     }
     ;
+    reassignRelationshipId(relationship, newId) {
+        let result = null;
+        if (!this.relationships.get(newId)) {
+            relationship.id = newId;
+            this.relationships.set(relationship.id, relationship);
+            result = relationship;
+        }
+        return result;
+    }
     nodeList() {
         return Array.from(this.nodes.values());
     }
