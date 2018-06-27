@@ -1,7 +1,7 @@
 # graph-diagram
 
 ### About
-graph-diagram is a TypeScript library version of apcjones Arrows project: github.com/apcj/arrows
+graph-diagram is a TypeScript port of a graph-editing project called Arrows, originally created by Alistair Jones at Neo4j ([http://www.apcjones.com/arrows/](http://www.apcjones.com/arrows/), [https://github.com/apcj/arrows](https://github.com/apcj/arrows)).
 
 In-browser examples of graph-diagram are at:
 
