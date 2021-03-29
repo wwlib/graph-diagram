@@ -35,14 +35,16 @@
   "homepage": "https://github.com/wwlib/graph-diagram#readme",
   "devDependencies": {
     "@types/d3": "^4.12.0",
-    "@types/jest": "^22.1.1",
-    "awesome-typescript-loader": "^3.4.1",
+    "@types/jest": "^24.9.0",
+    "awesome-typescript-loader": "^5.2.1",
     "d3": "^4.13.0",
-    "jest": "^22.2.1",
-    "rimraf": "^2.6.2",
-    "source-map-loader": "^0.2.3",
-    "ts-jest": "^22.0.3",
-    "typescript": "^2.7.1"
+    "jest": "^24.9.0",
+    "rimraf": "^3.0.2",
+    "source-map-loader": "^2.0.1",
+    "ts-jest": "^26.5.3",
+    "typescript": "3.6.4",
+    "webpack": "^5.24.4",
+    "webpack-cli": "^4.5.0"
   },
   "jest": {
     "transform": {

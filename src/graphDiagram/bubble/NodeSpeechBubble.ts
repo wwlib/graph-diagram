@@ -16,11 +16,11 @@ export default class NodeSpeechBubble extends Bubble {
         var relatedNodes: Node[] = [];
         node.model.relationshipList().forEach( function ( relationship: Relationship )
         {
-            if ( relationship.start === node )
+            if ( relationship.start === node && relationship.end)
             {
                 relatedNodes.push( relationship.end );
             }
-            if ( relationship.end === node )
+            if ( relationship.end === node && relationship.start)
             {
                 relatedNodes.push( relationship.start );
             }

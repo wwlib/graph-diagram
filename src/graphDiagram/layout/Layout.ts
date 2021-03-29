@@ -41,16 +41,18 @@ export default class Layout {
             for ( var i = 0; i < group.length; i++ )
             {
                 var relationship: Relationship = group[i];
-                var offset: number = (relationship.start === nominatedStart ? 1 : -1) *
+                if (relationship.start && relationship.end) {
+                    var offset: number = (relationship.start === nominatedStart ? 1 : -1) *
                     offsetStep * (i - (group.length - 1) / 2);
-                // console.log(`groupedRelationshipList: offset: ${offset}`);
-                var start: LayoutNode = this.nodesById.get(relationship.start.id);
-                var end: LayoutNode = this.nodesById.get(relationship.end.id);
-                var arrow: HorizontalArrowOutline | CurvedArrowOutline = this.horizontalArrow( relationship, start, end, offset );
+                    // console.log(`groupedRelationshipList: offset: ${offset}`);
+                    var start: LayoutNode = this.nodesById.get(relationship.start.id);
+                    var end: LayoutNode = this.nodesById.get(relationship.end.id);
+                    var arrow: HorizontalArrowOutline | CurvedArrowOutline = this.horizontalArrow( relationship, start, end, offset );
 
-                var layoutRelationship = new LayoutRelationship(relationship, start, end, arrow);
-                relationshipGroup.push( layoutRelationship );
-                this.layoutModel.relationships.push(layoutRelationship);
+                    var layoutRelationship = new LayoutRelationship(relationship, start, end, arrow);
+                    relationshipGroup.push( layoutRelationship );
+                    this.layoutModel.relationships.push(layoutRelationship);
+                }
             }
             this.layoutModel.relationshipGroups.push(relationshipGroup);
         });

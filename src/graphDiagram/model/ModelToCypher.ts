@@ -11,11 +11,13 @@ export default class ModelToCypher {
         statements.push("(" + ModelToCypher.quote(node.id) +" :" + ModelToCypher.quote(node.caption || "Node") + " " + ModelToCypher.render(ModelToCypher.props(node)) + ") ");
     });
     model.relationshipList().forEach((rel: Relationship) =>{
-        statements.push("(" + ModelToCypher.quote(rel.start.id) +
-            ")-[:`" + ModelToCypher.quote(rel.relationshipType||"RELATED_TO") +
-            "` " + ModelToCypher.render(ModelToCypher.props(rel)) +
-            "]->("+ ModelToCypher.quote(rel.end.id) +")"
-        );
+        if (rel.start && rel.end) {
+            statements.push("(" + ModelToCypher.quote(rel.start.id) +
+                ")-[:`" + ModelToCypher.quote(rel.relationshipType||"RELATED_TO") +
+                "` " + ModelToCypher.render(ModelToCypher.props(rel)) +
+                "]->("+ ModelToCypher.quote(rel.end.id) +")"
+            );
+        }
     });
     if (statements.length==0) return "";
     return "CREATE \n  " + statements.join(",\n  ");
