@@ -215,19 +215,21 @@ export default class Model {
     groupedRelationshipList(): any {
         var groups: any = {};
         this.relationships.forEach((relationship: Relationship, id: string, map) => {
-            var nodeIds: any = [relationship.start.id, relationship.end.id].sort();
-            var group = groups[nodeIds];
-            if (!group)
-            {
-                group = groups[nodeIds] = [];
-            }
-            if (relationship.start.id < relationship.end.id)
-            {
-                group.push(relationship);
-            }
-            else
-            {
-                group.splice(0, 0, relationship);
+            if (relationship.start && relationship.end) {
+                var nodeIds: any = [relationship.start.id, relationship.end.id].sort();
+                var group = groups[nodeIds];
+                if (!group)
+                {
+                    group = groups[nodeIds] = [];
+                }
+                if (relationship.start.id < relationship.end.id)
+                {
+                    group.push(relationship);
+                }
+                else
+                {
+                    group.splice(0, 0, relationship);
+                }
             }
         });
         return d3.values(groups);

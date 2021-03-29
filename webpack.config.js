@@ -12,12 +12,15 @@ module.exports = {
 
     resolve: {
         // Add '.ts' as resolvable extension.
-        extensions: ["*", ".webpack.js", ".web.js", ".ts", ".js"]
+        extensions: ["*", ".webpack.js", ".web.js", ".ts", ".js"],
+        fallback: {
+            fs: false
+        }
     },
     module: {
         rules: [{
             test: /\.tsx?$/,
-            loaders: ['awesome-typescript-loader'],
+            loader: 'awesome-typescript-loader',
             exclude: /(node_modules)/
         }, {
             enforce: 'pre',
@@ -33,8 +36,5 @@ module.exports = {
     // dependencies, which allows browsers to cache those libraries between builds.
     externals: {
         "d3": "d3"
-    },
-    node: {
-        fs: "empty"
     }
 };

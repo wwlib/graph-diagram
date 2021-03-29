@@ -139,17 +139,19 @@ export default class Markup {
         });
 
         model.relationshipList().forEach(function(relationship: Relationship) {
-            var li = ul.append("li")
+            if (relationship.start && relationship.end) {
+                var li = ul.append("li")
                 .attr("class", relationship.class().join(" "))
                 .attr("data-from", relationship.start.id)
                 .attr("data-to", relationship.end.id);
 
-            if (relationship.relationshipType) {
-                li.append("span")
-                    .attr("class", "type")
-                    .text(relationship.relationshipType);
+                if (relationship.relationshipType) {
+                    li.append("span")
+                        .attr("class", "type")
+                        .text(relationship.relationshipType);
+                }
+                formatProperties( relationship, li );
             }
-            formatProperties( relationship, li );
         });
     }
 }

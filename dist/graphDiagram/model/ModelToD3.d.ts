@@ -7,4 +7,5 @@ export default class ModelToD3 {
         x: number;
         y: number;
     }): Model;
+    static mergeD3(data1: any, data2: any): any;
 }

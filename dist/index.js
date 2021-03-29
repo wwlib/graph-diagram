@@ -7,90 +7,19 @@
 		exports["graphDiagram"] = factory(require("d3"));
 	else
 		root["graphDiagram"] = factory(root["d3"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_d3__) {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.ts");
-/******/ })
-/************************************************************************/
-/******/ ({
+})(self, function(__WEBPACK_EXTERNAL_MODULE_d3__) {
+return /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/graphDiagram/GraphDiagram.ts":
 /*!******************************************!*\
   !*** ./src/graphDiagram/GraphDiagram.ts ***!
   \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const d3 = __webpack_require__(/*! d3 */ "d3");
 class GraphDiagram {
     static parsePixels(fontSize) {
@@ -118,8 +47,8 @@ class GraphDiagram {
         return entity.model.properties.list({ exclude: [GraphDiagram.MODEL_ID_KEY] }).length > 0;
     }
 }
-GraphDiagram.MODEL_ID_KEY = 'MODEL_ID';
 exports.default = GraphDiagram;
+GraphDiagram.MODEL_ID_KEY = 'MODEL_ID';
 
 
 /***/ }),
@@ -128,12 +57,10 @@ exports.default = GraphDiagram;
 /*!******************************************************!*\
   !*** ./src/graphDiagram/arrow/CurvedArrowOutline.ts ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 class CurvedArrowOutline {
     constructor(startRadius, endRadius, endCentre, minOffset, arrowWidth, headWidth, headLength) {
         this.startRadius = startRadius;
@@ -232,12 +159,10 @@ exports.default = CurvedArrowOutline;
 /*!**********************************************************!*\
   !*** ./src/graphDiagram/arrow/HorizontalArrowOutline.ts ***!
   \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 class HorizontalArrowOutline {
     constructor(start, end, arrowWidth) {
         this.shaftRadius = arrowWidth / 2;
@@ -269,17 +194,16 @@ exports.default = HorizontalArrowOutline;
 /*!*******************************************!*\
   !*** ./src/graphDiagram/bubble/Bubble.ts ***!
   \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 class Bubble {
     constructor(entity) {
         this.entity = entity;
     }
 }
+exports.default = Bubble;
 Bubble.speechBubblePath = function (textSize, style, margin, padding) {
     var width = textSize.width, height = textSize.height;
     var styles = {
@@ -326,7 +250,6 @@ Bubble.speechBubblePath = function (textSize, style, margin, padding) {
     };
     return styles[style].join(" ");
 };
-exports.default = Bubble;
 
 
 /***/ }),
@@ -335,12 +258,10 @@ exports.default = Bubble;
 /*!*****************************************************!*\
   !*** ./src/graphDiagram/bubble/NodeSpeechBubble.ts ***!
   \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const d3 = __webpack_require__(/*! d3 */ "d3");
 const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
 const Bubble_1 = __webpack_require__(/*! ./Bubble */ "./src/graphDiagram/bubble/Bubble.ts");
@@ -349,10 +270,10 @@ class NodeSpeechBubble extends Bubble_1.default {
         super(node);
         var relatedNodes = [];
         node.model.relationshipList().forEach(function (relationship) {
-            if (relationship.start === node) {
+            if (relationship.start === node && relationship.end) {
                 relatedNodes.push(relationship.end);
             }
-            if (relationship.end === node) {
+            if (relationship.end === node && relationship.start) {
                 relatedNodes.push(relationship.start);
             }
         });
@@ -422,6 +343,7 @@ class NodeSpeechBubble extends Bubble_1.default {
             this.boundingBox = boundingBox;
     }
 }
+exports.default = NodeSpeechBubble;
 NodeSpeechBubble.chooseNodeSpeechBubbleOrientation = function (focusNode, relatedNodes) {
     var orientations = [
         { key: "WEST", style: "horizontal", mirrorX: -1, mirrorY: 1, angle: 180 },
@@ -457,7 +379,6 @@ NodeSpeechBubble.chooseNodeSpeechBubbleOrientation = function (focusNode, relate
     });
     return bestOrientation;
 };
-exports.default = NodeSpeechBubble;
 
 
 /***/ }),
@@ -466,12 +387,10 @@ exports.default = NodeSpeechBubble;
 /*!*************************************************************!*\
   !*** ./src/graphDiagram/bubble/RelationshipSpeechBubble.ts ***!
   \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const d3 = __webpack_require__(/*! d3 */ "d3");
 const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
 const Bubble_1 = __webpack_require__(/*! ./Bubble */ "./src/graphDiagram/bubble/Bubble.ts");
@@ -592,12 +511,10 @@ exports.default = RelationshipSpeechBubble;
 /*!*********************************************!*\
   !*** ./src/graphDiagram/diagram/Diagram.ts ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const d3 = __webpack_require__(/*! d3 */ "d3");
 const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
 const Layout_1 = __webpack_require__(/*! ../layout/Layout */ "./src/graphDiagram/layout/Layout.ts");
@@ -871,12 +788,10 @@ exports.default = Diagram;
 /*!*******************************************!*\
   !*** ./src/graphDiagram/layout/Layout.ts ***!
   \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
 //import NodeSpeechBubble from '../bubble/NodeSpeechBubble';
 //import RelationshipSpeechBubble from '../bubble/RelationshipSpeechBubble';
@@ -905,15 +820,17 @@ class Layout {
             var relationshipGroup = [];
             for (var i = 0; i < group.length; i++) {
                 var relationship = group[i];
-                var offset = (relationship.start === nominatedStart ? 1 : -1) *
-                    offsetStep * (i - (group.length - 1) / 2);
-                // console.log(`groupedRelationshipList: offset: ${offset}`);
-                var start = this.nodesById.get(relationship.start.id);
-                var end = this.nodesById.get(relationship.end.id);
-                var arrow = this.horizontalArrow(relationship, start, end, offset);
-                var layoutRelationship = new LayoutRelationship_1.default(relationship, start, end, arrow);
-                relationshipGroup.push(layoutRelationship);
-                this.layoutModel.relationships.push(layoutRelationship);
+                if (relationship.start && relationship.end) {
+                    var offset = (relationship.start === nominatedStart ? 1 : -1) *
+                        offsetStep * (i - (group.length - 1) / 2);
+                    // console.log(`groupedRelationshipList: offset: ${offset}`);
+                    var start = this.nodesById.get(relationship.start.id);
+                    var end = this.nodesById.get(relationship.end.id);
+                    var arrow = this.horizontalArrow(relationship, start, end, offset);
+                    var layoutRelationship = new LayoutRelationship_1.default(relationship, start, end, arrow);
+                    relationshipGroup.push(layoutRelationship);
+                    this.layoutModel.relationships.push(layoutRelationship);
+                }
             }
             this.layoutModel.relationshipGroups.push(relationshipGroup);
         });
@@ -936,12 +853,10 @@ exports.default = Layout;
 /*!*************************************************!*\
   !*** ./src/graphDiagram/layout/LayoutEntity.ts ***!
   \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 class LayoutEntity {
     constructor(entity) {
         this.model = entity;
@@ -957,12 +872,10 @@ exports.default = LayoutEntity;
 /*!************************************************!*\
   !*** ./src/graphDiagram/layout/LayoutModel.ts ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 class layoutModel {
     constructor(model) {
         this.graphModel = model;
@@ -980,12 +893,10 @@ exports.default = layoutModel;
 /*!***********************************************!*\
   !*** ./src/graphDiagram/layout/LayoutNode.ts ***!
   \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
 const LayoutEntity_1 = __webpack_require__(/*! ../layout/LayoutEntity */ "./src/graphDiagram/layout/LayoutEntity.ts");
 const NodeSpeechBubble_1 = __webpack_require__(/*! ../bubble/NodeSpeechBubble */ "./src/graphDiagram/bubble/NodeSpeechBubble.ts");
@@ -1066,12 +977,10 @@ exports.default = LayoutNode;
 /*!*******************************************************!*\
   !*** ./src/graphDiagram/layout/LayoutRelationship.ts ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const LayoutEntity_1 = __webpack_require__(/*! ../layout/LayoutEntity */ "./src/graphDiagram/layout/LayoutEntity.ts");
 const RelationshipSpeechBubble_1 = __webpack_require__(/*! ../bubble/RelationshipSpeechBubble */ "./src/graphDiagram/bubble/RelationshipSpeechBubble.ts");
 class LayoutRelationship extends LayoutEntity_1.default {
@@ -1093,12 +1002,10 @@ exports.default = LayoutRelationship;
 /*!*******************************************!*\
   !*** ./src/graphDiagram/layout/Radius.ts ***!
   \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 class Radius {
     constructor(model, insideRadius) {
         this.insideRadius = insideRadius;
@@ -1154,12 +1061,10 @@ exports.default = Radius;
 /*!*******************************************!*\
   !*** ./src/graphDiagram/markup/Markup.ts ***!
   \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const d3 = __webpack_require__(/*! d3 */ "d3");
 const Model_1 = __webpack_require__(/*! ../model/Model */ "./src/graphDiagram/model/Model.ts");
 const SimpleStyle_1 = __webpack_require__(/*! ../model/SimpleStyle */ "./src/graphDiagram/model/SimpleStyle.ts");
@@ -1275,16 +1180,18 @@ class Markup {
             formatProperties(node, li);
         });
         model.relationshipList().forEach(function (relationship) {
-            var li = ul.append("li")
-                .attr("class", relationship.class().join(" "))
-                .attr("data-from", relationship.start.id)
-                .attr("data-to", relationship.end.id);
-            if (relationship.relationshipType) {
-                li.append("span")
-                    .attr("class", "type")
-                    .text(relationship.relationshipType);
+            if (relationship.start && relationship.end) {
+                var li = ul.append("li")
+                    .attr("class", relationship.class().join(" "))
+                    .attr("data-from", relationship.start.id)
+                    .attr("data-to", relationship.end.id);
+                if (relationship.relationshipType) {
+                    li.append("span")
+                        .attr("class", "type")
+                        .text(relationship.relationshipType);
+                }
+                formatProperties(relationship, li);
             }
-            formatProperties(relationship, li);
         });
     }
 }
@@ -1297,12 +1204,10 @@ exports.default = Markup;
 /*!*********************************************!*\
   !*** ./src/graphDiagram/model/DataTypes.ts ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 class DataTypes {
 }
 exports.DataTypes = DataTypes;
@@ -1314,12 +1219,10 @@ exports.DataTypes = DataTypes;
 /*!******************************************!*\
   !*** ./src/graphDiagram/model/Entity.ts ***!
   \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
 class Entity {
     constructor(model) {
@@ -1382,12 +1285,10 @@ exports.default = Entity;
 /*!*****************************************!*\
   !*** ./src/graphDiagram/model/Model.ts ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const SimpleStyle_1 = __webpack_require__(/*! ./SimpleStyle */ "./src/graphDiagram/model/SimpleStyle.ts");
 const d3 = __webpack_require__(/*! d3 */ "d3");
 const Node_1 = __webpack_require__(/*! ./Node */ "./src/graphDiagram/model/Node.ts");
@@ -1591,16 +1492,18 @@ class Model {
     groupedRelationshipList() {
         var groups = {};
         this.relationships.forEach((relationship, id, map) => {
-            var nodeIds = [relationship.start.id, relationship.end.id].sort();
-            var group = groups[nodeIds];
-            if (!group) {
-                group = groups[nodeIds] = [];
-            }
-            if (relationship.start.id < relationship.end.id) {
-                group.push(relationship);
-            }
-            else {
-                group.splice(0, 0, relationship);
+            if (relationship.start && relationship.end) {
+                var nodeIds = [relationship.start.id, relationship.end.id].sort();
+                var group = groups[nodeIds];
+                if (!group) {
+                    group = groups[nodeIds] = [];
+                }
+                if (relationship.start.id < relationship.end.id) {
+                    group.push(relationship);
+                }
+                else {
+                    group.splice(0, 0, relationship);
+                }
             }
         });
         return d3.values(groups);
@@ -1637,12 +1540,10 @@ exports.default = Model;
 /*!*************************************************!*\
   !*** ./src/graphDiagram/model/ModelToCypher.ts ***!
   \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 class ModelToCypher {
     static convert(model) {
         var statements = [];
@@ -1650,10 +1551,12 @@ class ModelToCypher {
             statements.push("(" + ModelToCypher.quote(node.id) + " :" + ModelToCypher.quote(node.caption || "Node") + " " + ModelToCypher.render(ModelToCypher.props(node)) + ") ");
         });
         model.relationshipList().forEach((rel) => {
-            statements.push("(" + ModelToCypher.quote(rel.start.id) +
-                ")-[:`" + ModelToCypher.quote(rel.relationshipType || "RELATED_TO") +
-                "` " + ModelToCypher.render(ModelToCypher.props(rel)) +
-                "]->(" + ModelToCypher.quote(rel.end.id) + ")");
+            if (rel.start && rel.end) {
+                statements.push("(" + ModelToCypher.quote(rel.start.id) +
+                    ")-[:`" + ModelToCypher.quote(rel.relationshipType || "RELATED_TO") +
+                    "` " + ModelToCypher.render(ModelToCypher.props(rel)) +
+                    "]->(" + ModelToCypher.quote(rel.end.id) + ")");
+            }
         });
         if (statements.length == 0)
             return "";
@@ -1695,12 +1598,10 @@ exports.default = ModelToCypher;
 /*!*********************************************!*\
   !*** ./src/graphDiagram/model/ModelToD3.ts ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const __1 = __webpack_require__(/*! ../.. */ "./src/index.ts");
 const DataTypes_1 = __webpack_require__(/*! ./DataTypes */ "./src/graphDiagram/model/DataTypes.ts");
 class ModelToD3 {
@@ -1723,18 +1624,20 @@ class ModelToD3 {
             graph.nodes.push(nodeData);
         });
         model.relationshipList().forEach((relationship) => {
-            let relationshipData = {
-                source: relationship.start.id,
-                target: relationship.end.id,
-                value: 1,
-                id: relationship.id,
-                type: relationship.relationshipType,
-                startNode: relationship.start.id,
-                endNode: relationship.end.id,
-                properties: relationship.properties.toJSON(),
-                linknum: 1
-            };
-            graph.links.push(relationshipData);
+            if (relationship.start && relationship.end) {
+                let relationshipData = {
+                    source: relationship.start.id,
+                    target: relationship.end.id,
+                    value: 1,
+                    id: relationship.id,
+                    type: relationship.relationshipType,
+                    startNode: relationship.start.id,
+                    endNode: relationship.end.id,
+                    properties: relationship.properties.toJSON(),
+                    linknum: 1
+                };
+                graph.links.push(relationshipData);
+            }
         });
         return graph;
     }
@@ -1772,6 +1675,22 @@ class ModelToD3 {
         });
         return model;
     }
+    static mergeD3(data1, data2) {
+        let result = { nodes: [], links: [] };
+        const data1Nodes = data1.nodes;
+        const data2Nodes = data2.nodes;
+        const data1Links = data1.links;
+        const data2Links = data2.links;
+        if (Array.isArray(data1Nodes) && Array.isArray(data2Nodes) && Array.isArray(data1Links) && Array.isArray(data2Links)) {
+            const nodes = data1Nodes.concat(data2Nodes);
+            const links = data1Links.concat(data2Links);
+            result = {
+                nodes,
+                links
+            };
+        }
+        return result;
+    }
 }
 exports.default = ModelToD3;
 
@@ -1782,12 +1701,10 @@ exports.default = ModelToD3;
 /*!****************************************!*\
   !*** ./src/graphDiagram/model/Node.ts ***!
   \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const Entity_1 = __webpack_require__(/*! ./Entity */ "./src/graphDiagram/model/Entity.ts");
 const Properties_1 = __webpack_require__(/*! ./Properties */ "./src/graphDiagram/model/Properties.ts");
 const SimpleStyle_1 = __webpack_require__(/*! ./SimpleStyle */ "./src/graphDiagram/model/SimpleStyle.ts");
@@ -1909,12 +1826,10 @@ exports.default = Node;
 /*!**********************************************!*\
   !*** ./src/graphDiagram/model/Properties.ts ***!
   \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
 const SimpleStyle_1 = __webpack_require__(/*! ./SimpleStyle */ "./src/graphDiagram/model/SimpleStyle.ts");
 class Properties {
@@ -1981,12 +1896,10 @@ exports.default = Properties;
 /*!************************************************!*\
   !*** ./src/graphDiagram/model/Relationship.ts ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const Entity_1 = __webpack_require__(/*! ./Entity */ "./src/graphDiagram/model/Entity.ts");
 const Properties_1 = __webpack_require__(/*! ./Properties */ "./src/graphDiagram/model/Properties.ts");
 const SimpleStyle_1 = __webpack_require__(/*! ./SimpleStyle */ "./src/graphDiagram/model/SimpleStyle.ts");
@@ -2020,12 +1933,10 @@ exports.default = Relationship;
 /*!***********************************************!*\
   !*** ./src/graphDiagram/model/SimpleStyle.ts ***!
   \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 class SimpleStyle {
     constructor(stylePrototype) {
         this._styles = {};
@@ -2048,11 +1959,11 @@ class SimpleStyle {
     }
     style(cssPropertyKey, cssPropertyValue) {
         // console.log(`SimpleStyle: style: ${cssPropertyKey}, ${cssPropertyValue}`, arguments, this);
-        if (cssPropertyKey && cssPropertyValue) {
+        if (cssPropertyKey && cssPropertyValue) { //(arguments.length == 2) {
             this._styles[cssPropertyKey] = cssPropertyValue;
             return this;
         }
-        else if (cssPropertyKey) {
+        else if (cssPropertyKey) { //(arguments.length == 1) {
             return this._styles[cssPropertyKey];
         }
         else {
@@ -2131,12 +2042,10 @@ exports.default = SimpleStyle;
 /*!*********************************************!*\
   !*** ./src/graphDiagram/scaling/Scaling.ts ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const GraphDiagram_1 = __webpack_require__(/*! ../GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
 // export type ViewDimensions = {
 //     width: number;
@@ -2313,12 +2222,10 @@ exports.default = Scaling;
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const GraphDiagram_1 = __webpack_require__(/*! ./graphDiagram/GraphDiagram */ "./src/graphDiagram/GraphDiagram.ts");
 exports.GraphDiagram = GraphDiagram_1.default;
 const Diagram_1 = __webpack_require__(/*! ./graphDiagram/diagram/Diagram */ "./src/graphDiagram/diagram/Diagram.ts");
@@ -2359,13 +2266,46 @@ exports.DataTypes = DataTypes_1.DataTypes;
 /*!*********************!*\
   !*** external "d3" ***!
   \*********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_d3__;
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		if(__webpack_module_cache__[moduleId]) {
+/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.ts");
+/******/ 	
+/******/ 	return __webpack_exports__;
+/******/ })()
+;
 });
 //# sourceMappingURL=index.js.map

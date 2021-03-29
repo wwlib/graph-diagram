@@ -28,7 +28,8 @@ export default class ModelToD3 {
     });
 
     model.relationshipList().forEach((relationship: Relationship) => {
-      let relationshipData:  d3Types.d3Link = {
+      if (relationship.start && relationship.end) {
+        let relationshipData:  d3Types.d3Link = {
           source: relationship.start.id,
           target: relationship.end.id,
           value: 1,
@@ -40,6 +41,7 @@ export default class ModelToD3 {
           linknum: 1
       }
       graph.links.push(relationshipData);
+      }
     });
 
     return graph;
@@ -81,5 +83,23 @@ export default class ModelToD3 {
       });
 
       return model;
+  }
+
+  static mergeD3(data1: any, data2: any): any {
+    let result: any = { nodes: [], links: []};
+    const data1Nodes: any[] = data1.nodes;
+    const data2Nodes: any[] = data2.nodes;
+    const data1Links: any[] = data1.links;
+    const data2Links: any[] = data2.links;
+
+    if (Array.isArray(data1Nodes) && Array.isArray(data2Nodes) && Array.isArray(data1Links) && Array.isArray(data2Links)) {
+      const nodes: any[] = data1Nodes.concat(data2Nodes);
+      const links: any[] = data1Links.concat(data2Links);
+      result = {
+        nodes,
+        links
+      }
+    }
+    return result;
   }
 }
